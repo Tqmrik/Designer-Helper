@@ -9,7 +9,7 @@ namespace DevAddIns
     {
         #region "Constructors"
         //Use constructors of the base class
-        public ChangeMassLengthUnitsToMetric(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Icon standardIcon, Icon largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public ChangeMassLengthUnitsToMetric(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType)
         {
 

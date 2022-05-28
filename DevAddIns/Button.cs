@@ -51,16 +51,16 @@ namespace DevAddIns
 
         #region "Methods"
         //All the arguments are from inventor's method to add a button
-        public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Icon standardIcon, Icon largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
 		{
 			try
             {
 				//get IPictureDisp for icons
 				stdole.IPictureDisp standardIconIPictureDisp;
-				standardIconIPictureDisp = (stdole.IPictureDisp)Support.IconToIPicture(standardIcon);
+				standardIconIPictureDisp = (stdole.IPictureDisp)Support.ImageToIPicture(standardIcon);
 
 				stdole.IPictureDisp largeIconIPictureDisp;
-				largeIconIPictureDisp = (stdole.IPictureDisp)Support.IconToIPicture(largeIcon);
+				largeIconIPictureDisp = (stdole.IPictureDisp)Support.ImageToIPicture(largeIcon);
 
 				m_buttonDefinition = m_inventorApplication.CommandManager.ControlDefinitions.AddButtonDefinition(displayName, internalName, commandType, clientId, description, tooltip, standardIconIPictureDisp, largeIconIPictureDisp, buttonDisplayType);
 

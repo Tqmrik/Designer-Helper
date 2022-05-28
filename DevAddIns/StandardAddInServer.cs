@@ -93,11 +93,11 @@ namespace DevAddIns
                 //load image icons for UI items
 
                 //Wrap in a different method???
-                Icon setPropertiesIconStandart = new Icon("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
-                Icon setPropertiesIconLarge = new Icon("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
+                Image setPropertiesIconStandart = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
+                Image setPropertiesIconLarge = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
 
-                Icon ChangeMassLengthUnitsToMetricIconStandart = new Icon("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
-                Icon ChangeMassLengthUnitsToMetricIconLarge = new Icon("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
+                Image ChangeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png");
+                Image ChangeMassLengthUnitsToMetricIconLarge = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconLarge.png");
 
 
 

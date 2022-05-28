@@ -132,8 +132,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="ResourcesSedenumPack\ChangeMassLengthUnitsToMetricIconLarge.ico" />
-    <Content Include="ResourcesSedenumPack\ChangeMassLengthUnitsToMetricIconStandart.ico" />
+    <Content Include="ResourcesSedenumPack\ChangeMassLengthUnitsToMetricIconLarge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ResourcesSedenumPack\ChangeMassLengthUnitsToMetricIconStandart.png" />
     <Content Include="ResourcesSedenumPack\SetPropertiesIconLarge.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
