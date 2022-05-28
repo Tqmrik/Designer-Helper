@@ -96,9 +96,9 @@ namespace DevAddIns
                 Image setPropertiesIconStandart = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
                 Image setPropertiesIconLarge = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
 
-
+                Image ChangeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png");
                 Image ChangeMassLengthUnitsToMetricIconLarge = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconLarge.png");
-                Image ChangeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png",false);
+                
 
                 
 
@@ -338,16 +338,26 @@ namespace DevAddIns
 
        //Adding buttons to the ribbon
        //TODO: Redo all that part
-            Ribbons partRibbon1 = m_inventorApplication.UserInterfaceManager.Ribbons;
+            Ribbons ribbons = m_inventorApplication.UserInterfaceManager.Ribbons;
+            
+
             Ribbon partRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Part"];
+            RibbonTabs partTabs = m_inventorApplication.UserInterfaceManager.Ribbons["Part"].RibbonTabs;
+
+
             RibbonTab toolsTab = partRibbon.RibbonTabs["id_TabTools"];
             RibbonPanel customPanel = toolsTab.RibbonPanels.Add("Sample", "SampleSedenum", AddInClientID());
 
             customPanel.CommandControls.AddButton(m_setPropertiesButton.ButtonDefinition);
             customPanel.CommandControls.AddButton(m_ChangeMassLengthUnitsToMetric.ButtonDefinition);
 
-        
-    }
+
+            //Custom tab, tab won't show until there is some element(i.e. button, etc.) in it
+            RibbonTab seden = partTabs.Add("Sedenum", "Sedenum Pack Tab", AddInClientID());
+            RibbonPanel sedenPanel = seden.RibbonPanels.Add("Sample", "Sedenpanel", AddInClientID());
+            //sedenPanel.CommandControls.AddButton(m_setPropertiesButton.ButtonDefinition);
+
+        }
 
         #region SampleButtonEventHandler
         //Sample event handler
