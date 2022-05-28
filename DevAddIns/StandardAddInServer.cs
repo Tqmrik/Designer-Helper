@@ -96,10 +96,11 @@ namespace DevAddIns
                 Image setPropertiesIconStandart = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
                 Image setPropertiesIconLarge = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
 
-                Image ChangeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png");
+
                 Image ChangeMassLengthUnitsToMetricIconLarge = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconLarge.png");
+                Image ChangeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png",false);
 
-
+                
 
                 #region comboBoxes
                 //create the comboboxes
@@ -232,7 +233,7 @@ namespace DevAddIns
                 }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show(e.ToString() + $"\n AddIn: Sedenum Pack");
             }
         }
 
