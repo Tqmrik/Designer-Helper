@@ -22,7 +22,7 @@ namespace DevAddIns
         #endregion
 
 
-        #region "Event handling of the button"
+        #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
 			MessageBox.Show("Hello But changed Again");

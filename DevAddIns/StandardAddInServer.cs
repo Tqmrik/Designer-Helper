@@ -23,6 +23,7 @@ namespace DevAddIns
 
         //buttons
         private SetPropertiesButton m_setPropertiesButton;
+        private ChangeMassLengthUnitsToMetric m_ChangeMassLengthUnitsToMetric;
 
 
         //user interface event
@@ -90,8 +91,13 @@ namespace DevAddIns
                 //m_userInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
 
                 //load image icons for UI items
+
+                //Wrap in a different method???
                 Icon setPropertiesIconStandart = new Icon("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
                 Icon setPropertiesIconLarge = new Icon("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
+
+                Icon ChangeMassLengthUnitsToMetricIconStandart = new Icon("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
+                Icon ChangeMassLengthUnitsToMetricIconLarge = new Icon("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
 
 
 
@@ -131,6 +137,9 @@ namespace DevAddIns
                     "Set Properties", "AbcSed", CommandTypesEnum.kFilePropertyEditCmdType,
                     AddInClientID(), "Adds option for slot width/height",
                     "Add slot option", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
+                m_ChangeMassLengthUnitsToMetric = new ChangeMassLengthUnitsToMetric("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", ChangeMassLengthUnitsToMetricIconStandart, ChangeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
 
 
 
@@ -244,6 +253,7 @@ namespace DevAddIns
                 UserInterfaceEventsSink_OnResetEnvironmentsEventDelegate = null;
                 m_userInterfaceEvents = null;
                 m_setPropertiesButton = null;
+                m_ChangeMassLengthUnitsToMetric = null;
 
                 //if (m_partSketchSlotRibbonPanel != null)
                 //{
@@ -326,11 +336,14 @@ namespace DevAddIns
             */
 
        //Adding buttons to the ribbon
+       //TODO: Redo all that part
             Ribbons partRibbon1 = m_inventorApplication.UserInterfaceManager.Ribbons;
             Ribbon partRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Part"];
             RibbonTab toolsTab = partRibbon.RibbonTabs["id_TabTools"];
             RibbonPanel customPanel = toolsTab.RibbonPanels.Add("Sample", "SampleSedenum", AddInClientID());
+
             customPanel.CommandControls.AddButton(m_setPropertiesButton.ButtonDefinition);
+            customPanel.CommandControls.AddButton(m_ChangeMassLengthUnitsToMetric.ButtonDefinition);
 
         
     }
