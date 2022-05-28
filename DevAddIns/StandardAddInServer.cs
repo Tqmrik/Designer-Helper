@@ -90,8 +90,8 @@ namespace DevAddIns
                 //m_userInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
 
                 //load image icons for UI items
-                Icon setPropertiesIconStandart = new Icon("ResourcesDevAddIn\\SetPropertiesIconStandart.ico");
-                Icon setPropertiesIconLarge = new Icon("ResourcesDevAddIn\\SetPropertiesIconLarge.ico");
+                Icon setPropertiesIconStandart = new Icon("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
+                Icon setPropertiesIconLarge = new Icon("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
 
 
 

@@ -18,7 +18,7 @@
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
     <OutputType>Library</OutputType>
-    <RootNamespace>InvAddIn</RootNamespace>
+    <RootNamespace>DevAddIns</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
@@ -125,10 +125,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="ResourcesDevAddIn\SetPropertiesIconLarge.ico">
+    <Content Include="ResourcesSedenumPack\SetPropertiesIconLarge.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="ResourcesDevAddIn\SetPropertiesIconStandart.ico">
+    <Content Include="ResourcesSedenumPack\SetPropertiesIconStandart.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
