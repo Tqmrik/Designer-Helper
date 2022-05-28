@@ -25,7 +25,7 @@ namespace DevAddIns
         #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
-			MessageBox.Show("Hello But changed Again");
+			MessageBox.Show("Samefolder");
         }
         #endregion
     }
