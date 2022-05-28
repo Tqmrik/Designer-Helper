@@ -25,7 +25,7 @@ namespace DevAddIns
         #region "Event handling of the button"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
-			MessageBox.Show("Hello");
+			MessageBox.Show("Hello But changed");
         }
         #endregion
     }

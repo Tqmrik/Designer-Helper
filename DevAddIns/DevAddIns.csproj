@@ -112,10 +112,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="DevAddIns.X.manifest" />
+    <None Include="DevAddIns.X.manifest">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Autodesk.DevAddIns.Inventor.addin" />
+    <None Include="Autodesk.DevAddIns.Inventor.addin">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Readme.txt" />
