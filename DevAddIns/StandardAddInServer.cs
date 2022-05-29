@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using Inventor;
 using Microsoft.Win32;
+using System.IO;
 
 
 
@@ -20,10 +21,12 @@ namespace DevAddIns
 
         //Inventor application object
         private Inventor.Application m_inventorApplication;
+        private UserInterfaceManager m_userInterfaceManager;
 
         //buttons
         private SetPropertiesButton m_setPropertiesButton;
-        private ChangeMassLengthUnitsToMetric m_ChangeMassLengthUnitsToMetric;
+        private ChangeMassLengthUnitsToMetric m_changeMassLengthUnitsToMetric;
+        private ProjectSketchAxis m_projectSketchAxis;
 
 
         //user interface event
@@ -56,6 +59,9 @@ namespace DevAddIns
 
         public void Activate(Inventor.ApplicationAddInSite addInSiteObject, bool firstTime)
         {
+
+            //TODO: ADD Choose language combobox in the ribbon 
+
             /*
             // This method is called by Inventor when it loads the addin.
             // The AddInSiteObject provides access to the Inventor Application object.
@@ -77,9 +83,18 @@ namespace DevAddIns
                 //initialize AddIn members
                 m_inventorApplication = addInSiteObject.Application;
                 Button.InventorApplication = m_inventorApplication;
+                m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
 
                 //initialize event delegates
                 m_userInterfaceEvents = m_inventorApplication.UserInterfaceManager.UserInterfaceEvents;
+
+
+                //It's so bad but whatever for now
+                string applicationInstallationPath = m_inventorApplication.InstallPath;
+                string currentUserAppDataPath = m_inventorApplication.CurrentUserAppDataPath;
+                currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "");
+
+                CopyDirectory(currentUserAppDataPath + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack", applicationInstallationPath + "Bin\\ResourcesSedenumPack", false);
 
                 //UserInterfaceEventsSink_OnResetCommandBarsEventDelegate = new UserInterfaceEventsSink_OnResetCommandBarsEventHandler(UserInterfaceEvents_OnResetCommandBars);
                 //m_userInterfaceEvents.OnResetCommandBars += UserInterfaceEventsSink_OnResetCommandBarsEventDelegate;
@@ -90,17 +105,21 @@ namespace DevAddIns
                 //UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate = new UserInterfaceEventsSink_OnResetRibbonInterfaceEventHandler(UserInterfaceEvents_OnResetRibbonInterface);
                 //m_userInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
 
-                //load image icons for UI items
 
-                //Wrap in a different method???
+
+                //Load image icons for UI items
+                //Wrap in a different method + use the class name for the names
                 Image setPropertiesIconStandart = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
                 Image setPropertiesIconLarge = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
 
-                Image ChangeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png");
-                Image ChangeMassLengthUnitsToMetricIconLarge = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconLarge.png");
-                
+                Image changeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png");
+                Image changeMassLengthUnitsToMetricIconLarge = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconLarge.png");
 
-                
+                Image projectSketchAxisIconStandart = new Bitmap("ResourcesSedenumPack\\ProjectSketchAxisStandart.png");
+                Image projectSketchAxisIconLarge = new Bitmap("ResourcesSedenumPack\\ProjectSketchAxisLarge.png");
+
+
+
 
                 #region comboBoxes
                 //create the comboboxes
@@ -132,14 +151,16 @@ namespace DevAddIns
                 //SlotHeightComboBox_OnSelectEventDelegate = new ComboBoxDefinitionSink_OnSelectEventHandler(SlotHeightComboBox_OnSelect);
                 //m_slotHeightComboBoxDefinition.OnSelect += SlotHeightComboBox_OnSelectEventDelegate;
                 #endregion
-                //create buttons
 
+                //Create buttons
                 m_setPropertiesButton = new SetPropertiesButton(
-                    "Set Properties", "AbcSed", CommandTypesEnum.kFilePropertyEditCmdType,
-                    AddInClientID(), "Adds option for slot width/height",
-                    "Add slot option", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                    "Set Properties", "SetPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType,
+                    AddInClientID(), "Change IProperties of the file according to the current company standart",
+                    "Change IProperties", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_ChangeMassLengthUnitsToMetric = new ChangeMassLengthUnitsToMetric("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", ChangeMassLengthUnitsToMetricIconStandart, ChangeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_changeMassLengthUnitsToMetric = new ChangeMassLengthUnitsToMetric("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
+                m_projectSketchAxis = new ProjectSketchAxis("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
 
@@ -252,9 +273,14 @@ namespace DevAddIns
 
                 UserInterfaceEventsSink_OnResetCommandBarsEventDelegate = null;
                 UserInterfaceEventsSink_OnResetEnvironmentsEventDelegate = null;
+
                 m_userInterfaceEvents = null;
+                m_userInterfaceManager = null;
+
+                //Dispose buttons
                 m_setPropertiesButton = null;
-                m_ChangeMassLengthUnitsToMetric = null;
+                m_changeMassLengthUnitsToMetric = null;
+                m_projectSketchAxis = null;
 
                 //if (m_partSketchSlotRibbonPanel != null)
                 //{
@@ -297,6 +323,7 @@ namespace DevAddIns
             }
         }
 
+        #region "HelpMethods"
         public string AddInClientID()
         //Don't know the exact purpose but whatev
         {
@@ -315,10 +342,51 @@ namespace DevAddIns
             return guid;
         }
 
+
+        static void CopyDirectory(string sourceDir, string destinationDir, bool recursive)
+        {
+            // Get information about the source directory
+            var dir = new DirectoryInfo(sourceDir);
+            var destDir = new DirectoryInfo(destinationDir);
+
+            // Check if the source directory exists
+            if (!dir.Exists)
+                throw new DirectoryNotFoundException($"Source directory not found: {dir.FullName}");
+
+            // Cache directories before we start copying
+            DirectoryInfo[] dirs = dir.GetDirectories();
+
+            // Create the destination directory
+            if(!destDir.Exists)
+            {
+                Directory.CreateDirectory(destinationDir);
+            }
+            
+
+            
+
+            // Get the files in the source directory and copy to the destination directory
+            foreach (FileInfo file in dir.GetFiles())
+            {
+                string targetFilePath = System.IO.Path.Combine(destinationDir, file.Name);
+                file.CopyTo(targetFilePath, true);
+            }
+
+            // If recursive and copying subdirectories, recursively call this method
+            if (recursive)
+            {
+                foreach (DirectoryInfo subDir in dirs)
+                {
+                    string newDestinationDir = System.IO.Path.Combine(destinationDir, subDir.Name);
+                    CopyDirectory(subDir.FullName, newDestinationDir, true);
+                }
+            }
+        }
+        #endregion
         #endregion
 
         #region UI
-        
+
         public void AddToUserInterface()
         {
 
@@ -346,15 +414,29 @@ namespace DevAddIns
 
 
             RibbonTab toolsTab = partRibbon.RibbonTabs["id_TabTools"];
-            RibbonPanel customPanel = toolsTab.RibbonPanels.Add("Sample", "SampleSedenum", AddInClientID());
+            RibbonPanel customPanel = toolsTab.RibbonPanels.Add("Sedenum", "SedenumPanel", AddInClientID());
+
+
+            //SketchEnvironment
+            //Inventor.Environment partSketchEnvironment;
+            //partSketchEnvironment = m_userInterfaceManager.Environments["PMxPartSketchEnvironment"];
+            //RibbonPanel customSketchPanel = partSketchEnvironment.Ribbon.RibbonTabs["id_TabTools"].RibbonPanels.Add("Sample", "SampleSketchSedenum", AddInClientID());
+
+            //Add Buttons
 
             customPanel.CommandControls.AddButton(m_setPropertiesButton.ButtonDefinition);
-            customPanel.CommandControls.AddButton(m_ChangeMassLengthUnitsToMetric.ButtonDefinition);
+            customPanel.CommandControls.AddButton(m_changeMassLengthUnitsToMetric.ButtonDefinition);
+            customPanel.CommandControls.AddButton(m_projectSketchAxis.ButtonDefinition);
+
+
+            //customSketchPanel.CommandControls.AddButton(m_projectSketchAxis.ButtonDefinition);
 
 
             //Custom tab, tab won't show until there is some element(i.e. button, etc.) in it
-            RibbonTab seden = partTabs.Add("Sedenum", "Sedenum Pack Tab", AddInClientID());
-            RibbonPanel sedenPanel = seden.RibbonPanels.Add("Sample", "Sedenpanel", AddInClientID());
+
+            //RibbonTab seden = partTabs.Add("Sedenum", "Sedenum Pack Tab", AddInClientID());
+            //RibbonPanel sedenPanel = seden.RibbonPanels.Add("Sample", "Sedenpanel", AddInClientID());
+
             //sedenPanel.CommandControls.AddButton(m_setPropertiesButton.ButtonDefinition);
 
         }

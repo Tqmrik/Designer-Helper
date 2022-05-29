@@ -107,6 +107,7 @@
     </Compile>
     <Compile Include="Button.cs" />
     <Compile Include="ChangeMassLengthUnitsToMetric.cs" />
+    <Compile Include="MultilanguageDictionary.cs" />
     <Compile Include="SampleButton.cs" />
     <Compile Include="ProjectSketchAxis.cs" />
     <Compile Include="SetPropertiesButton.cs" />
@@ -136,6 +137,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ResourcesSedenumPack\ChangeMassLengthUnitsToMetricIconStandart.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ResourcesSedenumPack\ProjectSketchAxisLarge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ResourcesSedenumPack\ProjectSketchAxisStandart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="ResourcesSedenumPack\SetPropertiesIconLarge.ico">
