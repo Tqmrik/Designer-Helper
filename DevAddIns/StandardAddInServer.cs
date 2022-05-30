@@ -5,8 +5,9 @@ using System.Windows.Forms;
 using Inventor;
 using Microsoft.Win32;
 using System.IO;
-
-
+using System.Collections.Generic;
+using Microsoft.VisualBasic.Compatibility.VB6;
+using Svg;
 
 namespace DevAddIns
 {
@@ -92,9 +93,9 @@ namespace DevAddIns
                 //It's so bad but whatever for now
                 string applicationInstallationPath = m_inventorApplication.InstallPath;
                 string currentUserAppDataPath = m_inventorApplication.CurrentUserAppDataPath;
-                currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "");
+                currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack";
 
-                CopyDirectory(currentUserAppDataPath + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack", applicationInstallationPath + "Bin\\ResourcesSedenumPack", false);
+                //CopyDirectory(currentUserAppDataPath + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack", applicationInstallationPath + "Bin\\ResourcesSedenumPack", false);
 
                 //UserInterfaceEventsSink_OnResetCommandBarsEventDelegate = new UserInterfaceEventsSink_OnResetCommandBarsEventHandler(UserInterfaceEvents_OnResetCommandBars);
                 //m_userInterfaceEvents.OnResetCommandBars += UserInterfaceEventsSink_OnResetCommandBarsEventDelegate;
@@ -109,16 +110,21 @@ namespace DevAddIns
 
                 //Load image icons for UI items
                 //Wrap in a different method + use the class name for the names
-                Image setPropertiesIconStandart = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconStandart.ico");
-                Image setPropertiesIconLarge = new Bitmap("ResourcesSedenumPack\\SetPropertiesIconLarge.ico");
 
-                Image changeMassLengthUnitsToMetricIconStandart = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconStandart.png");
-                Image changeMassLengthUnitsToMetricIconLarge = new Bitmap("ResourcesSedenumPack\\ChangeMassLengthUnitsToMetricIconLarge.png");
+                Image setPropertiesIconStandart = new Bitmap(currentUserAppDataPath + "\\SetPropertiesIconStandart.ico");
+                Image setPropertiesIconLarge = new Bitmap(currentUserAppDataPath + "\\SetPropertiesIconLarge.ico");
 
-                Image projectSketchAxisIconStandart = new Bitmap("ResourcesSedenumPack\\ProjectSketchAxisStandart.png");
-                Image projectSketchAxisIconLarge = new Bitmap("ResourcesSedenumPack\\ProjectSketchAxisLarge.png");
+                Image changeMassLengthUnitsToMetricIconStandart = new Bitmap(currentUserAppDataPath + "\\ChangeMassLengthUnitsToMetricIconStandart.png");
+                Image changeMassLengthUnitsToMetricIconLarge = new Bitmap(currentUserAppDataPath + "\\ChangeMassLengthUnitsToMetricIconLarge.png");
 
+                var svgDoc = SvgDocument.Open<SvgDocument>(currentUserAppDataPath + "\\ProjectSketchAxis.svg");
+                //svgDoc.Ppi = 200;
+                Image projectSketchAxisIconStandart = svgDoc.Draw(16, 16);
+                Image projectSketchAxisIconLarge = svgDoc.Draw(64, 64);
 
+                //new Bitmap(currentUserAppDataPath + "\\ProjectSketchAxisStandart.png");
+                //stdole.IPictureDisp abs = PictureDispConverter.ToIPictureDisp();
+                //IPictureDisp is needed as the button icon
 
 
                 #region comboBoxes
@@ -161,6 +167,7 @@ namespace DevAddIns
                 m_changeMassLengthUnitsToMetric = new ChangeMassLengthUnitsToMetric("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_projectSketchAxis = new ProjectSketchAxis("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
 
 
 
@@ -389,46 +396,65 @@ namespace DevAddIns
 
         public void AddToUserInterface()
         {
+            try
+            {
+                string panelName = "Sedenum";
 
-            /* 
-            '' Get the part ribbon.
-            'Dim partRibbon As Ribbon = g_inventorApplication.UserInterfaceManager.Ribbons.Item("Part")
+                List<Button> buttonsList = new List<Button>();
+                buttonsList.Add(m_setPropertiesButton);
+                buttonsList.Add(m_projectSketchAxis);
+                buttonsList.Add(m_changeMassLengthUnitsToMetric);
 
-            '' Get the "Tools" tab.
-            'Dim toolsTab As RibbonTab = partRibbon.RibbonTabs.Item("id_TabTools")
+                /* 
+                '' Get the part ribbon.
+                'Dim partRibbon As Ribbon = g_inventorApplication.UserInterfaceManager.Ribbons.Item("Part")
 
-            '' Create a new panel.
-            'Dim customPanel As RibbonPanel = toolsTab.RibbonPanels.Add("Sample", "MysSample", AddInClientID)
+                '' Get the "Tools" tab.
+                'Dim toolsTab As RibbonTab = partRibbon.RibbonTabs.Item("id_TabTools")
 
-            '' Add a button.
-            'customPanel.CommandControls.AddButton(m_sampleButton)
-            */
+                '' Create a new panel.
+                'Dim customPanel As RibbonPanel = toolsTab.RibbonPanels.Add("Sample", "MysSample", AddInClientID)
 
-       //Adding buttons to the ribbon
-       //TODO: Redo all that part
-            Ribbons ribbons = m_inventorApplication.UserInterfaceManager.Ribbons;
+                '' Add a button.
+                'customPanel.CommandControls.AddButton(m_sampleButton)
+                */
+
+                //Adding buttons to the ribbon
+                //TODO: Redo all that part
+                //Ribbons ribbons = m_inventorApplication.UserInterfaceManager.Ribbons;
+
+
+                Ribbon partRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Part"];
+                Ribbon assemblyRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Assembly"];
+                //RibbonTabs partTabs = m_inventorApplication.UserInterfaceManager.Ribbons["Part"].RibbonTabs;
+
+                RibbonTab assemblyToolTab = assemblyRibbon.RibbonTabs["id_TabTools"];
+                RibbonTab partToolsTab = partRibbon.RibbonTabs["id_TabTools"];
+
+                RibbonPanel assemblyPanelSed = assemblyToolTab.RibbonPanels.Add(panelName, "assemblyPanelSed", AddInClientID());
+                RibbonPanel partPanelSed = partToolsTab.RibbonPanels.Add(panelName, "partPanelSed", AddInClientID());
+
+
+
+                //SketchEnvironment
+                //Inventor.Environment partSketchEnvironment;
+                //partSketchEnvironment = m_userInterfaceManager.Environments["PMxPartSketchEnvironment"];
+                //RibbonPanel customSketchPanel = partSketchEnvironment.Ribbon.RibbonTabs["id_TabTools"].RibbonPanels.Add("Sample", "SampleSketchSedenum", AddInClientID());
+
+                //Add Buttons
+
+                foreach (Button button in buttonsList)
+                {
+                    partPanelSed.CommandControls.AddButton(button.ButtonDefinition);
+                    assemblyPanelSed.CommandControls.AddButton(button.ButtonDefinition);
+                }
+            }
+
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message + "\n AddIn: Sedenum Pack");
+            }
             
-
-            Ribbon partRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Part"];
-            RibbonTabs partTabs = m_inventorApplication.UserInterfaceManager.Ribbons["Part"].RibbonTabs;
-
-
-            RibbonTab toolsTab = partRibbon.RibbonTabs["id_TabTools"];
-            RibbonPanel customPanel = toolsTab.RibbonPanels.Add("Sedenum", "SedenumPanel", AddInClientID());
-
-
-            //SketchEnvironment
-            //Inventor.Environment partSketchEnvironment;
-            //partSketchEnvironment = m_userInterfaceManager.Environments["PMxPartSketchEnvironment"];
-            //RibbonPanel customSketchPanel = partSketchEnvironment.Ribbon.RibbonTabs["id_TabTools"].RibbonPanels.Add("Sample", "SampleSketchSedenum", AddInClientID());
-
-            //Add Buttons
-
-            customPanel.CommandControls.AddButton(m_setPropertiesButton.ButtonDefinition);
-            customPanel.CommandControls.AddButton(m_changeMassLengthUnitsToMetric.ButtonDefinition);
-            customPanel.CommandControls.AddButton(m_projectSketchAxis.ButtonDefinition);
-
-
             //customSketchPanel.CommandControls.AddButton(m_projectSketchAxis.ButtonDefinition);
 
 

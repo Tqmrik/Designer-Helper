@@ -9,14 +9,14 @@ namespace DevAddIns
     //is there other ways to do so?
     class MultilanguageDictionary
     {
-        Dictionary<string, string> dictionaryOrign = new Dictionary<string, string>();
-        Dictionary<string, string> dictionaryBendPart = new Dictionary<string, string>();
-        Dictionary<string, List<string>> dictionaryPlanesName = new Dictionary<string, List<string>>();
+        public Dictionary<string, string> dictionaryOrigin = new Dictionary<string, string>();
+        public Dictionary<string, string> dictionaryBendPart = new Dictionary<string, string>();
+        public Dictionary<string, List<string>> dictionaryPlanesName = new Dictionary<string, List<string>>();
 
         public MultilanguageDictionary()
         {
-            dictionaryOrign.Add("en-US", "Origin");
-            dictionaryOrign.Add("ru-RU", "Начало");
+            dictionaryOrigin.Add("en-US", "Origin");
+            dictionaryOrigin.Add("ru-RU", "Начало");
 
             dictionaryBendPart.Add("en-US", "Folded Model");
             dictionaryBendPart.Add("ru-RU", "Модель после гибки");
