@@ -26,8 +26,9 @@ namespace DevAddIns
 
         //buttons
         private SetPropertiesButton m_setPropertiesButton;
-        private ChangeMassLengthUnitsToMetric m_changeMassLengthUnitsToMetric;
-        private ProjectSketchAxis m_projectSketchAxis;
+        private ChangeMassLengthUnitsToMetricButton m_changeMassLengthUnitsToMetricButton;
+        private ProjectSketchAxisButton m_projectSketchAxisButton;
+        private EditPropertiesButton m_editPropertiesButton;
 
 
         //user interface event
@@ -88,6 +89,9 @@ namespace DevAddIns
 
                 //initialize event delegates
                 m_userInterfaceEvents = m_inventorApplication.UserInterfaceManager.UserInterfaceEvents;
+
+
+                
 
 
                 //It's so bad but whatever for now
@@ -164,9 +168,11 @@ namespace DevAddIns
                     AddInClientID(), "Change IProperties of the file according to the current company standart",
                     "Change IProperties", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_changeMassLengthUnitsToMetric = new ChangeMassLengthUnitsToMetric("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_editPropertiesButton = new EditPropertiesButton("Edit Properties", "EditPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Edit values of the Properties to set", "Edit IProperties", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_projectSketchAxis = new ProjectSketchAxis("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_changeMassLengthUnitsToMetricButton = new ChangeMassLengthUnitsToMetricButton("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
+                m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
 
@@ -286,8 +292,9 @@ namespace DevAddIns
 
                 //Dispose buttons
                 m_setPropertiesButton = null;
-                m_changeMassLengthUnitsToMetric = null;
-                m_projectSketchAxis = null;
+                m_editPropertiesButton = null;
+                m_changeMassLengthUnitsToMetricButton = null;
+                m_projectSketchAxisButton = null;
 
                 //if (m_partSketchSlotRibbonPanel != null)
                 //{
@@ -402,8 +409,10 @@ namespace DevAddIns
 
                 List<Button> buttonsList = new List<Button>();
                 buttonsList.Add(m_setPropertiesButton);
-                buttonsList.Add(m_projectSketchAxis);
-                buttonsList.Add(m_changeMassLengthUnitsToMetric);
+                buttonsList.Add(m_editPropertiesButton);
+                buttonsList.Add(m_projectSketchAxisButton);
+                buttonsList.Add(m_changeMassLengthUnitsToMetricButton);
+
 
                 /* 
                 '' Get the part ribbon.
@@ -426,13 +435,16 @@ namespace DevAddIns
 
                 Ribbon partRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Part"];
                 Ribbon assemblyRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Assembly"];
+                Ribbon drawingRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Drawing"];
                 //RibbonTabs partTabs = m_inventorApplication.UserInterfaceManager.Ribbons["Part"].RibbonTabs;
 
                 RibbonTab assemblyToolTab = assemblyRibbon.RibbonTabs["id_TabTools"];
                 RibbonTab partToolsTab = partRibbon.RibbonTabs["id_TabTools"];
+                RibbonTab drawingToolsTab = drawingRibbon.RibbonTabs["id_TabTools"];
 
                 RibbonPanel assemblyPanelSed = assemblyToolTab.RibbonPanels.Add(panelName, "assemblyPanelSed", AddInClientID());
                 RibbonPanel partPanelSed = partToolsTab.RibbonPanels.Add(panelName, "partPanelSed", AddInClientID());
+                RibbonPanel drawingPanelSed = drawingToolsTab.RibbonPanels.Add(panelName, "drawingPanelSed", AddInClientID());
 
 
 
@@ -445,9 +457,15 @@ namespace DevAddIns
 
                 foreach (Button button in buttonsList)
                 {
-                    partPanelSed.CommandControls.AddButton(button.ButtonDefinition);
-                    assemblyPanelSed.CommandControls.AddButton(button.ButtonDefinition);
+                    if (!button.Equals(null))
+                    {
+                        partPanelSed.CommandControls.AddButton(button.ButtonDefinition);
+                        assemblyPanelSed.CommandControls.AddButton(button.ButtonDefinition);
+                        drawingPanelSed.CommandControls.AddButton(button.ButtonDefinition);
+                    }
                 }
+
+
             }
 
             catch(Exception e)

@@ -5,16 +5,16 @@ using System.Windows.Forms;
 
 namespace DevAddIns
 {
-    internal class ChangeMassLengthUnitsToMetric : Button
+    internal class ChangeMassLengthUnitsToMetricButton : Button
     {
         #region "Constructors"
         //Use constructors of the base class
-        public ChangeMassLengthUnitsToMetric(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public ChangeMassLengthUnitsToMetricButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType)
         {
 
         }
-        public ChangeMassLengthUnitsToMetric(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+        public ChangeMassLengthUnitsToMetricButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType)
         {
 

@@ -6,15 +6,15 @@ using System.Windows.Forms;
 
 namespace DevAddIns
 {
-    class ProjectSketchAxis : Button
+    class ProjectSketchAxisButton : Button
     {
         #region "Constructors"
-        public ProjectSketchAxis(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public ProjectSketchAxisButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType)
         {
 
         }
-        public ProjectSketchAxis(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+        public ProjectSketchAxisButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType)
         {
 
@@ -36,21 +36,28 @@ namespace DevAddIns
                 object oTopNode;
                 SketchEntity oGeomLine;
 
+                object cache;
+                BrowserPanes pan = activeDocument.BrowserPanes;
+                foreach(var pane in pan)
+                {
+                    cache = pane;
+                }
+
                 Transaction oTransaction = InventorApplication.TransactionManager.StartTransaction(InventorApplication.ActiveDocument, "Project sketch axis");
 
                 //Is there other way
                 //Guard clauses for different types of documents
-                if (activeDocument.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}")
+                if (activeDocument.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") //Sheet metal
                 {
-                    pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryBendPart[languageCode]].BrowserNodes[MLDict.dictionaryBendPart[languageCode]]; //Sheet metal
+                    pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryBendPart[languageCode]].BrowserNodes[MLDict.dictionaryBendPart[languageCode]]; 
                 }
-                else if (activeDocument.SubType == "{E60F81E1-49B3-11D0-93C3-7E0706000000}")
+                else if (activeDocument.SubType == "{E60F81E1-49B3-11D0-93C3-7E0706000000}") //Assembly
                 {
-                    pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; //Assembly
+                    pathToOrigin = activeDocument.BrowserPanes["AmBrowserArrangement"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                 }
-                else if (activeDocument.SubType == "{4D29B490-49B2-11D0-93C3-7E0706000000}")
+                else if (activeDocument.SubType == "{4D29B490-49B2-11D0-93C3-7E0706000000}") //Part
                 {
-                    pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; //Part
+                    pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                 }
 
 
@@ -68,7 +75,6 @@ namespace DevAddIns
                 }
 
             ignoreException:
-
 
                 try
                 {
@@ -97,7 +103,6 @@ namespace DevAddIns
                 }
 
             ignoreException3:
-
 
 
                 oTransaction.End();
