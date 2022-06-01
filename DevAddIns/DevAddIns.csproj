@@ -131,11 +131,11 @@
     <Compile Include="Button.cs" />
     <Compile Include="ChangeMassLengthUnitsToMetricButton.cs" />
     <Compile Include="DrawingPropertiesSet.cs" />
-    <Compile Include="EditIProperties.cs">
+    <Compile Include="EditPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditIProperties.Designer.cs">
-      <DependentUpon>EditIProperties.cs</DependentUpon>
+    <Compile Include="EditPropertiesForm.Designer.cs">
+      <DependentUpon>EditPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EditPropertiesButton.cs" />
     <Compile Include="MultilanguageDictionary.cs" />
@@ -180,9 +180,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EditIProperties.resx">
-      <DependentUpon>EditIProperties.cs</DependentUpon>
+    <EmbeddedResource Include="EditPropertiesForm.resx">
+      <DependentUpon>EditPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DataSedenumPack\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

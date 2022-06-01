@@ -36,12 +36,12 @@ namespace DevAddIns
                 object oTopNode;
                 SketchEntity oGeomLine;
 
-                object cache;
-                BrowserPanes pan = activeDocument.BrowserPanes;
-                foreach(var pane in pan)
-                {
-                    cache = pane;
-                }
+                //object cache;
+                //BrowserPanes pan = activeDocument.BrowserPanes;
+                //foreach(var pane in pan)
+                //{
+                //    cache = pane;
+                //}
 
                 Transaction oTransaction = InventorApplication.TransactionManager.StartTransaction(InventorApplication.ActiveDocument, "Project sketch axis");
 
@@ -69,48 +69,40 @@ namespace DevAddIns
                     oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
                     oGeomLine.Construction = true;
                 }
-                catch(Exception e)
+                finally
                 {
-                    goto ignoreException;
+                    try
+                    {
+                        //Y Axis
+                        oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][1]].NativeObject;
+                        oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
+                        oGeomLine.Construction = true;
+                    }
+                    finally
+                    {
+                        try
+                        {
+                            //Z Axis
+                            oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][2]].NativeObject;
+                            oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
+                            oGeomLine.Construction = true;
+                        }
+                        finally
+                        {
+                            oTransaction.End();
+                        }
+                    }
                 }
-
-            ignoreException:
-
-                try
-                {
-                    //Y Axis
-                    oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][1]].NativeObject;
-                    oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
-                    oGeomLine.Construction = true;
-                }
-                catch(Exception e)
-                {
-                    goto ignoreException2;
-                }
-
-            ignoreException2:
-
-                try
-                {
-                    //Z Axis
-                    oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][2]].NativeObject;
-                    oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
-                    oGeomLine.Construction = true;
-                }
-                catch(Exception e)
-                {
-                    goto ignoreException3;
-                }
-
-            ignoreException3:
-
-
-                oTransaction.End();
 
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message + "\n AddIn: Sedenum Pack");
+                if (e.Message == "Unspecified error (Exception from HRESULT: 0x80004005 (E_FAIL))") { }
+                else
+                {
+                    MessageBox.Show(e.Message + "\n AddIn: Sedenum Pack");
+                }
+                
             }
 
 

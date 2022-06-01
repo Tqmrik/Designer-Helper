@@ -10,6 +10,7 @@ namespace DevAddIns
 {
     internal class SetPropertiesButton : Button
     {
+
         #region "Constructors"
         //Use constructors of the base class
         public SetPropertiesButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
@@ -28,10 +29,14 @@ namespace DevAddIns
         #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
-            Document activeDocument = InventorApplication.ActiveDocument;
-            string filePath = "C:\\Temp\\InventorMacrosSetIProperties.txt";
-            EditPropertiesForm editPropertiesForm = new EditPropertiesForm();
+            //Use json files???
+            string currentUserAppDataPath = InventorApplication.CurrentUserAppDataPath;
+            EditPropertiesForm editPropertiesForm = new EditPropertiesForm(currentUserAppDataPath);
 
+            currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\DataSedenumPack\\EditProperties.txt";
+
+            Document activeDocument = InventorApplication.ActiveDocument;
+            
             /*
              * PropsSets
                 1 - DisplayName	"Summary Information"	System.String
@@ -57,22 +62,11 @@ namespace DevAddIns
                 string emptyDate = "01.01.1601"; //Convert to DateTime object???
                 DateTime dateTime = DateTime.Today;
 
-                if (System.IO.File.Exists(filePath))
-                {
-                    StreamReader fileObject = System.IO.File.OpenText(filePath);
-                    checkedByProperty = fileObject.ReadLine().Split(':')[1];
-                    companyNameProperty = fileObject.ReadLine().Split(':')[1];
-                }
-                else
-                {
-                    editPropertiesForm.Show();
-                    if (System.IO.File.Exists(filePath))
-                    {
-                        StreamReader fileObject = System.IO.File.OpenText(filePath);
-                        checkedByProperty = fileObject.ReadLine().Split(':')[1];
-                        companyNameProperty = fileObject.ReadLine().Split(':')[1];
-                    }
-                }
+                if (!System.IO.File.Exists(currentUserAppDataPath)) editPropertiesForm.ShowDialog();
+
+                StreamReader fileObject = System.IO.File.OpenText(currentUserAppDataPath);
+                checkedByProperty = fileObject.ReadLine().Split(':')[1].Trim();
+                companyNameProperty = fileObject.ReadLine().Split(':')[1].Trim();
 
                 try
                 {
@@ -155,30 +149,6 @@ namespace DevAddIns
                         //    var cache = prop;
                         //}
 
-                        ////activeDocument.PropertySets[4][1].Value = "";
-                        //activeDocument.PropertySets[4][2].Value = ""; //Not working
-                        //activeDocument.PropertySets[4][3].Value = 
-                        //activeDocument.PropertySets[4][4].Value = "";
-                        ////activeDocument.PropertySets[4][5].Value = "";
-                        //activeDocument.PropertySets[4][6].Value = InventorApplication.GeneralOptions.UserName;
-                        ////activeDocument.PropertySets[4][7].Value = "";
-                        ////activeDocument.PropertySets[4][8].Value = "";
-                        //activeDocument.PropertySets[4][9].Value = "-";
-                        ////activeDocument.PropertySets[4][10].Value = "";
-                        ////activeDocument.PropertySets[4][11].Value = "";
-                        //activeDocument.PropertySets[4][12].Value = "-";
-                        ////activeDocument.PropertySets[4][13].Value = "";
-                        ////activeDocument.PropertySets[4][14].Value = "";
-                        //activeDocument.PropertySets[4][15].Value = "A";
-                        ////activeDocument.PropertySets[4][16].Value = "";
-                        ////activeDocument.PropertySets[4][17].Value = "";
-                        //activeDocument.PropertySets[4][18].Value = checkedByProperty;
-                        ////activeDocument.PropertySets[4][19].Value = "";
-                        ////activeDocument.PropertySets[4][20].Value = "";
-                        ////activeDocument.PropertySets[4][21].Value = "";
-                        ////activeDocument.PropertySets[4][22].Value = "";
-
-
                         //Add one more dict and check two dicts
 
                         List<string> existingProps = new List<string>();
@@ -248,177 +218,3 @@ namespace DevAddIns
         #endregion
     }
 }
-
-/*
- * 
- * Option Explicit
-
-Public Sub SetIProps()
-
-    Dim activeDoc As Document
-    Dim fso As Object
-    Dim textFile As Object
-    Dim fileNameSplit As Variant
-    Dim filePath As String
-    
-    Set activeDoc = ThisApplication.ActiveDocument
-    
-    Set fso = CreateObject("Scripting.FileSystemObject")
-    
-
-
-    If activeDoc Is Nothing Then
-    'Exit Sub if you are on a Zero Document
-        Exit Sub
-    End If
-    
-    
-    'Props set
-    Dim descriptionProp As Variant
-    Dim checkedByProp As Variant
-    Dim companyNameProp As Variant
-    
-    filePath = "C:\Temp\InventorMacrosSetIProperties.txt" 'File name of the form's file
-    
-    
-    If fso.FileExists(filePath) Then 'Check if file exists, if so read values from the file, otherwise call UserForm
-        Set textFile = fso.OpenTextFile(filePath, 1)
-        checkedByProp = Split(textFile.ReadLine, " : ")[1]
-        companyNameProp = Split(textFile.ReadLine, " : ")[1]
-    Else
-        setPropertiesForm.Show
-        If fso.FileExists(filePath) Then 'If someone closed file by red cross then just exit whole sub
-            Set textFile = fso.OpenTextFile(filePath, 1)
-            checkedByProp = Split(textFile.ReadLine, " : ")[1]
-            companyNameProp = Split(textFile.ReadLine, " : ")[1]
-            Exit Sub
-        End If
-    End If
-    
-    
-    fileNameSplit = Split(activeDoc.DisplayName, " - ", 2) 'Split file name by -
-    
-    
-    If (UBound(fileNameSplit) = 1) Then 'If split is successful then continue, otherwise displays message
-    
-        ' Create a new transaction to wrap the change of the IProperties
-        ' into a single undo.
-        Dim oTrans As Transaction
-        Set oTrans = ThisApplication.TransactionManager.StartTransaction( _
-        ThisApplication.ActiveDocument, _
-        "Change IProperties")
-        
-        descriptionProp = fso.GetBaseName(fileNameSplit[1]) 'Get rid of file extension
-        
-        activeDoc.PropertySets[1][1].Value = descriptionProp 'Summary -> Title
-        activeDoc.PropertySets[1][2].Value = "" 'Summary -> Subject
-        activeDoc.PropertySets[1][3].Value = ThisApplication.GeneralOptions.UserName 'Summary -> Author
-        '//activeDoc.PropertySets[2][2].Value = "" 'Summary -> Manager
-        activeDoc.PropertySets[2][3].Value = UCase(companyNameProp) 'Summary -> Company
-        
-        activeDoc.PropertySets[2][1].Value = "" 'Summary -> Category
-        activeDoc.PropertySets[1][4].Value = "" 'Summary -> Keywords
-        activeDoc.PropertySets[1](5).Value = "" 'Summary -> Comments
-
-              
-        
-        activeDoc.PropertySets[3][2].Value = fileNameSplit(0) 'Project -> Part Number
-        '//activeDoc.PropertySets[3](37).Value = "" 'Project -> Stock Number
-        activeDoc.PropertySets[3](14).Value = descriptionProp 'Project -> Description
-        activeDoc.PropertySets[1](7).Value = "A" 'Project -> Revision Number
-        '//activeDoc.PropertySets[3][3].Value = "" 'Project -> Project
-        activeDoc.PropertySets[3](24).Value = ThisApplication.GeneralOptions.UserName 'Project -> Designer
-        '//activeDoc.PropertySets[3](25).Value = "" 'Project -> Engineer
-        '//activeDoc.PropertySets[3](26).Value = "" 'Project -> Authority
-        '//activeDoc.PropertySets[3][4].Value = "" 'Project -> Cost center
-        'activeDoc.PropertySets[3](21).Value = "" 'Project -> Estimated cost
-        If activeDoc.PropertySets[3][1].Value = "01.01.1601" Then '01.01.1601 is a checked out flag in Inventor props
-            activeDoc.PropertySets[3][1].Value = DateTime.Date 'Project -> Creation Date
-        End If
-        '//activeDoc.PropertySets[3](12).Value = "" 'Project -> Vendor
-        '//activeDoc.PropertySets[3](12).Value = "" 'Project -> WEB Link
-        
-        
-        
-        activeDoc.PropertySets[3](23).Value = "" 'Project -> Status ????????
-        activeDoc.PropertySets[3](5).Value = checkedByProp 'Status -> Checked By
-        If activeDoc.PropertySets[3](6).Value = "01.01.1601" Then '01.01.1601 is a checked out flag in Inventor props
-            activeDoc.PropertySets[3](6).Value = DateTime.Date 'Project -> Checked Date
-        End If
-        activeDoc.PropertySets[3](7).Value = "Voytulevich, Denis" 'Status -> Eng. Approved By
-        'If activeDoc.PropertySets[3](8).Value = "01.01.1601" Then '01.01.1601 is a checked out flag in Inventor props
-        '    activeDoc.PropertySets[3](8).Value = DateTime.Date 'Project -> Eng. Approved By
-        'End If
-        '//activeDoc.PropertySets[3](19).Value = "" 'Status -> Mfg. Approved By
-        'If activeDoc.PropertySets[3](20).Value = "01.01.1601" Then '01.01.1601 is a checked out flag in Inventor props
-        '    activeDoc.PropertySets[3](20).Value = DateTime.Date 'Project -> Mfg. Approved By
-        'End If
-        
-        
-        On Error Resume Next 'Be aware that won't work on the part document
-        
-        'activeDoc.PropertySets[4][1].Value = ""
-        activeDoc.PropertySets[4][2].Value = "" 'Not working
-        activeDoc.PropertySets[4][3].Value = Str(DateTime.Date)
-        'activeDoc.PropertySets[4][4].Value = ""
-        'activeDoc.PropertySets[4](5).Value = ""
-        activeDoc.PropertySets[4](6).Value = ThisApplication.GeneralOptions.UserName
-        'activeDoc.PropertySets[4](7).Value = ""
-        'activeDoc.PropertySets[4](8).Value = ""
-        activeDoc.PropertySets[4](9).Value = "-"
-        'activeDoc.PropertySets[4](10).Value = ""
-        'activeDoc.PropertySets[4](11).Value = ""
-        activeDoc.PropertySets[4](12).Value = "-"
-        'activeDoc.PropertySets[4](13).Value = ""
-        'activeDoc.PropertySets[4](14).Value = ""
-        activeDoc.PropertySets[4](15).Value = "A"
-        'activeDoc.PropertySets[4](16).Value = ""
-        'activeDoc.PropertySets[4](17).Value = ""
-        activeDoc.PropertySets[4](18).Value = checkedByProp
-        'activeDoc.PropertySets[4](19).Value = ""
-        'activeDoc.PropertySets[4](20).Value = ""
-        'activeDoc.PropertySets[4](21).Value = ""
-        'activeDoc.PropertySets[4](22).Value = ""
-        
-        oTrans.End
-    Else
-        MsgBox "Не удалось заполнить IProperties, проверьте соответствие наименования файла шаблону:" & vbNewLine & "Номер - Название"
-    End If
-    
-    
-End Sub
-
-
-
-Public Function GetFilePath()
-
-    Dim activeDoc As Document
-    Set activeDoc = ThisApplication.ActiveDocument
-    
-    If activeDoc Is Nothing Then
-        Exit Function
-    End If
-    
-    GetFilePath = activeDoc.FullFileName
-    
-End Function
-
-
-
-
-Public Sub EditIPropsFile()
-
-    Dim activeDoc As Document
-    Set activeDoc = ThisApplication.ActiveDocument
-    
-    If activeDoc Is Nothing Then
-        Exit Sub
-    End If
-    
-    setPropertiesForm.Show
-        
-End Sub
-
-
- * 
- */

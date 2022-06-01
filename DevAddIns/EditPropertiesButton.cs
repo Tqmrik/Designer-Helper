@@ -25,7 +25,17 @@ namespace DevAddIns
         #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
-            //Code for event handling
+            if (InventorApplication.ActiveDocument == null) return;
+            try
+            {
+                EditPropertiesForm editProperties = new EditPropertiesForm(InventorApplication.CurrentUserAppDataPath);
+                editProperties.ShowDialog();
+
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message + "\nAddIn: Sedenum Pack\nMethod:EditPropertiesButton");
+            }
         }
         #endregion
     }
