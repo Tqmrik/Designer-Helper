@@ -22,13 +22,13 @@ namespace DevAddIns
 
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-            if(textBox2.Text == "")
-            {
-                textBox2.Text = "Enter a company name here";
-            }
-        }
+        //private void textBox2_TextChanged(object sender, EventArgs e)
+        //{
+        //    if(textBox2.Text == "")
+        //    {
+        //        textBox2.Text = "Enter a company name here";
+        //    }
+        //}
     }
 }
 
