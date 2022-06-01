@@ -30,6 +30,8 @@ namespace DevAddIns
         private ProjectSketchAxisButton m_projectSketchAxisButton;
         private EditPropertiesButton m_editPropertiesButton;
 
+        //comboBoxes
+        private DrawingStyleComboBox m_drawingStyleComboBox;
 
         //user interface event
         //Only for combobox events, could be deleted
@@ -175,6 +177,9 @@ namespace DevAddIns
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
+                //Create comboBoxes
+                m_drawingStyleComboBox = new DrawingStyleComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum",
+                    CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style sistem", "Change drawing style", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
 
@@ -286,7 +291,8 @@ namespace DevAddIns
 
                 UserInterfaceEventsSink_OnResetCommandBarsEventDelegate = null;
                 UserInterfaceEventsSink_OnResetEnvironmentsEventDelegate = null;
-
+                
+                //Dispose interface objects
                 m_userInterfaceEvents = null;
                 m_userInterfaceManager = null;
 
@@ -295,6 +301,10 @@ namespace DevAddIns
                 m_editPropertiesButton = null;
                 m_changeMassLengthUnitsToMetricButton = null;
                 m_projectSketchAxisButton = null;
+
+                //Dispose comboboxes
+                m_drawingStyleComboBox = null;
+
 
                 //if (m_partSketchSlotRibbonPanel != null)
                 //{
@@ -413,7 +423,7 @@ namespace DevAddIns
                 buttonsList.Add(m_projectSketchAxisButton);
                 buttonsList.Add(m_changeMassLengthUnitsToMetricButton);
 
-
+                m_drawingStyleComboBox.Populate(new string[]{"ESKD", "ISO" });
                 /* 
                 '' Get the part ribbon.
                 'Dim partRibbon As Ribbon = g_inventorApplication.UserInterfaceManager.Ribbons.Item("Part")
@@ -464,6 +474,8 @@ namespace DevAddIns
                         drawingPanelSed.CommandControls.AddButton(button.ButtonDefinition);
                     }
                 }
+
+                drawingPanelSed.CommandControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);
 
 
             }

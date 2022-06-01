@@ -130,6 +130,7 @@
     </Compile>
     <Compile Include="Button.cs" />
     <Compile Include="ChangeMassLengthUnitsToMetricButton.cs" />
+    <Compile Include="ComboBox.cs" />
     <Compile Include="DrawingPropertiesSet.cs" />
     <Compile Include="EditPropertiesForm.cs">
       <SubType>Form</SubType>
@@ -138,8 +139,10 @@
       <DependentUpon>EditPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EditPropertiesButton.cs" />
+    <Compile Include="DrawingStyleComboBox.cs" />
     <Compile Include="MultilanguageDictionary.cs" />
     <Compile Include="ProjectSketchAxisButton.cs" />
+    <Compile Include="SampleComboBox.cs" />
     <Compile Include="SetPropertiesButton.cs" />
     <Compile Include="StandardAddInServer.cs">
       <SubType>Code</SubType>
