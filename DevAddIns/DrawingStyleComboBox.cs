@@ -30,7 +30,7 @@ namespace DevAddIns
         #region "EventHAndlers"
         override protected void ComboBoxDefinition_OnSelect(NameValueMap context)
         {
-            //Your code goes here
+            
         }
         #endregion
     }

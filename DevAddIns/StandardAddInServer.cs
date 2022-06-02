@@ -26,9 +26,11 @@ namespace DevAddIns
 
         //buttons
         private SetPropertiesButton m_setPropertiesButton;
+        private EditPropertiesButton m_editPropertiesButton;
+        private UpdatePropertiesRevisionButton m_updatePropertiesRevesionButton;
         private ChangeMassLengthUnitsToMetricButton m_changeMassLengthUnitsToMetricButton;
         private ProjectSketchAxisButton m_projectSketchAxisButton;
-        private EditPropertiesButton m_editPropertiesButton;
+        
 
         //comboBoxes
         private DrawingStyleComboBox m_drawingStyleComboBox;
@@ -176,6 +178,8 @@ namespace DevAddIns
 
                 m_editPropertiesButton = new EditPropertiesButton("Edit Properties", "EditPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Edit values of the Properties to set", "Edit IProperties", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
+                m_updatePropertiesRevesionButton = new UpdatePropertiesRevisionButton("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
                 m_changeMassLengthUnitsToMetricButton = new ChangeMassLengthUnitsToMetricButton("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
@@ -183,6 +187,8 @@ namespace DevAddIns
 
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
                 //Create comboBoxes
+
+                //Apparently doesn't work with icons????
                 m_drawingStyleComboBox = new DrawingStyleComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style", "Change drawing style", ButtonDisplayEnum.kDisplayTextInLearningMode);
                     
                     
@@ -307,8 +313,10 @@ namespace DevAddIns
                 //Dispose buttons
                 m_setPropertiesButton = null;
                 m_editPropertiesButton = null;
+                m_updatePropertiesRevesionButton = null;
                 m_changeMassLengthUnitsToMetricButton = null;
                 m_projectSketchAxisButton = null;
+
 
                 //Dispose comboboxes
                 m_drawingStyleComboBox = null;
@@ -426,10 +434,16 @@ namespace DevAddIns
                 string panelName = "Sedenum";
 
                 List<Button> buttonsList = new List<Button>();
-                buttonsList.Add(m_setPropertiesButton);
-                buttonsList.Add(m_editPropertiesButton);
-                buttonsList.Add(m_projectSketchAxisButton);
+
                 buttonsList.Add(m_changeMassLengthUnitsToMetricButton);
+                buttonsList.Add(m_projectSketchAxisButton);
+
+                List<Button> iPropertiesPanelButtons = new List<Button>();
+                iPropertiesPanelButtons.Add(m_setPropertiesButton);
+                iPropertiesPanelButtons.Add(m_editPropertiesButton);
+                //iPropertiesPanelButtons.Add(m_updatePropertiesRevesionButton);
+
+
 
                 m_drawingStyleComboBox.Populate(new string[]{"ESKD", "ISO" });
                 /* 
@@ -456,9 +470,13 @@ namespace DevAddIns
                 Ribbon drawingRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Drawing"];
                 //RibbonTabs partTabs = m_inventorApplication.UserInterfaceManager.Ribbons["Part"].RibbonTabs;
 
+
+
                 RibbonTab assemblyToolTab = assemblyRibbon.RibbonTabs["id_TabTools"];
                 RibbonTab partToolsTab = partRibbon.RibbonTabs["id_TabTools"];
                 RibbonTab drawingToolsTab = drawingRibbon.RibbonTabs["id_TabTools"];
+
+
 
                 RibbonPanel assemblyPanelSed = assemblyToolTab.RibbonPanels.Add(panelName, "assemblyPanelSed", AddInClientID());
                 RibbonPanel partPanelSed = partToolsTab.RibbonPanels.Add(panelName, "partPanelSed", AddInClientID());
@@ -466,10 +484,17 @@ namespace DevAddIns
 
 
 
+                RibbonPanel iPropertiesDrawingPanel = drawingToolsTab.RibbonPanels.Add("IProperties", "iPropertiesDrawingPanelSed", AddInClientID());
+                RibbonPanel iPropertiesPartPanel = partToolsTab.RibbonPanels.Add("IProperties", "iPropertiesPartPanelSed", AddInClientID());
+                RibbonPanel iPropertiesAssemblyPanel = assemblyToolTab.RibbonPanels.Add("IProperties", "iPropertiesAssemblyPanelSed", AddInClientID());
+
+
+
                 //SketchEnvironment
                 //Inventor.Environment partSketchEnvironment;
                 //partSketchEnvironment = m_userInterfaceManager.Environments["PMxPartSketchEnvironment"];
                 //RibbonPanel customSketchPanel = partSketchEnvironment.Ribbon.RibbonTabs["id_TabTools"].RibbonPanels.Add("Sample", "SampleSketchSedenum", AddInClientID());
+
 
                 //Add Buttons
 
@@ -483,7 +508,20 @@ namespace DevAddIns
                     }
                 }
 
-                drawingPanelSed.CommandControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);
+                foreach(Button propButton in iPropertiesPanelButtons)
+                {
+                    if(!propButton.Equals(null))
+                    {
+                        iPropertiesAssemblyPanel.CommandControls.AddButton(propButton.ButtonDefinition);
+                        iPropertiesPartPanel.CommandControls.AddButton(propButton.ButtonDefinition);
+                        iPropertiesDrawingPanel.CommandControls.AddButton(propButton.ButtonDefinition);
+                    }
+                }
+
+
+                //Add ComboBoxes
+
+                //drawingPanelSed.CommandControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);
 
 
             }

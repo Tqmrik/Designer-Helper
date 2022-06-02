@@ -147,6 +147,7 @@
     <Compile Include="StandardAddInServer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="UpdatePropertiesRevisionButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DevAddIns.X.manifest">
