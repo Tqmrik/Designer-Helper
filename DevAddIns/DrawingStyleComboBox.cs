@@ -21,6 +21,10 @@ namespace DevAddIns
         public DrawingStyleComboBox(string displayName, string internalName, CommandTypesEnum commandType, int dropDownWidthPx, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType) : base(displayName, internalName, commandType, dropDownWidthPx, clientId, description, tooltip, buttonDisplayType)
         {
         }
+        public DrawingStyleComboBox(string displayName, string internalName, CommandTypesEnum commandType, int dropDownWidthPx, string clientId, string description, string tooltip) : base(displayName, internalName, commandType, dropDownWidthPx, clientId, description, tooltip)
+        {
+        }
+
         #endregion
 
         #region "EventHAndlers"

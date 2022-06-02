@@ -87,6 +87,10 @@ namespace DevAddIns
                 //initialize AddIn members
                 m_inventorApplication = addInSiteObject.Application;
                 Button.InventorApplication = m_inventorApplication;
+                ComboBox.InventorApplication = m_inventorApplication;
+
+
+
                 m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
 
                 //initialize event delegates
@@ -177,9 +181,13 @@ namespace DevAddIns
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
+                //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
                 //Create comboBoxes
-                m_drawingStyleComboBox = new DrawingStyleComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum",
-                    CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style sistem", "Change drawing style", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_drawingStyleComboBox = new DrawingStyleComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style", "Change drawing style", ButtonDisplayEnum.kDisplayTextInLearningMode);
+                    
+                    
+                    //("Change drawing style", "ChangeDrawingStyleComboBoxSedenum",
+                    //CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style sistem", "Change drawing style", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
 

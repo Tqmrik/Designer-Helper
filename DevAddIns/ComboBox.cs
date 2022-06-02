@@ -61,7 +61,7 @@ namespace DevAddIns
 				stdole.IPictureDisp largeIconIPictureDisp;
 				largeIconIPictureDisp = (stdole.IPictureDisp)Support.ImageToIPicture(largeIcon);
 
-				m_comboBoxDefinition = InventorApplication.CommandManager.ControlDefinitions.AddComboBoxDefinition(displayName, internalName, commandType, dropDownWidthPx, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType);
+				m_comboBoxDefinition =	InventorApplication.CommandManager.ControlDefinitions.AddComboBoxDefinition(displayName, internalName, commandType, dropDownWidthPx, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType);
 
 				m_comboBoxDefinition.Enabled = true;
 
@@ -95,7 +95,19 @@ namespace DevAddIns
 				MessageBox.Show(e.ToString());
 			}
 		}
-		public void Populate(string value, int index)
+		public ComboBox(string displayName, string internalName, CommandTypesEnum commandType, int dropDownWidthPx, string clientId, string description, string tooltip)
+		{
+			m_comboBoxDefinition = InventorApplication.CommandManager.ControlDefinitions.AddComboBoxDefinition(displayName, internalName, commandType, dropDownWidthPx, clientId, description);
+
+			//enable the button
+			m_comboBoxDefinition.Enabled = true;
+
+			//connect the button event sink
+			ComboBoxDefinition_OnSelectEventDelegate = new ComboBoxDefinitionSink_OnSelectEventHandler(ComboBoxDefinition_OnSelect);
+			m_comboBoxDefinition.OnSelect += ComboBoxDefinition_OnSelectEventDelegate;
+		}
+
+			public void Populate(string value, int index)
 		{
 			if (this == null) return;
 			m_comboBoxDefinition.AddItem(value, index);

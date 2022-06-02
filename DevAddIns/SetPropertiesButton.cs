@@ -52,6 +52,7 @@ namespace DevAddIns
 
             if (activeDocument is null) return;
 
+            //Check for read-only files??
             try
             {
                 string[] fileName;
