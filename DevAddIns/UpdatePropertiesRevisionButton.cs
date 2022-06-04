@@ -26,6 +26,78 @@ namespace DevAddIns
         #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
+            
+            Document activeDocument = InventorApplication.ActiveDocument;
+            if (activeDocument is null) return;
+            
+            string Revision = String.Empty;
+            string maxValue = String.Empty;
+
+            Transaction oTransaction = InventorApplication.TransactionManager.StartTransaction(InventorApplication.ActiveDocument, "Update Revision");
+
+            try
+            {
+                //Would need to really think about that part 
+                foreach (var row in new string[] { "REV1", "REV2", "REV3" })
+                {
+                    string cache = activeDocument.PropertySets[4][row].Value.ToString();
+                    if (row == "REV1" && cache == String.Empty) //Case if first row is empty
+                    {
+                        revisionIterator(Revision, maxValue, activeDocument);
+                        oTransaction.End();
+                        return;
+                    }
+
+                    if (Revision == String.Empty && maxValue == String.Empty) //First iteration
+                    {
+                        Revision = cache;
+                        maxValue = row;
+                    }
+                    else if (cache == string.Empty) //Case if any other row is empty
+                    {
+                        revisionIterator(Revision, maxValue, activeDocument);
+                        oTransaction.End();
+                        return;
+                    }
+                    else if (Char.Parse(cache) > Char.Parse(Revision))
+                    {
+                        //Case if there is no empty rows left and we are forced to search for the max char
+                        Revision = cache;
+                        maxValue = row;
+                    }
+                }
+                //Case if there is no empty rows, so the maxed row must be replaced
+                revisionIterator(Revision, maxValue, activeDocument);
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message + "\nAddIn: Sedenum Pack\nMethod: UpdatePropertiesRevision");
+            }
+            finally
+            {
+                oTransaction.End();
+            }
+        }
+
+        public void revisionIterator(string Revision, string maxValue, Document activeDocument)
+        {
+            if (Revision == String.Empty)
+            {
+                //If there is no max revision then it must be a first revision
+                Revision = "A";
+                maxValue = "REV1";
+            }
+            else
+            {
+                //Add the revision(next char in the unicode)
+                Revision = ((char)(Char.Parse(Revision) + 1)).ToString();
+
+                //Logic here: Currect maxVal = 2 => (2 % 3 + 1) = 3; Current maxVal = 3 => (3 % 3 + 1) = 1
+                maxValue = "REV" + ((int.Parse(maxValue[maxValue.Length - 1].ToString()) % 3) + 1).ToString();
+                
+            }
+
+            // TODO: revisionIterator -> Change file to something else + add new file
             string currentUserAppDataPath = InventorApplication.CurrentUserAppDataPath;
             EditPropertiesForm editPropertiesForm = new EditPropertiesForm(currentUserAppDataPath);
             currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\DataSedenumPack\\EditProperties.txt";
@@ -36,49 +108,16 @@ namespace DevAddIns
             string checkedByProperty = fileObject.ReadLine().Split(':')[1].Trim();
             fileObject.Close();
 
-            string nextRevision = "A";
-            string maxValue = String.Empty;
 
-
-            Document activeDocument = InventorApplication.ActiveDocument;
-            if (activeDocument is null) return;
-
-            Transaction oTransaction = InventorApplication.TransactionManager.StartTransaction(InventorApplication.ActiveDocument, "Update Revision");
-
-            //Would need to really think about that part 
-            foreach(var row in new string[] {"REV1", "REV2", "REV3" })
-            {
-                if (activeDocument.PropertySets[4][row].Value == String.Empty)
-                {
-                    maxValue = row;
-                    nextRevision = ((char)(Char.Parse(nextRevision) + 1)).ToString();
-                    break;
-                }
-                else if (maxValue == String.Empty)
-                {
-
-                    maxValue = row;
-                    nextRevision = activeDocument.PropertySets[4][row].Value.ToString();
-                    continue;
-                }
-                else if (Char.Parse(nextRevision) > Char.Parse(maxValue))
-                {
-                    nextRevision = ((char)((char)activeDocument.PropertySets[4][row].Value + 1)).ToString();
-                    maxValue = row;
-                }
-            }
-            //end logic
 
             string lastCharacter = maxValue[maxValue.Length - 1].ToString();
 
-            activeDocument.PropertySets[4][maxValue].Value = nextRevision;
+            activeDocument.PropertySets[4][maxValue].Value = Revision;
             activeDocument.PropertySets[4]["DATE" + lastCharacter].Value = DateTime.Today;
             activeDocument.PropertySets[4]["MADE" + lastCharacter].Value = InventorApplication.GeneralOptions.UserName;
             activeDocument.PropertySets[4]["NC" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["NE" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["REVIEWED" + maxValue[maxValue.Length - 1]].Value = checkedByProperty;
-
-            oTransaction.End();
         }
         #endregion
     }

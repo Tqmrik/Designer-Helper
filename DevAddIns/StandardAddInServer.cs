@@ -296,8 +296,6 @@ namespace DevAddIns
             // This method is called by Inventor when the AddIn is unloaded.
             // The AddIn will be unloaded either manually by the user or
             // when the Inventor session is terminated
-
-            // TODO: Add ApplicationAddInServer.Deactivate implementation
             try
             {
                 m_userInterfaceEvents.OnResetCommandBars -= UserInterfaceEventsSink_OnResetCommandBarsEventDelegate;
@@ -358,7 +356,7 @@ namespace DevAddIns
 
             get
             {
-                // TODO: Add ApplicationAddInServer.Automation getter implementation
+                // TODO: Ignore -> Add ApplicationAddInServer.Automation getter implementation
                 return null;
             }
         }
@@ -441,7 +439,7 @@ namespace DevAddIns
                 List<Button> iPropertiesPanelButtons = new List<Button>();
                 iPropertiesPanelButtons.Add(m_setPropertiesButton);
                 iPropertiesPanelButtons.Add(m_editPropertiesButton);
-                //iPropertiesPanelButtons.Add(m_updatePropertiesRevesionButton);
+                iPropertiesPanelButtons.Add(m_updatePropertiesRevesionButton);
 
 
 

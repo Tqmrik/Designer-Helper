@@ -1,9 +1,9 @@
 ﻿using Inventor;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using System.Collections.Generic;
 
 
 namespace DevAddIns
@@ -36,7 +36,7 @@ namespace DevAddIns
             currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\DataSedenumPack\\EditProperties.txt";
 
             Document activeDocument = InventorApplication.ActiveDocument;
-            
+
             /*
              * PropsSets
                 1 - DisplayName	"Summary Information"	System.String
@@ -47,7 +47,7 @@ namespace DevAddIns
 
             //foreach (var prop in activeDocument.PropertySets)
             //{
-                //var cache = prop;
+            //var cache = prop;
             //}
 
             if (activeDocument is null) return;
@@ -76,7 +76,7 @@ namespace DevAddIns
                     filePartNumberProperty = fileName[0];
                     fileDecriptionProperty = System.IO.Path.GetFileNameWithoutExtension(fileName[1]);
                 }
-                catch(IndexOutOfRangeException e)
+                catch (IndexOutOfRangeException e)
                 {
                     MessageBox.Show("Не удалось заполнить IProperties, проверьте соответствие наименования файла шаблону: \n Номер - Название");
                     return;
@@ -130,10 +130,10 @@ namespace DevAddIns
                     }
 
                     activeDocument.PropertySets[3][7].Value = "Voytulevich, Denis"; //Status -> Eng. Approved By
-                    //if(activeDocument.PropertySets[3][8].Value.ToString() == emptyDate)
-                    //{
-                    //    activeDocument.PropertySets[3][8].Value = dateTime.Date.ToString(); //Project->Eng.Approved By
-                     //}
+                                                                                    //if(activeDocument.PropertySets[3][8].Value.ToString() == emptyDate)
+                                                                                    //{
+                                                                                    //    activeDocument.PropertySets[3][8].Value = dateTime.Date.ToString(); //Project->Eng.Approved By
+                                                                                    //}
 
                     //activeDocument.PropertySets[3][19].Value = ""; //Status->Mfg.Approved By
                     //if (activeDocument.PropertySets[3][20].Value.ToString() == emptyDate)
@@ -157,10 +157,10 @@ namespace DevAddIns
                         {
                             existingProps.Add(drawProp.Name.ToUpper());
                         }
-                            
+
                         DrawingPropertiesSet propSet = new DrawingPropertiesSet();
                         foreach (var prop in propSet.propNamesDictionary)
-                        {                            
+                        {
                             if (!existingProps.Contains(prop.Key.ToUpper()))
                             {
                                 if (prop.Value == "Date")
@@ -173,7 +173,7 @@ namespace DevAddIns
                                 }
                             }
                         }
-                        
+
 
                         //Check if it exist or not, perhaps you might consider using an REGEX, it really fits in there
                         //for example we can check for DATE%n pattern and if it's empty go to next one???
