@@ -11,6 +11,7 @@ namespace DevAddIns
     {
         //Make as a property????
         public Dictionary<string,string> propNamesDictionary = new Dictionary<string,string>();
+        public List<string> propRevisionList = new List<string>();
         public DrawingPropertiesSet()
         {
             propNamesDictionary.Add("DATE1","Date");
@@ -28,8 +29,11 @@ namespace DevAddIns
             propNamesDictionary.Add("NE2", "Text");
             propNamesDictionary.Add("NE3", "Text");
             propNamesDictionary.Add("REV1", "Text");
+            propRevisionList.Add("REV1");
             propNamesDictionary.Add("REV2", "Text");
+            propRevisionList.Add("REV2");
             propNamesDictionary.Add("REV3", "Text");
+            propRevisionList.Add("REV3");
             propNamesDictionary.Add("REVIEWED1", "Text");
             propNamesDictionary.Add("REVIEWED2", "Text");
             propNamesDictionary.Add("REVIEWED3", "Text");

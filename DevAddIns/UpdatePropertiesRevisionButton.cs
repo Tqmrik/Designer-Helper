@@ -33,8 +33,6 @@ namespace DevAddIns
             string Revision = String.Empty;
             string maxValue = String.Empty;
 
-            Transaction oTransaction = InventorApplication.TransactionManager.StartTransaction(InventorApplication.ActiveDocument, "Update Revision");
-
             try
             {
                 //Would need to really think about that part 
@@ -44,7 +42,6 @@ namespace DevAddIns
                     if (row == "REV1" && cache == String.Empty) //Case if first row is empty
                     {
                         revisionIterator(Revision, maxValue, activeDocument);
-                        oTransaction.End();
                         return;
                     }
 
@@ -55,11 +52,10 @@ namespace DevAddIns
                     }
                     else if (cache == string.Empty) //Case if any other row is empty
                     {
-                        revisionIterator(Revision, maxValue, activeDocument);
-                        oTransaction.End();
+                        revisionIterator(Revision[Revision.Length - 1].ToString(), maxValue, activeDocument);
                         return;
                     }
-                    else if (Char.Parse(cache) > Char.Parse(Revision))
+                    else if (cache[cache.Length - 1] > Revision[Revision.Length - 1])
                     {
                         //Case if there is no empty rows left and we are forced to search for the max char
                         Revision = cache;
@@ -67,20 +63,33 @@ namespace DevAddIns
                     }
                 }
                 //Case if there is no empty rows, so the maxed row must be replaced
-                revisionIterator(Revision, maxValue, activeDocument);
+                revisionIterator(Revision[Revision.Length - 1].ToString(), maxValue, activeDocument);
             }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message + "\nAddIn: Sedenum Pack\nMethod: UpdatePropertiesRevision");
             }
-            finally
-            {
-                oTransaction.End();
-            }
+
+            
         }
 
         public void revisionIterator(string Revision, string maxValue, Document activeDocument)
         {
+            //bool propExist = false;
+
+            //foreach(Property prop in activeDocument.PropertySets[4])
+            //{
+            //    if (prop.Name == "_PrefixRevesionSedenum") propExist = true;
+            //}
+
+            //if (!propExist)
+            //{
+            //    activeDocument.PropertySets[4].Add(String.Empty, "_PrefixRevesionSedenum");
+            //}
+
+            //Property prefixProperty = activeDocument.PropertySets[4]["_PrefixRevesionSedenum"];
+
+
             if (Revision == String.Empty)
             {
                 //If there is no max revision then it must be a first revision
@@ -91,6 +100,12 @@ namespace DevAddIns
             {
                 //Add the revision(next char in the unicode)
                 Revision = ((char)(Char.Parse(Revision) + 1)).ToString();
+                //if(Char.Parse(Revision) > 'Z')
+                //{
+                //    Revision = "A";
+                //    prefixProperty.Value += "A";
+
+                //}
 
                 //Logic here: Currect maxVal = 2 => (2 % 3 + 1) = 3; Current maxVal = 3 => (3 % 3 + 1) = 1
                 maxValue = "REV" + ((int.Parse(maxValue[maxValue.Length - 1].ToString()) % 3) + 1).ToString();
@@ -108,7 +123,7 @@ namespace DevAddIns
             string checkedByProperty = fileObject.ReadLine().Split(':')[1].Trim();
             fileObject.Close();
 
-
+            Transaction oTransaction = InventorApplication.TransactionManager.StartTransaction(InventorApplication.ActiveDocument, "Update Revision");
 
             string lastCharacter = maxValue[maxValue.Length - 1].ToString();
 
@@ -118,8 +133,14 @@ namespace DevAddIns
             activeDocument.PropertySets[4]["NC" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["NE" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["REVIEWED" + maxValue[maxValue.Length - 1]].Value = checkedByProperty;
+
+            activeDocument.PropertySets[1][7].Value = Revision;
+
+            oTransaction.End();
         }
         #endregion
     }
 }
 
+// TODO: String comparer class/method
+// TODO: Also update the revision in the classic properties

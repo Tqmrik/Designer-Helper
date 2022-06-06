@@ -30,6 +30,7 @@ namespace DevAddIns
         private UpdatePropertiesRevisionButton m_updatePropertiesRevesionButton;
         private ChangeMassLengthUnitsToMetricButton m_changeMassLengthUnitsToMetricButton;
         private ProjectSketchAxisButton m_projectSketchAxisButton;
+        private CreatePDFSTEPFilesButton m_createPdfStepFilesButton;
         
 
         //comboBoxes
@@ -184,6 +185,8 @@ namespace DevAddIns
 
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
+                m_createPdfStepFilesButton = new CreatePDFSTEPFilesButton("Create PDF STP Files", "CreatePdfStpFilesSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Create pdf and stp files for the current drawing", "Create pdf stp files", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
 
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
                 //Create comboBoxes
@@ -314,6 +317,7 @@ namespace DevAddIns
                 m_updatePropertiesRevesionButton = null;
                 m_changeMassLengthUnitsToMetricButton = null;
                 m_projectSketchAxisButton = null;
+                m_createPdfStepFilesButton = null;
 
 
                 //Dispose comboboxes
@@ -436,11 +440,10 @@ namespace DevAddIns
                 buttonsList.Add(m_changeMassLengthUnitsToMetricButton);
                 buttonsList.Add(m_projectSketchAxisButton);
 
+
                 List<Button> iPropertiesPanelButtons = new List<Button>();
                 iPropertiesPanelButtons.Add(m_setPropertiesButton);
                 iPropertiesPanelButtons.Add(m_editPropertiesButton);
-                iPropertiesPanelButtons.Add(m_updatePropertiesRevesionButton);
-
 
 
                 m_drawingStyleComboBox.Populate(new string[]{"ESKD", "ISO" });
@@ -515,6 +518,9 @@ namespace DevAddIns
                         iPropertiesDrawingPanel.CommandControls.AddButton(propButton.ButtonDefinition);
                     }
                 }
+
+                iPropertiesDrawingPanel.CommandControls.AddButton(m_createPdfStepFilesButton.ButtonDefinition);
+                iPropertiesDrawingPanel.CommandControls.AddButton(m_updatePropertiesRevesionButton.ButtonDefinition);
 
 
                 //Add ComboBoxes
