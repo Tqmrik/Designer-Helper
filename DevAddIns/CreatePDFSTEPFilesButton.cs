@@ -36,11 +36,13 @@ namespace DevAddIns
             //Create step file of such document
             Document activeDocument = InventorApplication.ActiveDocument;
 
-            var refDocs = activeDocument.ReferencedDocuments;
-            var refFiles = activeDocument.ReferencedFiles;
-            var refDocsDesct = activeDocument.ReferencedDocumentDescriptors;
-            var refFileDesct = activeDocument.ReferencedFileDescriptors;
-            var referencingDocs = activeDocument.ReferencingDocuments;
+            //var refDocs = activeDocument.ReferencedDocuments.Type;
+            //var refFiles = activeDocument.ReferencedFiles.Type;
+            //var refDocsDesct = activeDocument.ReferencedDocumentDescriptors.Type;
+            //var refFileDesct = activeDocument.ReferencedFileDescriptors.Type;
+            //var referencingDocs = activeDocument.ReferencingDocuments.Type;
+
+            //FileDescriptor fd = (FileDescriptor)activeDocument.ReferencedFileDescriptors;
 
             if (!(activeDocument.SubType == "{BBF9FDF1-52DC-11D0-8C04-0800090BE8EC}")) return;
 
