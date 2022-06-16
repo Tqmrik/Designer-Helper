@@ -3,12 +3,12 @@
   <ClassId>{fb869b0a-a71f-4590-89fc-ff707daa96c3}</ClassId>
   <ClientId>{fb869b0a-a71f-4590-89fc-ff707daa96c3}</ClientId>
   <DisplayName>Sedenum Pack</DisplayName>
-  <Description>Sedenum's Engineer Pack</Description>
+  <Description>Sedenum Pack</Description>
   <Assembly>DevAddIns.dll</Assembly>
   <LoadOnStartUp>1</LoadOnStartUp>
   <UserUnloadable>1</UserUnloadable>
   <Hidden>0</Hidden>
-  <SupportedSoftwareVersionGreaterThan>24..</SupportedSoftwareVersionGreaterThan>
+  <SupportedSoftwareVersionGreaterThan>21..</SupportedSoftwareVersionGreaterThan>
   <DataVersion>1</DataVersion>
   <UserInterfaceVersion>1</UserInterfaceVersion>
 </Addin>

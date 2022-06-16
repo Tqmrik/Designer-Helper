@@ -105,8 +105,8 @@ namespace DevAddIns
 
                 //It's so bad but whatever for now
                 string applicationInstallationPath = m_inventorApplication.InstallPath;
-                string currentUserAppDataPath = m_inventorApplication.CurrentUserAppDataPath;
-                currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack";
+                string allUserAppDataPath = m_inventorApplication.AllUsersAppDataPath;
+                allUserAppDataPath = allUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack";
 
                 //CopyDirectory(currentUserAppDataPath + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack", applicationInstallationPath + "Bin\\ResourcesSedenumPack", false);
 
@@ -119,18 +119,21 @@ namespace DevAddIns
                 //UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate = new UserInterfaceEventsSink_OnResetRibbonInterfaceEventHandler(UserInterfaceEvents_OnResetRibbonInterface);
                 //m_userInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
 
-
-
                 //Load image icons for UI items
                 //Wrap in a different method + use the class name for the names
+                var svgDoc = SvgDocument.Open<SvgDocument>(new MemoryStream(Properties.Resources.ProjectSketchAxis));
+                
 
-                Image setPropertiesIconStandart = new Bitmap(currentUserAppDataPath + "\\SetPropertiesIconStandart.ico");
-                Image setPropertiesIconLarge = new Bitmap(currentUserAppDataPath + "\\SetPropertiesIconLarge.ico");
+                Icon setPropertiesIconStandart = Properties.Resources.SetPropertiesIconStandart;
+                Icon setPropertiesIconLarge = Properties.Resources.SetPropertiesIconLarge;
+                //new Bitmap(currentUserAppDataPath + "\\SetPropertiesIconLarge.ico");
 
-                Image changeMassLengthUnitsToMetricIconStandart = new Bitmap(currentUserAppDataPath + "\\ChangeMassLengthUnitsToMetricIconStandart.png");
-                Image changeMassLengthUnitsToMetricIconLarge = new Bitmap(currentUserAppDataPath + "\\ChangeMassLengthUnitsToMetricIconLarge.png");
+                Image changeMassLengthUnitsToMetricIconStandart = Properties.Resources.ProjectSketchAxisStandart;
+                //new Bitmap(currentUserAppDataPath + "\\ChangeMassLengthUnitsToMetricIconStandart.png");
+                Image changeMassLengthUnitsToMetricIconLarge = Properties.Resources.ProjectSketchAxisLarge;
+                //new Bitmap(currentUserAppDataPath + "\\ChangeMassLengthUnitsToMetricIconLarge.png");
 
-                var svgDoc = SvgDocument.Open<SvgDocument>(currentUserAppDataPath + "\\ProjectSketchAxis.svg");
+                
                 //svgDoc.Ppi = 200;
                 Image projectSketchAxisIconStandart = svgDoc.Draw(16, 16);
                 Image projectSketchAxisIconLarge = svgDoc.Draw(64, 64);
@@ -177,15 +180,15 @@ namespace DevAddIns
                     AddInClientID(), "Change IProperties of the file according to the current company standart",
                     "Change IProperties", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_editPropertiesButton = new EditPropertiesButton("Edit Properties", "EditPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Edit values of the Properties to set", "Edit IProperties", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_editPropertiesButton = new EditPropertiesButton("Edit Properties", "EditPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Edit values of the Properties to set", "Edit IProperties", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_updatePropertiesRevesionButton = new UpdatePropertiesRevisionButton("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_updatePropertiesRevesionButton = new UpdatePropertiesRevisionButton("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_changeMassLengthUnitsToMetricButton = new ChangeMassLengthUnitsToMetricButton("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_createPdfStepFilesButton = new CreatePDFSTEPFilesButton("Create PDF STP Files", "CreatePdfStpFilesSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Create pdf and stp files for the current drawing", "Create pdf stp files", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_createPdfStepFilesButton = new CreatePDFSTEPFilesButton("Create PDF STP Files", "CreatePdfStpFilesSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Create pdf and stp files for the current drawing", "Create pdf stp files", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);

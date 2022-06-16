@@ -119,18 +119,24 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ChangeMassLengthUnitsToMetricIconLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ResourcesSedenumPack\ChangeMassLengthUnitsToMetricIconLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\ChangeMassLengthUnitsToMetricIconLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ChangeMassLengthUnitsToMetricIconStandart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ResourcesSedenumPack\ChangeMassLengthUnitsToMetricIconStandart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\ChangeMassLengthUnitsToMetricIconStandart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ProjectSketchAxis" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ResourcesSedenumPack\ProjectSketchAxis.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\Resources\ProjectSketchAxis.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="ProjectSketchAxisLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProjectSketchAxisLarge.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ProjectSketchAxisStandart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ProjectSketchAxisStandart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SetPropertiesIconLarge" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ResourcesSedenumPack\SetPropertiesIconLarge.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\SetPropertiesIconLarge.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SetPropertiesIconStandart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\ResourcesSedenumPack\SetPropertiesIconStandart.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>..\Resources\SetPropertiesIconStandart.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

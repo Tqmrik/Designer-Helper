@@ -75,6 +75,30 @@ namespace DevAddIns
             }
 			
 		}
+		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Icon standardIcon, Icon largeIcon, ButtonDisplayEnum buttonDisplayType)
+		{
+			try
+			{
+				//get IPictureDisp for icons
+				stdole.IPictureDisp standardIconIPictureDisp;
+				standardIconIPictureDisp = (stdole.IPictureDisp)Support.ImageToIPicture(standardIcon.ToBitmap());
+
+				stdole.IPictureDisp largeIconIPictureDisp;
+				largeIconIPictureDisp = (stdole.IPictureDisp)Support.ImageToIPicture(largeIcon.ToBitmap());
+
+				m_buttonDefinition = m_inventorApplication.CommandManager.ControlDefinitions.AddButtonDefinition(displayName, internalName, commandType, clientId, description, tooltip, standardIconIPictureDisp, largeIconIPictureDisp, buttonDisplayType);
+
+				m_buttonDefinition.Enabled = true;
+
+				ButtonDefinition_OnExecuteEventDelegate = new ButtonDefinitionSink_OnExecuteEventHandler(ButtonDefinition_OnExecute);
+				m_buttonDefinition.OnExecute += ButtonDefinition_OnExecuteEventDelegate;
+			}
+			catch (Exception e)
+			{
+				MessageBox.Show(e.Message);
+			}
+
+		}
 
 		//Override without an icon
 		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
