@@ -141,8 +141,19 @@
     </Compile>
     <Compile Include="EditPropertiesButton.cs" />
     <Compile Include="DrawingStyleComboBox.cs" />
+    <Compile Include="ExportAsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportAsForm.Designer.cs">
+      <DependentUpon>ExportAsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MultilanguageDictionary.cs" />
     <Compile Include="ProjectSketchAxisButton.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="SampleComboBox.cs" />
     <Compile Include="SetPropertiesButton.cs" />
     <Compile Include="StandardAddInServer.cs">
@@ -188,6 +199,13 @@
   <ItemGroup>
     <EmbeddedResource Include="EditPropertiesForm.resx">
       <DependentUpon>EditPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportAsForm.resx">
+      <DependentUpon>ExportAsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
