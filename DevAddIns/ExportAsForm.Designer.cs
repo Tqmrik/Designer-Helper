@@ -97,6 +97,7 @@ namespace DevAddIns
             this.rememberTheChoiceButton.TabIndex = 4;
             this.rememberTheChoiceButton.Text = "Remember the choice";
             this.rememberTheChoiceButton.UseVisualStyleBackColor = true;
+            this.rememberTheChoiceButton.Visible = false;
             this.rememberTheChoiceButton.CheckedChanged += new System.EventHandler(this.rememberTheChoiceButton_CheckedChanged);
             // 
             // ExportAsForm

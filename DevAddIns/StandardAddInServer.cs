@@ -30,7 +30,7 @@ namespace DevAddIns
         private UpdatePropertiesRevisionButton m_updatePropertiesRevesionButton;
         private ChangeMassLengthUnitsToMetricButton m_changeMassLengthUnitsToMetricButton;
         private ProjectSketchAxisButton m_projectSketchAxisButton;
-        private CreatePDFSTEPFilesButton m_createPdfStepFilesButton;
+        private ExportAsButton m_exportAsButton;
         
 
         //comboBoxes
@@ -91,6 +91,7 @@ namespace DevAddIns
                 m_inventorApplication = addInSiteObject.Application;
                 Button.InventorApplication = m_inventorApplication;
                 ComboBox.InventorApplication = m_inventorApplication;
+                ExportAsForm.InventorApplication = m_inventorApplication;
 
 
 
@@ -100,9 +101,6 @@ namespace DevAddIns
                 m_userInterfaceEvents = m_inventorApplication.UserInterfaceManager.UserInterfaceEvents;
 
 
-
-
-                MessageBox.Show("AddIn loaded without packages");
                 //It's so bad but whatever for now
                 string applicationInstallationPath = m_inventorApplication.InstallPath;
                 string allUserAppDataPath = m_inventorApplication.AllUsersAppDataPath;
@@ -189,7 +187,7 @@ namespace DevAddIns
 
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_createPdfStepFilesButton = new CreatePDFSTEPFilesButton("Create PDF STP Files", "CreatePdfStpFilesSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Create pdf and stp files for the current drawing", "Create pdf stp files", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_exportAsButton = new ExportAsButton("Create PDF STP Files", "CreatePdfStpFilesSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Create pdf and stp files for the current drawing", "Create pdf stp files", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
@@ -321,7 +319,7 @@ namespace DevAddIns
                 m_updatePropertiesRevesionButton = null;
                 m_changeMassLengthUnitsToMetricButton = null;
                 m_projectSketchAxisButton = null;
-                m_createPdfStepFilesButton = null;
+                m_exportAsButton = null;
 
 
                 //Dispose comboboxes
@@ -523,7 +521,7 @@ namespace DevAddIns
                     }
                 }
 
-                iPropertiesDrawingPanel.CommandControls.AddButton(m_createPdfStepFilesButton.ButtonDefinition);
+                iPropertiesDrawingPanel.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_updatePropertiesRevesionButton.ButtonDefinition);
 
 

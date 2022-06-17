@@ -124,6 +124,12 @@
   <data name="ChangeMassLengthUnitsToMetricIconStandart" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ChangeMassLengthUnitsToMetricIconStandart.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="ExportAsButtonStates" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ExportAsButtonStates.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;windows-1251</value>
+  </data>
+  <data name="pdfCheckBox" xml:space="preserve">
+    <value>false</value>
+  </data>
   <data name="ProjectSketchAxis" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ProjectSketchAxis.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

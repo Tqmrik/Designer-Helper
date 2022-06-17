@@ -114,7 +114,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="ChangeMassLengthUnitsToMetricButton.cs" />
     <Compile Include="ComboBox.cs" />
-    <Compile Include="CreatePDFSTEPFilesButton.cs" />
+    <Compile Include="ExportAsButton.cs" />
     <Compile Include="DrawingPropertiesSet.cs" />
     <Compile Include="EditPropertiesForm.cs">
       <SubType>Form</SubType>
@@ -137,6 +137,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="SampleComboBox.cs" />
     <Compile Include="SetPropertiesButton.cs" />
     <Compile Include="StandardAddInServer.cs">
@@ -146,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Data\ExportAsButtonStates.json" />
     <None Include="DevAddIns.X.manifest">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -156,6 +162,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Readme.txt" />
   </ItemGroup>
   <ItemGroup>
@@ -173,9 +183,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DataSedenumPack\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="Resources\ChangeMassLengthUnitsToMetricIconLarge.png" />
   </ItemGroup>
@@ -196,6 +204,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ProjectSketchAxis.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ExportAsButtonStates.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
