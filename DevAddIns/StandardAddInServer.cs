@@ -7,7 +7,7 @@ using Microsoft.Win32;
 using System.IO;
 using System.Collections.Generic;
 using Microsoft.VisualBasic.Compatibility.VB6;
-using Svg;
+
 
 namespace DevAddIns
 {
@@ -100,9 +100,9 @@ namespace DevAddIns
                 m_userInterfaceEvents = m_inventorApplication.UserInterfaceManager.UserInterfaceEvents;
 
 
-                
 
 
+                MessageBox.Show("AddIn loaded without packages");
                 //It's so bad but whatever for now
                 string applicationInstallationPath = m_inventorApplication.InstallPath;
                 string allUserAppDataPath = m_inventorApplication.AllUsersAppDataPath;
@@ -121,7 +121,8 @@ namespace DevAddIns
 
                 //Load image icons for UI items
                 //Wrap in a different method + use the class name for the names
-                var svgDoc = SvgDocument.Open<SvgDocument>(new MemoryStream(Properties.Resources.ProjectSketchAxis));
+
+                //var svgDoc = SvgDocument.Open<SvgDocument>(new MemoryStream(Properties.Resources.ProjectSketchAxis));
                 
 
                 Icon setPropertiesIconStandart = Properties.Resources.SetPropertiesIconStandart;
@@ -135,8 +136,8 @@ namespace DevAddIns
 
                 
                 //svgDoc.Ppi = 200;
-                Image projectSketchAxisIconStandart = svgDoc.Draw(16, 16);
-                Image projectSketchAxisIconLarge = svgDoc.Draw(64, 64);
+                Image projectSketchAxisIconStandart = setPropertiesIconStandart.ToBitmap();
+                Image projectSketchAxisIconLarge = setPropertiesIconLarge.ToBitmap();
 
                 //new Bitmap(currentUserAppDataPath + "\\ProjectSketchAxisStandart.png");
                 //stdole.IPictureDisp abs = PictureDispConverter.ToIPictureDisp();
