@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Inventor;
 
 namespace DevAddIns
 {
@@ -41,7 +42,7 @@ namespace DevAddIns
 
 
                 string currentUserAppDataPath = filePath;
-                currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\DataSedenumPack";
+                currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\AddInData";
 
                 if (!System.IO.Directory.Exists(currentUserAppDataPath))
                 {

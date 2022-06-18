@@ -150,6 +150,9 @@
     <Compile Include="UpdatePropertiesRevisionButton.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="AddInManual.pdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="app.config" />
     <None Include="Data\ExportAsButtonStates.json" />
     <None Include="DevAddIns.X.manifest">

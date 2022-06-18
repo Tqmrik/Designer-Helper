@@ -49,8 +49,9 @@ namespace DevAddIns
                 //Guard clauses for different types of documents
                 if (activeDocument.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") //Sheet metal
                 {
-                    pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryBendPart[languageCode]].BrowserNodes[MLDict.dictionaryBendPart[languageCode]]; 
-                }
+
+                    pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryBendPart[languageCode]].BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
+                    }
                 else if (activeDocument.SubType == "{E60F81E1-49B3-11D0-93C3-7E0706000000}") //Assembly
                 {
                     pathToOrigin = activeDocument.BrowserPanes["AmBrowserArrangement"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 

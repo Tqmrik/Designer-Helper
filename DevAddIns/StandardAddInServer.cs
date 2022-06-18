@@ -93,8 +93,6 @@ namespace DevAddIns
                 ComboBox.InventorApplication = m_inventorApplication;
                 ExportAsForm.InventorApplication = m_inventorApplication;
 
-
-
                 m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
 
                 //initialize event delegates

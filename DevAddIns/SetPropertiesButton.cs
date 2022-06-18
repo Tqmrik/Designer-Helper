@@ -35,10 +35,10 @@ namespace DevAddIns
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
             //Use json files???
-            string currentUserAppDataPath = InventorApplication.CurrentUserAppDataPath;
+            string currentUserAppDataPath = InventorApplication.AllUsersAppDataPath;
             EditPropertiesForm editPropertiesForm = new EditPropertiesForm(currentUserAppDataPath);
 
-            currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\DataSedenumPack\\EditProperties.txt";
+            currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\AddInData\\EditProperties.txt";
 
             Document activeDocument = InventorApplication.ActiveDocument;
 
