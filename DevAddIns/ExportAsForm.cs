@@ -138,6 +138,15 @@ namespace DevAddIns
                 stepCheckBox.Checked = true;
                 makeStep = true;
             }
+            else
+            {
+                pdfCheckBox.Checked = false;
+                makePdf = false;
+                dxfCheckBox.Checked = false;
+                makeDxf = false;
+                stepCheckBox.Checked = false;
+                makeStep = false;
+            }
         }
 
         private void createPDF()
