@@ -66,7 +66,8 @@ namespace DevAddIns
                 //X Axis
                 try
                 {
-                    oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][0]].NativeObject;
+                    //var oTopNode2 = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][0]];
+                    oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryAxisName[languageCode][0]].NativeObject;
                     oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
                     oGeomLine.Construction = true;
                 }
@@ -75,7 +76,7 @@ namespace DevAddIns
                     try
                     {
                         //Y Axis
-                        oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][1]].NativeObject;
+                        oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryAxisName[languageCode][1]].NativeObject;
                         oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
                         oGeomLine.Construction = true;
                     }
@@ -84,7 +85,7 @@ namespace DevAddIns
                         try
                         {
                             //Z Axis
-                            oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][2]].NativeObject;
+                            oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryAxisName[languageCode][2]].NativeObject;
                             oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
                             oGeomLine.Construction = true;
                         }
@@ -101,7 +102,7 @@ namespace DevAddIns
                 if (e.Message == "Unspecified error (Exception from HRESULT: 0x80004005 (E_FAIL))") { }
                 else
                 {
-                    MessageBox.Show(e.Message + "\n AddIn: Sedenum Pack");
+                    MessageBox.Show(e.Message + "\n" + e.StackTrace + "\n" + e.Source + "\n AddIn: Sedenum Pack");
                 }
                 
             }

@@ -34,6 +34,7 @@ namespace DevAddIns
 
             activeDocument.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
             activeDocument.UnitsOfMeasure.MassUnits = UnitsTypeEnum.kKilogramMassUnits;
+            activeDocument.UnitsOfMeasure.AngleUnits = UnitsTypeEnum.kDegreeAngleUnits;
         }
         #endregion
     }

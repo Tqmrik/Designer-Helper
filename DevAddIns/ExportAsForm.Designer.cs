@@ -34,6 +34,7 @@ namespace DevAddIns
             this.dxfCheckBox = new System.Windows.Forms.CheckBox();
             this.exportButton = new System.Windows.Forms.Button();
             this.rememberTheChoiceButton = new System.Windows.Forms.CheckBox();
+            this.checkAllBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pdfCheckBox
@@ -91,7 +92,7 @@ namespace DevAddIns
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rememberTheChoiceButton.AutoSize = true;
             this.rememberTheChoiceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rememberTheChoiceButton.Location = new System.Drawing.Point(65, 118);
+            this.rememberTheChoiceButton.Location = new System.Drawing.Point(113, 118);
             this.rememberTheChoiceButton.Name = "rememberTheChoiceButton";
             this.rememberTheChoiceButton.Size = new System.Drawing.Size(159, 20);
             this.rememberTheChoiceButton.TabIndex = 4;
@@ -100,11 +101,23 @@ namespace DevAddIns
             this.rememberTheChoiceButton.Visible = false;
             this.rememberTheChoiceButton.CheckedChanged += new System.EventHandler(this.rememberTheChoiceButton_CheckedChanged);
             // 
+            // checkAllBox
+            // 
+            this.checkAllBox.AutoSize = true;
+            this.checkAllBox.Location = new System.Drawing.Point(12, 118);
+            this.checkAllBox.Name = "checkAllBox";
+            this.checkAllBox.Size = new System.Drawing.Size(74, 17);
+            this.checkAllBox.TabIndex = 5;
+            this.checkAllBox.Text = "All formats";
+            this.checkAllBox.UseVisualStyleBackColor = true;
+            this.checkAllBox.CheckedChanged += new System.EventHandler(this.checkAllBox_CheckedChanged);
+            // 
             // ExportAsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 191);
+            this.Controls.Add(this.checkAllBox);
             this.Controls.Add(this.rememberTheChoiceButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.dxfCheckBox);
@@ -124,5 +137,6 @@ namespace DevAddIns
         private System.Windows.Forms.CheckBox dxfCheckBox;
         private System.Windows.Forms.Button exportButton;
         private System.Windows.Forms.CheckBox rememberTheChoiceButton;
+        private System.Windows.Forms.CheckBox checkAllBox;
     }
 }

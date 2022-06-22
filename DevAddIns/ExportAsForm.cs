@@ -127,6 +127,18 @@ namespace DevAddIns
             Close();
         }
 
+        private void checkAllBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkAllBox.Checked)
+            {
+                pdfCheckBox.Checked = true;
+                makePdf = true;
+                dxfCheckBox.Checked = true;
+                makeDxf = true;
+                stepCheckBox.Checked = true;
+                makeStep = true;
+            }
+        }
 
         private void createPDF()
         {
@@ -351,5 +363,6 @@ namespace DevAddIns
             }
         }
 
+       
     }
 }
