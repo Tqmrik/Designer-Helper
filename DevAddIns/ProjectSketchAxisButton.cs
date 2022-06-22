@@ -67,7 +67,7 @@ namespace DevAddIns
                 try
                 {
                     //var oTopNode2 = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][0]];
-                    oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryAxisName[languageCode][0]].NativeObject;
+                    oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][0]].NativeObject;
                     oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
                     oGeomLine.Construction = true;
                 }
@@ -76,7 +76,7 @@ namespace DevAddIns
                     try
                     {
                         //Y Axis
-                        oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryAxisName[languageCode][1]].NativeObject;
+                        oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][1]].NativeObject;
                         oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
                         oGeomLine.Construction = true;
                     }
@@ -85,7 +85,7 @@ namespace DevAddIns
                         try
                         {
                             //Z Axis
-                            oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryAxisName[languageCode][2]].NativeObject;
+                            oTopNode = pathToOrigin.BrowserNodes[MLDict.dictionaryPlanesName[languageCode][2]].NativeObject;
                             oGeomLine = oSketch.AddByProjectingEntity(oTopNode);
                             oGeomLine.Construction = true;
                         }

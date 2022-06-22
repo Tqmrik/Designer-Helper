@@ -112,7 +112,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Button.cs" />
-    <Compile Include="ChangeMassLengthUnitsToMetricButton.cs" />
+    <Compile Include="ChangeToMetric.cs" />
     <Compile Include="ComboBox.cs" />
     <Compile Include="ExportAsButton.cs" />
     <Compile Include="DrawingPropertiesSet.cs" />
@@ -147,6 +147,7 @@
     <Compile Include="StandardAddInServer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Translators.cs" />
     <Compile Include="UpdatePropertiesRevisionButton.cs" />
   </ItemGroup>
   <ItemGroup>

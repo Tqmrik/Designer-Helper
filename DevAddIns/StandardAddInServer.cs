@@ -28,7 +28,7 @@ namespace DevAddIns
         private SetPropertiesButton m_setPropertiesButton;
         private EditPropertiesButton m_editPropertiesButton;
         private UpdatePropertiesRevisionButton m_updatePropertiesRevesionButton;
-        private ChangeMassLengthUnitsToMetricButton m_changeMassLengthUnitsToMetricButton;
+        private ChangeToMetric m_ChangeToMetric;
         private ProjectSketchAxisButton m_projectSketchAxisButton;
         private ExportAsButton m_exportAsButton;
         
@@ -92,6 +92,7 @@ namespace DevAddIns
                 Button.InventorApplication = m_inventorApplication;
                 ComboBox.InventorApplication = m_inventorApplication;
                 ExportAsForm.InventorApplication = m_inventorApplication;
+                Translators.InventorApplication = m_inventorApplication;
 
                 m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
 
@@ -181,7 +182,7 @@ namespace DevAddIns
 
                 m_updatePropertiesRevesionButton = new UpdatePropertiesRevisionButton("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_changeMassLengthUnitsToMetricButton = new ChangeMassLengthUnitsToMetricButton("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_ChangeToMetric = new ChangeToMetric("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
@@ -315,7 +316,7 @@ namespace DevAddIns
                 m_setPropertiesButton = null;
                 m_editPropertiesButton = null;
                 m_updatePropertiesRevesionButton = null;
-                m_changeMassLengthUnitsToMetricButton = null;
+                m_ChangeToMetric = null;
                 m_projectSketchAxisButton = null;
                 m_exportAsButton = null;
 
@@ -437,7 +438,7 @@ namespace DevAddIns
 
                 List<Button> buttonsList = new List<Button>();
 
-                buttonsList.Add(m_changeMassLengthUnitsToMetricButton);
+                buttonsList.Add(m_ChangeToMetric);
                 buttonsList.Add(m_projectSketchAxisButton);
 
 
