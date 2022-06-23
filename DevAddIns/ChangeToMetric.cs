@@ -26,8 +26,12 @@ namespace DevAddIns
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
             Document activeDocument = InventorApplication.ActiveDocument;
-                
-            if (activeDocument == null)
+
+            foreach (var rDD in activeDocument.ReferencedDocumentDescriptors)
+            {
+                var sdsd = rDD.ToString();
+            }
+                if (activeDocument == null)
             {
                 return;
             }
