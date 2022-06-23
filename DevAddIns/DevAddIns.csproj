@@ -114,6 +114,7 @@
     <Compile Include="Button.cs" />
     <Compile Include="ChangeToMetric.cs" />
     <Compile Include="ComboBox.cs" />
+    <Compile Include="DocumentChecker.cs" />
     <Compile Include="ExportAsButton.cs" />
     <Compile Include="DrawingPropertiesSet.cs" />
     <Compile Include="EditPropertiesForm.cs">

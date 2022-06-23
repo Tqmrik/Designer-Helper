@@ -182,11 +182,11 @@ namespace DevAddIns
 
                 m_updatePropertiesRevesionButton = new UpdatePropertiesRevisionButton("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_ChangeToMetric = new ChangeToMetric("Change Units", "ChangeMassLengthUnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit of length to mm and unit of mass to kg", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_ChangeToMetric = new ChangeToMetric("Metric units", "UnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit to metric", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_exportAsButton = new ExportAsButton("Create PDF STP Files", "CreatePdfStpFilesSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Create pdf and stp files for the current drawing", "Create pdf stp files", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_exportAsButton = new ExportAsButton("Export", "ExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
@@ -425,6 +425,9 @@ namespace DevAddIns
                 }
             }
         }
+
+
+        
         #endregion
         #endregion
 
@@ -520,6 +523,8 @@ namespace DevAddIns
                     }
                 }
 
+                assemblyPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
+                partPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_updatePropertiesRevesionButton.ButtonDefinition);
 
@@ -672,6 +677,7 @@ namespace DevAddIns
         //}
         #endregion
     }
+
 }
 
 
