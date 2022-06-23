@@ -254,7 +254,7 @@ namespace DevAddIns
                         oSMDef.FlatPattern.ExitEdit();
 
                         //help source on string build: https://www.cadforum.cz/en/export-unfolds-of-sheetmetal-parts-to-dxf-parameters-for-ilogic-
-                        string sOut = "FLAT PATTERN DXF?AcadVersion=R12&OuterProfileLayer=Outer&BendLayer=Bend&OuterProfileLayerColor=0;0;0&BendUpLayerColor=255;0;0&BendUpLayerLineType=37634&BendDownLayerColor=0;0;255&TrimCenterlinesAtContour=True&InvisibleLayers=IV_TANGENT";
+                        string sOut = "FLAT PATTERN DXF?AcadVersion=R12&OuterProfileLayer=Outer&BendLayer=Bend&OuterProfileLayerColor=0;0;0&BendUpLayerColor=0;0;0&BendUpLayerLineType=37638&BendDownLayerColor=0;0;0&TrimCenterlinesAtContour=True&InvisibleLayers=IV_TANGENT";
                         oDataIO.WriteDataToFile(sOut, filePathDXF);
 
 
