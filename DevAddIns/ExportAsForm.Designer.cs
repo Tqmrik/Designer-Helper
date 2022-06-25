@@ -33,7 +33,7 @@ namespace DevAddIns
             this.stepCheckBox = new System.Windows.Forms.CheckBox();
             this.dxfCheckBox = new System.Windows.Forms.CheckBox();
             this.exportButton = new System.Windows.Forms.Button();
-            this.rememberTheChoiceButton = new System.Windows.Forms.CheckBox();
+            this.includePartsButton = new System.Windows.Forms.CheckBox();
             this.checkAllBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
@@ -86,20 +86,19 @@ namespace DevAddIns
             this.exportButton.UseVisualStyleBackColor = true;
             this.exportButton.Click += new System.EventHandler(this.exportButton_Click);
             // 
-            // rememberTheChoiceButton
+            // includePartsButton
             // 
-            this.rememberTheChoiceButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.includePartsButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rememberTheChoiceButton.AutoSize = true;
-            this.rememberTheChoiceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.rememberTheChoiceButton.Location = new System.Drawing.Point(113, 118);
-            this.rememberTheChoiceButton.Name = "rememberTheChoiceButton";
-            this.rememberTheChoiceButton.Size = new System.Drawing.Size(159, 20);
-            this.rememberTheChoiceButton.TabIndex = 4;
-            this.rememberTheChoiceButton.Text = "Remember the choice";
-            this.rememberTheChoiceButton.UseVisualStyleBackColor = true;
-            this.rememberTheChoiceButton.Visible = false;
-            this.rememberTheChoiceButton.CheckedChanged += new System.EventHandler(this.rememberTheChoiceButton_CheckedChanged);
+            this.includePartsButton.AutoSize = true;
+            this.includePartsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.includePartsButton.Location = new System.Drawing.Point(168, 118);
+            this.includePartsButton.Name = "includePartsButton";
+            this.includePartsButton.Size = new System.Drawing.Size(88, 17);
+            this.includePartsButton.TabIndex = 4;
+            this.includePartsButton.Text = "Include Parts";
+            this.includePartsButton.UseVisualStyleBackColor = true;
+            this.includePartsButton.CheckedChanged += new System.EventHandler(this.includePartsButton_CheckedChanged);
             // 
             // checkAllBox
             // 
@@ -118,7 +117,7 @@ namespace DevAddIns
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 191);
             this.Controls.Add(this.checkAllBox);
-            this.Controls.Add(this.rememberTheChoiceButton);
+            this.Controls.Add(this.includePartsButton);
             this.Controls.Add(this.exportButton);
             this.Controls.Add(this.dxfCheckBox);
             this.Controls.Add(this.stepCheckBox);
@@ -136,7 +135,7 @@ namespace DevAddIns
         private System.Windows.Forms.CheckBox stepCheckBox;
         private System.Windows.Forms.CheckBox dxfCheckBox;
         private System.Windows.Forms.Button exportButton;
-        private System.Windows.Forms.CheckBox rememberTheChoiceButton;
+        private System.Windows.Forms.CheckBox includePartsButton;
         private System.Windows.Forms.CheckBox checkAllBox;
     }
 }

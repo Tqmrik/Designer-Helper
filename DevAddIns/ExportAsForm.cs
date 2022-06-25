@@ -64,11 +64,15 @@ namespace DevAddIns
         bool makePdf = false;
         bool makeStep = false;
         bool makeDxf = false;
-        bool rememberChoice = false;
+        bool includeParts = false;
 
         public ExportAsForm()
         {
             InitializeComponent();
+            if(!(activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
+            {
+                includePartsButton.Visible = false;
+            }
         }
 
 
@@ -91,14 +95,19 @@ namespace DevAddIns
             else makeDxf = false;
         }
 
-        private void rememberTheChoiceButton_CheckedChanged(object sender, EventArgs e)
+        private void includePartsButton_CheckedChanged(object sender, EventArgs e)
         {
-            if (rememberTheChoiceButton.Checked) 
+            if (includePartsButton.Checked)
             {
-                rememberChoice = true;
+                includeParts = true;
+                translator.includeParts = true;
             }
-            
-            else rememberChoice = false;
+
+            else
+            {
+                includeParts = false;
+                translator.includeParts = false;
+            }
         }
 
         private void exportButton_Click(object sender, EventArgs e)
