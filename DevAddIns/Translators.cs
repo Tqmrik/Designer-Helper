@@ -130,7 +130,7 @@ namespace DevAddIns
 
                 if (!String.IsNullOrEmpty(foundDrawingPath1))
                 {//If drawing is placed in the folder, save it to the folder as well
-                    drawing = InventorApplication.Documents.ItemByName[foundDrawingPath1];
+                    drawing = InventorApplication.Documents.ItemByName[foundDrawingPath1]; //TODO: retrieve a document without opening it???
                     filePath = foundDrawingPath1.Replace(".idw", "");
                     if (!String.IsNullOrEmpty(revisionLetter))
                     {
