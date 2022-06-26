@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DevAddIns
 {
@@ -28,9 +24,7 @@ namespace DevAddIns
 
             dictionaryAxisName.Add("en-US", new List<string> { "X Axis", "Y Axis", "Z Axis" });
             dictionaryAxisName.Add("ru-RU", new List<string> { "Ось X", "Ось Y", "Ось Z" });
-
-
         }
-        
+
     }
 }

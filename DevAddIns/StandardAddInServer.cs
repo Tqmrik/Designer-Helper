@@ -28,10 +28,11 @@ namespace DevAddIns
         private SetPropertiesButton m_setPropertiesButton;
         private EditPropertiesButton m_editPropertiesButton;
         private UpdatePropertiesRevisionButton m_updatePropertiesRevesionButton;
-        private ChangeToMetric m_ChangeToMetric;
+        private ChangeToMetricButton m_ChangeToMetric;
         private ProjectSketchAxisButton m_projectSketchAxisButton;
         private ExportAsButton m_exportAsButton;
-        
+        private ShowPropertiesButton m_showProperties;
+        private TestFunctionButton m_testFunctionButton;
 
         //comboBoxes
         private DrawingStyleComboBox m_drawingStyleComboBox;
@@ -182,12 +183,15 @@ namespace DevAddIns
 
                 m_updatePropertiesRevesionButton = new UpdatePropertiesRevisionButton("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_ChangeToMetric = new ChangeToMetric("Metric units", "UnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit to metric", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                m_ChangeToMetric = new ChangeToMetricButton("Metric units", "UnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit to metric", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_projectSketchAxisButton = new ProjectSketchAxisButton("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_exportAsButton = new ExportAsButton("Export", "ExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
+                m_showProperties = new ShowPropertiesButton("Show Properies", "ShowPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Copy all IProperties of the file to the notepad document", "Copy all IProperties of the file to the notepad document", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
+                m_testFunctionButton = new TestFunctionButton("Test Funcion", "TestFunctionSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Test the dev function", "Test the dev function", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
                 //Create comboBoxes
@@ -319,6 +323,8 @@ namespace DevAddIns
                 m_ChangeToMetric = null;
                 m_projectSketchAxisButton = null;
                 m_exportAsButton = null;
+                m_showProperties = null;
+                m_testFunctionButton = null;
 
 
                 //Dispose comboboxes
@@ -443,6 +449,8 @@ namespace DevAddIns
 
                 buttonsList.Add(m_ChangeToMetric);
                 buttonsList.Add(m_projectSketchAxisButton);
+                buttonsList.Add(m_testFunctionButton);
+                buttonsList.Add(m_showProperties);
 
 
                 List<Button> iPropertiesPanelButtons = new List<Button>();
@@ -528,6 +536,9 @@ namespace DevAddIns
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_updatePropertiesRevesionButton.ButtonDefinition);
 
+                //assemblyPanelSed.CommandControls.AddButton(m_showProperties.ButtonDefinition);
+                //partPanelSed.CommandControls.AddButton(m_showProperties.ButtonDefinition);
+                //drawingPanelSed.CommandControls.AddButton(m_showProperties.ButtonDefinition);
 
                 //Add ComboBoxes
 

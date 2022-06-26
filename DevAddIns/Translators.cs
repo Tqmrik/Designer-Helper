@@ -111,161 +111,260 @@ namespace DevAddIns
             }
             else if (activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument())
             {
+                string sourcePartPath1 = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
+                string drawingFilePath1 = activeDocument.DisplayName.Substring(0, activeDocument.DisplayName.Length - 4) + ".idw";
+                string foundDrawingPath1  = InventorApplication.DesignProjectManager.ResolveFile(sourcePartPath1, drawingFilePath1);
+                Document drawing = null;
 
-                if(includeParts)
+                if (String.IsNullOrEmpty(foundDrawingPath1))//Make more advanced directory search??
+                {
+                    foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(sourcePartPath1).GetDirectories())
+                    {
+                        if (foundDrawingPath1 == null)
+                        {
+                            foundDrawingPath1 = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, drawingFilePath1);
+                        }
+                        else break;
+                    }
+                }
+
+                if (!String.IsNullOrEmpty(foundDrawingPath1))
+                {//If drawing is placed in the folder, save it to the folder as well
+                    drawing = InventorApplication.Documents.ItemByName[foundDrawingPath1];
+                    filePath = foundDrawingPath1.Replace(".idw", "");
+                    if (!String.IsNullOrEmpty(revisionLetter))
+                    {
+                        filePath += $"_{revisionLetter}.pdf";
+                    }
+                    else
+                    {
+                        filePath += ".pdf";
+                    }
+                }
+                else
+                {//If drawing is new place the files to the desktop without overwriting them
+                 //Add file check and then increment
+                 //filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
+                 //int iterator = 1;
+                 //while (System.IO.File.Exists(filePath + ".pdf"))
+                 //{
+                 //    filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
+                 //    iterator++;
+                 //}
+                 //filePath += ".pdf";
+                    goto parts;
+                }
+
+                if (pdfTranslator.HasSaveCopyAsOptions[drawing, oContext, oOptions])
+                {
+                    oOptions.Value["All_Color_AS_Black"] = 0;
+                    //TODO: What are the other options?
+                }
+
+                oDataMedium.FileName = filePath;
+
+                try
+                {
+                    //Will adding the transaction alter the operation????
+                    //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
+                    pdfTranslator.SaveCopyAs(drawing, oContext, oOptions, oDataMedium);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+
+                }
+
+                //!!!UNSAFE CODE!!!
+                parts: 
+
+                if (includeParts)
                 {
                     foreach (Document rDD in activeDocument.ReferencedDocuments)
                     {
-                        var tp = rDD.GetType();
-                        foreach (Document oDrawingDoc in rDD.ReferencedDocuments)
+                        string sourcePartPath = System.IO.Path.GetDirectoryName(rDD.FullDocumentName);
+                        string drawingFilePath = activeDocument.DisplayName.Substring(0, rDD.DisplayName.Length - 4) + ".idw";
+                        string foundDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(sourcePartPath, drawingFilePath);
+
+                        if (String.IsNullOrEmpty(foundDrawingPath))//Make more advanced directory search??
                         {
-                            if (!String.IsNullOrEmpty(oDrawingDoc.FullDocumentName))
-                            {//If drawing is placed in the folder, save it to the folder as well
-                                filePath = oDrawingDoc.FullDocumentName.Replace(".idw", "");
-                                if (!String.IsNullOrEmpty(revisionLetter))
+                            foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(sourcePartPath).GetDirectories())
+                            {
+                                if (foundDrawingPath == null)
                                 {
-                                    filePath += $"_{revisionLetter}.pdf";
+                                    foundDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, drawingFilePath);
                                 }
-                                else
-                                {
-                                    filePath += ".pdf";
-                                }
+                                else break;
+                            }
+                        }
+
+                        if (!String.IsNullOrEmpty(foundDrawingPath))
+                        {//If drawing is placed in the folder, save it to the folder as well
+                            drawing = InventorApplication.Documents.ItemByName[foundDrawingPath];
+                            filePath = foundDrawingPath.Replace(".idw", "");
+                            if (!String.IsNullOrEmpty(revisionLetter))
+                            {
+                                filePath += $"_{revisionLetter}.pdf";
                             }
                             else
-                            {//If drawing is new place the files to the desktop without overwriting them
-                             //Add file check and then increment
-                                filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                                int iterator = 1;
-                                while (System.IO.File.Exists(filePath + ".pdf"))
-                                {
-                                    filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
-                                    iterator++;
-                                }
+                            {
                                 filePath += ".pdf";
                             }
-                            if (pdfTranslator.HasSaveCopyAsOptions[rDD, oContext, oOptions])
-                            {
-                                oOptions.Value["All_Color_AS_Black"] = 0;
-                                //TODO: What are the other options?
-                            }
-                            oDataMedium.FileName = filePath;
-                            try
-                            {
-                                //Will adding the transaction alter the operation????
-                                //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
-                                pdfTranslator.SaveCopyAs(oDrawingDoc, oContext, oOptions, oDataMedium);
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
-                            }
-                        }
-                       
-                    }
-                }
-                
-                foreach(DocumentDescriptor oDrawingFile in activeDocument.ReferencingDocuments)
-                {
-                    if (!String.IsNullOrEmpty(oDrawingFile.FullDocumentName))
-                    {//If drawing is placed in the folder, save it to the folder as well
-                        filePath = oDrawingFile.FullDocumentName.Replace(".idw", "");
-                        if (!String.IsNullOrEmpty(revisionLetter))
-                        {
-                            filePath += $"_{revisionLetter}.pdf";
                         }
                         else
-                        {
-                            filePath += ".pdf";
+                        {//If drawing is new place the files to the desktop without overwriting them
+                         //Add file check and then increment
+                         //filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
+                         //int iterator = 1;
+                         //while (System.IO.File.Exists(filePath + ".pdf"))
+                         //{
+                         //    filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
+                         //    iterator++;
+                         //}
+                         //filePath += ".pdf";
+                            continue;
                         }
-                    }
-                    else
-                    {//If drawing is new place the files to the desktop without overwriting them
-                     //Add file check and then increment
-                        filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                        int iterator = 1;
-                        while (System.IO.File.Exists(filePath + ".pdf"))
+
+                        if (pdfTranslator.HasSaveCopyAsOptions[drawing, oContext, oOptions])
                         {
-                            filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
-                            iterator++;
+                            oOptions.Value["All_Color_AS_Black"] = 0;
+                            //TODO: What are the other options?
                         }
-                        filePath += ".pdf";
-                    }
 
+                        oDataMedium.FileName = filePath;
 
-                    if (pdfTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                    {
-                        oOptions.Value["All_Color_AS_Black"] = 0;
-                        //TODO: What are the other options?
-                    }
+                        try
+                        {
+                            //Will adding the transaction alter the operation????
+                            //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
+                            pdfTranslator.SaveCopyAs(drawing, oContext, oOptions, oDataMedium);
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
 
-                    oDataMedium.FileName = filePath;
-
-                    try
-                    {
-                        //Will adding the transaction alter the operation????
-                        //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
-                        pdfTranslator.SaveCopyAs(oDrawingFile, oContext, oOptions, oDataMedium);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                        }
 
                     }
                 }
-                
+
+                //foreach (DocumentDescriptor oDrawingFile in activeDocument.ReferencingDocuments)
+                //{
+                //    if (!String.IsNullOrEmpty(oDrawingFile.FullDocumentName))
+                //    {//If drawing is placed in the folder, save it to the folder as well
+                //        filePath = oDrawingFile.FullDocumentName.Replace(".idw", "");
+                //        if (!String.IsNullOrEmpty(revisionLetter))
+                //        {
+                //            filePath += $"_{revisionLetter}.pdf";
+                //        }
+                //        else
+                //        {
+                //            filePath += ".pdf";
+                //        }
+                //    }
+                //    else
+                //    {//If drawing is new place the files to the desktop without overwriting them
+                //     //Add file check and then increment
+                //        filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
+                //        int iterator = 1;
+                //        while (System.IO.File.Exists(filePath + ".pdf"))
+                //        {
+                //            filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
+                //            iterator++;
+                //        }
+                //        filePath += ".pdf";
+                //    }
+
+
+                //    if (pdfTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
+                //    {
+                //        oOptions.Value["All_Color_AS_Black"] = 0;
+                //        //TODO: What are the other options?
+                //    }
+
+                //    oDataMedium.FileName = filePath;
+
+                //    try
+                //    {
+                //        //Will adding the transaction alter the operation????
+                //        //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
+                //        pdfTranslator.SaveCopyAs(oDrawingFile, oContext, oOptions, oDataMedium);
+                //    }
+                //    catch (Exception e)
+                //    {
+                //        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+
+                //    }
+                //}
+
             }
             else if (activeDocument.isPartDocument() || activeDocument.isSheetMetalDocument())
             {
-                foreach (DocumentDescriptor oDrawingFile in activeDocument.ReferencingDocuments)
+                string sourcePartPath = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
+                string drawingFilePath = activeDocument.DisplayName.Substring(0,activeDocument.DisplayName.Length - 4) + ".idw";
+                string foundDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(sourcePartPath, drawingFilePath);
+                Document drawing = null;
+
+                if(String.IsNullOrEmpty(foundDrawingPath))//Make more advanced directory search??
                 {
-                    if (!String.IsNullOrEmpty(oDrawingFile.FullDocumentName))
-                    {//If drawing is placed in the folder, save it to the folder as well
-                        filePath = oDrawingFile.FullDocumentName.Replace(".idw", "");
-                        if (!String.IsNullOrEmpty(revisionLetter))
-                        {
-                            filePath += $"_{revisionLetter}.pdf";
-                        }
-                        else
-                        {
-                            filePath += ".pdf";
-                        }
-                    }
-                    else
-                    {//If drawing is new place the files to the desktop without overwriting them
-                     //Add file check and then increment
-                        filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                        int iterator = 1;
-                        while (System.IO.File.Exists(filePath + ".pdf"))
-                        {
-                            filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
-                            iterator++;
-                        }
-                        filePath += ".pdf";
-                    }
-
-
-                    if (pdfTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
+                    foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(sourcePartPath).GetDirectories())
                     {
-                        oOptions.Value["All_Color_AS_Black"] = 0;
-                        //TODO: What are the other options?
-                    }
-
-                    oDataMedium.FileName = filePath;
-
-                    try
-                    {
-                        //Will adding the transaction alter the operation????
-                        //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
-                        pdfTranslator.SaveCopyAs(oDrawingFile, oContext, oOptions, oDataMedium);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
+                        if (foundDrawingPath == null)
+                        {
+                            foundDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, drawingFilePath);
+                        }
+                        else break;
                     }
                 }
+
+                if (!String.IsNullOrEmpty(foundDrawingPath))
+                {//If drawing is placed in the folder, save it to the folder as well
+                    drawing = InventorApplication.Documents.ItemByName[foundDrawingPath];
+                    filePath = foundDrawingPath.Replace(".idw", "");
+                    if (!String.IsNullOrEmpty(revisionLetter))
+                    {
+                        filePath += $"_{revisionLetter}.pdf";
+                    }
+                    else
+                    {
+                        filePath += ".pdf";
+                    }
+                }
+                else
+                {//If drawing is new place the files to the desktop without overwriting them
+                 //Add file check and then increment
+                     //filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
+                     //int iterator = 1;
+                     //while (System.IO.File.Exists(filePath + ".pdf"))
+                     //{
+                     //    filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
+                     //    iterator++;
+                     //}
+                     //filePath += ".pdf";
+                    return;
+                }
+
+                if (pdfTranslator.HasSaveCopyAsOptions[drawing, oContext, oOptions])
+                {
+                    oOptions.Value["All_Color_AS_Black"] = 0;
+                    //TODO: What are the other options?
+                }
+
+                oDataMedium.FileName = filePath;
+
+                try
+                {
+                    //Will adding the transaction alter the operation????
+                    //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
+                    pdfTranslator.SaveCopyAs(drawing, oContext, oOptions, oDataMedium);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+
+                }
             }
+
 
         }
         public void createSTEP()
@@ -364,81 +463,81 @@ namespace DevAddIns
             else if ((activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
             {
                 var abc = activeDocument.AllReferencedDocuments;
-                foreach(var sd in abc)
+                foreach (var sd in abc)
                 {
 
                 }
                 //TODO: Add new checkbox especially for assemblies
-                if(includeParts)
-                { 
+                if (includeParts)
+                {
                     foreach (Document oFD in activeDocument.ReferencedDocuments)
-                {//Check for every referenced document in the drawing and create step file of each
+                    {//Check for every referenced document in the drawing and create step file of each
 
-                    if (!String.IsNullOrEmpty(oFD.FullFileName))
-                    {
-                            //It seems that to get the drawing you would need to search in the same folder for the file with the same name as a drawing
-                        referencedDoc = InventorApplication.Documents.ItemByName[oFD.FullFileName];
-                        filePathStep = oFD.FullFileName;
-                        filePathStep = filePathStep.Replace(".iam", "");
-                        filePathStep = filePathStep.Replace(".ipt", "");
-
-                        if (!String.IsNullOrEmpty(revisionLetter))
+                        if (!String.IsNullOrEmpty(oFD.FullFileName))
                         {
-                            filePathStep += $"_{revisionLetter}.stp";
+                            //It seems that to get the drawing you would need to search in the same folder for the file with the same name as a drawing
+                            referencedDoc = InventorApplication.Documents.ItemByName[oFD.FullFileName];
+                            filePathStep = oFD.FullFileName;
+                            filePathStep = filePathStep.Replace(".iam", "");
+                            filePathStep = filePathStep.Replace(".ipt", "");
+
+                            if (!String.IsNullOrEmpty(revisionLetter))
+                            {
+                                filePathStep += $"_{revisionLetter}.stp";
+                            }
+                            else
+                            {
+                                filePathStep += ".stp";
+                            }
+
                         }
                         else
                         {
+                            //Add file check and then increment
+                            filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
+                            int iterator = 1;
+                            while (System.IO.File.Exists(filePath + ".stp"))
+                            {
+                                filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
+                                iterator++;
+                            }
                             filePathStep += ".stp";
                         }
 
-                    }
-                    else
-                    {
-                        //Add file check and then increment
-                        filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                        int iterator = 1;
-                        while (System.IO.File.Exists(filePath + ".stp"))
+                        if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
                         {
-                            filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
-                            iterator++;
-                        }
-                        filePathStep += ".stp";
-                    }
+                            //Set application protocol.
+                            //2 = AP 203 - Configuration Controlled Design
+                            //3 = AP 214 - Automotive Design
+                            oOptions.Value["ApplicationProtocolType"] = 3;
 
-                    if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                    {
-                        //Set application protocol.
-                        //2 = AP 203 - Configuration Controlled Design
-                        //3 = AP 214 - Automotive Design
-                        oOptions.Value["ApplicationProtocolType"] = 3;
+                            //Other options...
+                            //oOptions.Value("Author") = ""
+                            //oOptions.Value("Authorization") = ""
+                            //oOptions.Value("Description") = ""
+                            //oOptions.Value("Organization") = ""
 
-                        //Other options...
-                        //oOptions.Value("Author") = ""
-                        //oOptions.Value("Authorization") = ""
-                        //oOptions.Value("Description") = ""
-                        //oOptions.Value("Organization") = ""
-
-                        //TODO: Browse the possible options
+                            //TODO: Browse the possible options
 
 
-                        //DataMedium oStepDataMedium = InventorApplication.TransientObjects.CreateDataMedium();//???
+                            //DataMedium oStepDataMedium = InventorApplication.TransientObjects.CreateDataMedium();//???
 
-                        oDataMedium.FileName = filePathStep;
+                            oDataMedium.FileName = filePathStep;
 
-                        try
-                        {
-                            //Will adding the transaction alter the operation????
-                            oSTEPTranslator.SaveCopyAs(referencedDoc, oContext, oOptions, oDataMedium);
-                            referencedDoc.Close();
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                            try
+                            {
+                                //Will adding the transaction alter the operation????
+                                oSTEPTranslator.SaveCopyAs(referencedDoc, oContext, oOptions, oDataMedium);
+                                referencedDoc.Close();
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+
+                            }
 
                         }
-
                     }
-                }
                 }
                 if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                 {
@@ -694,7 +793,7 @@ namespace DevAddIns
                 {
                     foreach (Document oFDF in activeDocument.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
-                        if(!(oFDF.isPartDocument()||oFDF.isSheetMetalDocument()))
+                        if (!(oFDF.isPartDocument() || oFDF.isSheetMetalDocument()))
                         {
                             continue;
                         }
@@ -829,3 +928,4 @@ namespace DevAddIns
 }
 
 
+//Create method overrides that will take path as arguments???s

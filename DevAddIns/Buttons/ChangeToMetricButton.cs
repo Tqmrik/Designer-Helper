@@ -1,20 +1,23 @@
 ﻿using Inventor;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+
+
 
 namespace DevAddIns
 {
-    internal class ChangeToMetric : Button
+    internal class ChangeToMetricButton : Button
     {
         #region "Constructors"
         //Use constructors of the base class
-        public ChangeToMetric(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public ChangeToMetricButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType)
         {
 
         }
-        public ChangeToMetric(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+        public ChangeToMetricButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType)
         {
 
@@ -25,8 +28,8 @@ namespace DevAddIns
         #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
+            
             Document activeDocument = InventorApplication.ActiveDocument;
-
             foreach (var rDD in activeDocument.ReferencedDocumentDescriptors)
             {
                 var sdsd = rDD.ToString();

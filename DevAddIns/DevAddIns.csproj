@@ -111,28 +111,31 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Button.cs" />
-    <Compile Include="ChangeToMetric.cs" />
-    <Compile Include="ComboBox.cs" />
-    <Compile Include="DocumentChecker.cs" />
-    <Compile Include="ExportAsButton.cs" />
-    <Compile Include="DrawingPropertiesSet.cs" />
-    <Compile Include="EditPropertiesForm.cs">
+    <Compile Include="Buttons\Button.cs" />
+    <Compile Include="Buttons\ChangeToMetricButton.cs" />
+    <Compile Include="Buttons\ShowPropertiesButton.cs" />
+    <Compile Include="Buttons\TestFunctionButton.cs" />
+    <Compile Include="ComboBoxes\ComboBox.cs" />
+    <Compile Include="ExtensionMethods\DocumentChecker.cs" />
+    <Compile Include="Buttons\ExportAsButton.cs" />
+    <Compile Include="Data\DrawingPropertiesSet.cs" />
+    <Compile Include="Forms\EditPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditPropertiesForm.Designer.cs">
+    <Compile Include="Forms\EditPropertiesForm.Designer.cs">
       <DependentUpon>EditPropertiesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditPropertiesButton.cs" />
-    <Compile Include="DrawingStyleComboBox.cs" />
-    <Compile Include="ExportAsForm.cs">
+    <Compile Include="Buttons\EditPropertiesButton.cs" />
+    <Compile Include="ComboBoxes\DrawingStyleComboBox.cs" />
+    <Compile Include="Forms\ExportAsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ExportAsForm.Designer.cs">
+    <Compile Include="Forms\ExportAsForm.Designer.cs">
       <DependentUpon>ExportAsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="MultilanguageDictionary.cs" />
-    <Compile Include="ProjectSketchAxisButton.cs" />
+    <Compile Include="ExtensionMethods\stringConverters.cs" />
+    <Compile Include="Data\MultilanguageDictionary.cs" />
+    <Compile Include="Buttons\ProjectSketchAxisButton.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -143,13 +146,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SampleComboBox.cs" />
-    <Compile Include="SetPropertiesButton.cs" />
+    <Compile Include="ComboBoxes\SampleComboBox.cs" />
+    <Compile Include="Buttons\SetPropertiesButton.cs" />
     <Compile Include="StandardAddInServer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Translators.cs" />
-    <Compile Include="UpdatePropertiesRevisionButton.cs" />
+    <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AddInManual.pdf">
@@ -177,10 +180,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="EditPropertiesForm.resx">
+    <EmbeddedResource Include="Forms\EditPropertiesForm.resx">
       <DependentUpon>EditPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ExportAsForm.resx">
+    <EmbeddedResource Include="Forms\ExportAsForm.resx">
       <DependentUpon>ExportAsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
