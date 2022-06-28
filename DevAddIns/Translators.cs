@@ -63,7 +63,7 @@ namespace DevAddIns
 
             if (oPDFTranslator.Equals(null))
             {
-                MessageBox.Show("Couldn't connect to the step translator");
+                MessageBox.Show("Couldn't connect to the PDF translator");
                 return;
             }
 
@@ -152,6 +152,7 @@ namespace DevAddIns
 
                         }
                     }
+
                     else
                     {
                         MessageBox.Show("Wasn't able to find an assembly drawing");
@@ -279,6 +280,7 @@ namespace DevAddIns
         }
         public void createSTEP()
         {
+            //Wrap in the try/catch???
 
             TranslatorAddIn oSTEPTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
             TranslationContext oContext = InventorApplication.TransientObjects.CreateTranslationContext();
@@ -293,7 +295,7 @@ namespace DevAddIns
 
             if (oSTEPTranslator.Equals(null))
             {
-                MessageBox.Show("Couldn't connect to the step translator");
+                MessageBox.Show("Couldn't connect to the STEP translator");
                 return;
             }
 
@@ -306,19 +308,55 @@ namespace DevAddIns
                     if (!String.IsNullOrEmpty(oFD.FullFileName))
                     {
                         referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName];
-                        filePathStep = oFD.FullFileName;
-                        filePathStep = filePathStep.Replace(".iam", "");
-                        filePathStep = filePathStep.Replace(".ipt", "");
-
-                        if (!String.IsNullOrEmpty(revisionLetter))
+                        filePathStep = RevisionHelper.addRevisionLetter(referencedDocumentObject, referencedDocumentObject.FullFileName, "stp");
+                    }
+                    else
+                    {
+                        //Add file check and then increment
+                        filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
+                        int iterator = 1;
+                        while (System.IO.File.Exists(filePath + ".stp"))
                         {
-                            filePathStep += $"_{revisionLetter}.stp";
+                            filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
+                            iterator++;
                         }
-                        else
+                        filePathStep += ".stp";
+                    }
+
+
+                    if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
+                    {
+                        oOptions.Value["ApplicationProtocolType"] = 3;
+                        oOptions.Value["Author"] = oFD.PropertySets[3][24].Value;
+                        //oOptions.Value("Authorization") = ""
+                        oOptions.Value["Description"] = oFD.PropertySets[3][14].Value;
+                        oOptions.Value["Organization"] = oFD.PropertySets[2][3].Value;
+
+                        oDataMedium.FileName = filePathStep;
+
+                        try
                         {
-                            filePathStep += ".stp";
+                            oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
+                            referencedDocumentObject.Close();
+                            //Close doc, save memory
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
                         }
 
+                    }
+                }
+            }
+            else if ((activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
+            {
+                //Step for the assembly, only doing check to wrap things up
+                if (activeDocument != null)
+                {
+                    if (!String.IsNullOrEmpty(activeDocument.FullFileName))
+                    {
+                        referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
+                        filePathStep = RevisionHelper.addRevisionLetter(activeDocument, activeDocument.FullFileName, "stp");
                     }
                     else
                     {
@@ -335,42 +373,24 @@ namespace DevAddIns
 
                     if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
                     {
-                        //Set application protocol.
-                        //2 = AP 203 - Configuration Controlled Design
-                        //3 = AP 214 - Automotive Design
                         oOptions.Value["ApplicationProtocolType"] = 3;
-
-                        //Other options...
-                        //oOptions.Value("Author") = ""
+                        oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
                         //oOptions.Value("Authorization") = ""
-                        //oOptions.Value("Description") = ""
-                        //oOptions.Value("Organization") = ""
-
-                        //TODO: Browse the possible options
-
-
-                        //DataMedium oStepDataMedium = InventorApplication.TransientObjects.CreateDataMedium();//???
+                        oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
+                        oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
 
                         oDataMedium.FileName = filePathStep;
 
                         try
                         {
-                            //Will adding the transaction alter the operation????
                             oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                            referencedDocumentObject.Close();
                         }
                         catch (Exception e)
                         {
                             MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
                         }
-
                     }
                 }
-            }
-            else if ((activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
-            {
-                //TODO: Add new checkbox especially for assemblies
                 if (includeParts)
                 {
                     foreach (Document oFD in activeDocument.ReferencedDocuments)
@@ -379,129 +399,34 @@ namespace DevAddIns
                         if (!String.IsNullOrEmpty(oFD.FullFileName))
                         {
                             //It seems that to get the drawing you would need to search in the same folder for the file with the same name as a drawing
-                            referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName];
-                            filePathStep = oFD.FullFileName;
-                            filePathStep = filePathStep.Replace(".iam", "");
-                            filePathStep = filePathStep.Replace(".ipt", "");
+                            referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName]; //Why do i need that as well????
+                            filePathStep = RevisionHelper.addRevisionLetter(oFD, oFD.FullFileName, "stp");
 
-                            if (!String.IsNullOrEmpty(revisionLetter))
+                            if (oSTEPTranslator.HasSaveCopyAsOptions[oFD, oContext, oOptions])
                             {
-                                filePathStep += $"_{revisionLetter}.stp";
-                            }
-                            else
-                            {
-                                filePathStep += ".stp";
-                            }
+                                oOptions.Value["ApplicationProtocolType"] = 3;
+                                oOptions.Value["Author"] = oFD.PropertySets[3][24].Value;
+                                //oOptions.Value("Authorization") = ""
+                                oOptions.Value["Description"] = oFD.PropertySets[3][14].Value;
+                                oOptions.Value["Organization"] = oFD.PropertySets[2][3].Value;
 
+                                oDataMedium.FileName = filePathStep;
+
+                                try
+                                {
+                                    oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
+                                    if (referencedDocumentObject != InventorApplication.ActiveDocument) referencedDocumentObject.Close();
+                                }
+                                catch (Exception e)
+                                {
+                                    MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                                }
+                            }
                         }
                         else
                         {
-                            //Add file check and then increment
-                            filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                            int iterator = 1;
-                            while (System.IO.File.Exists(filePath + ".stp"))
-                            {
-                                filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
-                                iterator++;
-                            }
-                            filePathStep += ".stp";
+                            continue;
                         }
-
-                        if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                        {
-                            //Set application protocol.
-                            //2 = AP 203 - Configuration Controlled Design
-                            //3 = AP 214 - Automotive Design
-                            oOptions.Value["ApplicationProtocolType"] = 3;
-
-                            //Other options...
-                            //oOptions.Value("Author") = ""
-                            //oOptions.Value("Authorization") = ""
-                            //oOptions.Value("Description") = ""
-                            //oOptions.Value("Organization") = ""
-
-                            //TODO: Browse the possible options
-
-
-                            //DataMedium oStepDataMedium = InventorApplication.TransientObjects.CreateDataMedium();//???
-
-                            oDataMedium.FileName = filePathStep;
-
-                            try
-                            {
-                                //Will adding the transaction alter the operation????
-                                oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                                if (referencedDocumentObject != InventorApplication.ActiveDocument) referencedDocumentObject.Close();
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
-                            }
-
-                        }
-                    }
-                }
-                if (!String.IsNullOrEmpty(activeDocument.FullFileName))
-                {
-                    referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                    filePathStep = activeDocument.FullFileName;
-                    filePathStep = filePathStep.Replace(".iam", "");
-                    filePathStep = filePathStep.Replace(".ipt", "");
-
-                    if (!String.IsNullOrEmpty(revisionLetter))
-                    {
-                        filePathStep += $"_{revisionLetter}.stp";
-                    }
-                    else
-                    {
-                        filePathStep += ".stp";
-                    }
-
-                }
-                else
-                {
-                    //Add file check and then increment
-                    filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                    int iterator = 1;
-                    while (System.IO.File.Exists(filePath + ".stp"))
-                    {
-                        filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
-                        iterator++;
-                    }
-                    filePathStep += ".stp";
-                }
-
-                if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                {
-                    //Set application protocol.
-                    //2 = AP 203 - Configuration Controlled Design
-                    //3 = AP 214 - Automotive Design
-                    oOptions.Value["ApplicationProtocolType"] = 3;
-
-                    //Other options...
-                    //oOptions.Value("Author") = ""
-                    //oOptions.Value("Authorization") = ""
-                    //oOptions.Value("Description") = ""
-                    //oOptions.Value("Organization") = ""
-
-                    //TODO: Browse the possible options
-
-
-                    //DataMedium oStepDataMedium = InventorApplication.TransientObjects.CreateDataMedium();//???
-
-                    oDataMedium.FileName = filePathStep;
-
-                    try
-                    {
-                        //Will adding the transaction alter the operation????
-                        oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                        if (referencedDocumentObject != InventorApplication.ActiveDocument) referencedDocumentObject.Close();
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
                     }
                 }
             }
@@ -510,19 +435,7 @@ namespace DevAddIns
                 if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                 {
                     referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                    filePathStep = activeDocument.FullFileName;
-                    filePathStep = filePathStep.Replace(".iam", "");
-                    filePathStep = filePathStep.Replace(".ipt", "");
-
-                    if (!String.IsNullOrEmpty(revisionLetter))
-                    {
-                        filePathStep += $"_{revisionLetter}.stp";
-                    }
-                    else
-                    {
-                        filePathStep += ".stp";
-                    }
-
+                    filePathStep = RevisionHelper.addRevisionLetter(activeDocument, activeDocument.FullFileName, "stp");
                 }
                 else
                 {
@@ -539,29 +452,17 @@ namespace DevAddIns
 
                 if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
                 {
-                    //Set application protocol.
-                    //2 = AP 203 - Configuration Controlled Design
-                    //3 = AP 214 - Automotive Design
                     oOptions.Value["ApplicationProtocolType"] = 3;
-
-                    //Other options...
-                    //oOptions.Value("Author") = ""
+                    oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
                     //oOptions.Value("Authorization") = ""
-                    //oOptions.Value("Description") = ""
-                    //oOptions.Value("Organization") = ""
-
-                    //TODO: Browse the possible options
-
-
-                    //DataMedium oStepDataMedium = InventorApplication.TransientObjects.CreateDataMedium();//???
+                    oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
+                    oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
 
                     oDataMedium.FileName = filePathStep;
 
                     try
                     {
-                        //Will adding the transaction alter the operation????
                         oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                        if (referencedDocumentObject != InventorApplication.ActiveDocument) referencedDocumentObject.Close();
                     }
                     catch (Exception e)
                     {
@@ -846,7 +747,7 @@ namespace DevAddIns
 //TODO: Create a typicall translator class
 //TODO: Add a file finder in the directories(use recursion until NULL)
 //TODO: Change Forms so that they will look a bit presentable
-
+//TODO: CheckBox for replacing existing files???
 
 
 //PDF options:
@@ -855,3 +756,16 @@ namespace DevAddIns
 //oOptions.Value("Sheet_Range") = kPrintAllSheets
 //oOptions.Value("Custom_Begin_Sheet") = 2
 //oOptions.Value("Custom_End_Sheet") = 4
+
+
+
+//STEP options:
+//Set application protocol.
+//2 = AP 203 - Configuration Controlled Design
+//3 = AP 214 - Automotive Design
+//oOptions.Value["ApplicationProtocolType"] = 3;
+//Other options...
+//oOptions.Value("Author") = ""
+//oOptions.Value("Authorization") = ""
+//oOptions.Value("Description") = ""
+//oOptions.Value("Organization") = ""
