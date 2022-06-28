@@ -136,6 +136,8 @@
     <Compile Include="ExtensionMethods\stringConverters.cs" />
     <Compile Include="Data\MultilanguageDictionary.cs" />
     <Compile Include="Buttons\ProjectSketchAxisButton.cs" />
+    <Compile Include="HelperMethods\RevisionHelper.cs" />
+    <Compile Include="HelperMethods\PathConverter.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
