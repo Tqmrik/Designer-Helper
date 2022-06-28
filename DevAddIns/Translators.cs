@@ -59,6 +59,8 @@ namespace DevAddIns
 
             DataMedium oDataMedium = InventorApplication.TransientObjects.CreateDataMedium();//???
 
+            Document drawDoc = null;
+
             string filePath = this.filePath;
 
             if (activeDocument.isDrawingDocument())
@@ -319,7 +321,7 @@ namespace DevAddIns
 
                 if (!String.IsNullOrEmpty(foundDrawingPath))
                 {//If drawing is placed in the folder, save it to the folder as well
-                    drawing = InventorApplication.Documents.ItemByName[foundDrawingPath];
+                    drawDoc = InventorApplication.Documents.Open(foundDrawingPath, false);
                     filePath = foundDrawingPath.Replace(".idw", "");
                     if (!String.IsNullOrEmpty(revisionLetter))
                     {
@@ -344,6 +346,10 @@ namespace DevAddIns
                     return;
                 }
 
+               
+
+                if (!drawDoc.isDrawingDocument()) return;
+
                 if (pdfTranslator.HasSaveCopyAsOptions[drawing, oContext, oOptions])
                 {
                     oOptions.Value["All_Color_AS_Black"] = 0;
@@ -356,7 +362,7 @@ namespace DevAddIns
                 {
                     //Will adding the transaction alter the operation????
                     //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
-                    pdfTranslator.SaveCopyAs(drawing, oContext, oOptions, oDataMedium);
+                    pdfTranslator.SaveCopyAs(drawDoc, oContext, oOptions, oDataMedium);
                 }
                 catch (Exception e)
                 {

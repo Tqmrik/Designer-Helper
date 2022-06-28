@@ -36,10 +36,6 @@ namespace DevAddIns
                     var fgf = asb[i];
                 }
 
-                //foreach(var s in asb)
-                //{
-
-                //}
             }
 
 
