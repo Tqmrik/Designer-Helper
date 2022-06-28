@@ -24,8 +24,22 @@ namespace DevAddIns
             { 
                 return null;
             }
+        }
 
+        public static string clearExtension(Document documentObject)
+        {
+            try
+            {
+                System.IO.Path.GetFullPath(documentObject.FullDocumentName);
 
+                string outputVal = System.IO.Path.GetDirectoryName(documentObject.FullDocumentName) + "\\" + System.IO.Path.GetFileNameWithoutExtension(documentObject.DisplayName);
+
+                return outputVal;
+            }
+            catch (ArgumentException e)
+            {
+                return null;
+            }
         }
     }
 }

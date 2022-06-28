@@ -13,7 +13,7 @@ namespace DevAddIns
         public static string addRevisionLetter(Document documentObject, string path, string extension)
         {
             //Basically document object defines the revision letter
-            //path defines the path that the revision will be attached to
+            //path defines the path that the revision will be attached to, path needs to be without extension!!!
             //extension defines the final attachment to the file path
             try
             {
