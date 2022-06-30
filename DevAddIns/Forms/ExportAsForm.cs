@@ -112,6 +112,9 @@ namespace DevAddIns
 
         private void exportButton_Click(object sender, EventArgs e)
         {
+            var rebuildTask = docRebuild(activeDocument);
+            rebuildTask.Wait();
+
             if (makePdf == true) translator.createPDF();
             if (makeDxf == true) translator.createFlatDXF();
             if (makeStep == true) translator.createSTEP();
@@ -138,6 +141,11 @@ namespace DevAddIns
                 stepCheckBox.Checked = false;
                 makeStep = false;
             }
-        }      
+        }
+        
+        private static async Task docRebuild(Document doc)
+        {
+            doc.Rebuild();
+        } 
     }
 }
