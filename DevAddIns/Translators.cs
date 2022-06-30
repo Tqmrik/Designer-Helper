@@ -38,14 +38,7 @@ namespace DevAddIns
                 return activeDocument.FullDocumentName;
             }
         }
-        private string revisionLetter
-        {
-            get
-            {
-                return activeDocument.PropertySets[1][7].Value.ToString();
-            }
 
-        }
         public void createPDF()
         {
             TranslatorAddIn oPDFTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
@@ -641,7 +634,7 @@ namespace DevAddIns
             string filePathStep = "";
             Document referencedDoc = null;
 
-            foreach (ReferencedFileDescriptor oFD in activeDocument.ReferencedFileDescriptors)
+            foreach (Document oFD in activeDocument.ReferencedDocuments)
             {//Check for every referenced document in the drawing and create step file of each
 
                 if (oSTEPTranslator.Equals(null))
@@ -653,18 +646,7 @@ namespace DevAddIns
                 if (!String.IsNullOrEmpty(oFD.FullFileName))
                 {
                     referencedDoc = InventorApplication.Documents.ItemByName[oFD.FullFileName];
-                    filePathStep = oFD.FullFileName;
-                    filePathStep = filePathStep.Replace(".iam", "");
-                    filePathStep = filePathStep.Replace(".ipt", "");
-
-                    if (!String.IsNullOrEmpty(revisionLetter))
-                    {
-                        filePathStep += $"_{revisionLetter}.stp";
-                    }
-                    else
-                    {
-                        filePathStep += ".stp";
-                    }
+                    filePathStep = RevisionHelper.addRevisionLetter(oFD, PathConverter.clearExtension(oFD), "x_t");
 
                 }
                 else
