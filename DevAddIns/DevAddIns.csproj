@@ -113,6 +113,7 @@
     </Compile>
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\ChangeToMetricButton.cs" />
+    <Compile Include="Buttons\BalloonsEndArrow.cs" />
     <Compile Include="Buttons\ShowPropertiesButton.cs" />
     <Compile Include="Buttons\TestFunctionButton.cs" />
     <Compile Include="ComboBoxes\ComboBox.cs" />

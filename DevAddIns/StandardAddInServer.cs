@@ -33,6 +33,7 @@ namespace DevAddIns
         private ExportAsButton m_exportAsButton;
         private ShowPropertiesButton m_showProperties;
         private TestFunctionButton m_testFunctionButton;
+        private BalloonsEndArrow m_balloonsEndArrow;
 
         //comboBoxes
         private DrawingStyleComboBox m_drawingStyleComboBox;
@@ -193,11 +194,15 @@ namespace DevAddIns
 
                 m_testFunctionButton = new TestFunctionButton("Test Funcion", "TestFunctionSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Test the dev function", "Test the dev function", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
+                m_balloonsEndArrow = new BalloonsEndArrow("Change arrowtype", "ChangeBallonArrowHeadSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Change arrowheads", "Change arrowheads", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
                 //Create comboBoxes
 
                 //Apparently doesn't work with icons????
                 m_drawingStyleComboBox = new DrawingStyleComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style", "Change drawing style", ButtonDisplayEnum.kDisplayTextInLearningMode);
+
+                
                     
                     
                     //("Change drawing style", "ChangeDrawingStyleComboBoxSedenum",
@@ -325,6 +330,7 @@ namespace DevAddIns
                 m_exportAsButton = null;
                 m_showProperties = null;
                 m_testFunctionButton = null;
+                m_balloonsEndArrow = null;
 
 
                 //Dispose comboboxes
@@ -531,6 +537,8 @@ namespace DevAddIns
                     }
                 }
 
+
+                drawingPanelSed.CommandControls.AddButton(m_balloonsEndArrow.ButtonDefinition);
                 assemblyPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 partPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
