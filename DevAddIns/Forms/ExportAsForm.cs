@@ -36,27 +36,8 @@ namespace DevAddIns
                 return InventorApplication.ActiveDocument;
             }
         }
-        private string fPath
-        {
-            get
-            {
-                return activeDocument.FullDocumentName;
-            }
-        }
-        private string revision
-        {
-            get
-            {
-                return activeDocument.PropertySets[1][7].Value.ToString();
-            }
-
-        }
 
         private Translators translator = new Translators();
-
-        private bool pdfButtonState { get; set; }
-        private bool stepButtonState { get; set; }
-        private bool dxfButtonState { get; set; }
 
         Dictionary<bool, CheckState> checkToState = new Dictionary<bool, CheckState>();
         MultilanguageDictionary MLDict = new MultilanguageDictionary();
@@ -64,6 +45,7 @@ namespace DevAddIns
         bool makePdf = false;
         bool makeStep = false;
         bool makeDxf = false;
+        bool makeXt = false;
         bool includeParts = false;
 
         public ExportAsForm()
@@ -73,9 +55,8 @@ namespace DevAddIns
             {
                 includePartsButton.Visible = false;
             }
+            xtVersionsBox.SelectedItem = xtVersionsBox.Items[11];
         }
-
-
 
         private void pdfCheckBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -91,8 +72,12 @@ namespace DevAddIns
 
         private void dxfCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (dxfCheckBox.Checked) makeDxf = true;
-            else makeDxf = false;
+            
+        }
+        private void xtCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (xtCheckBox.Checked) makeXt = true;
+            else makeXt = false;
         }
 
         private void includePartsButton_CheckedChanged(object sender, EventArgs e)
@@ -118,6 +103,7 @@ namespace DevAddIns
             if (makePdf == true) translator.createPDF();
             if (makeDxf == true) translator.createFlatDXF();
             if (makeStep == true) translator.createSTEP();
+            if (makeXt == true) translator.createParasolid();
             Close();
         }
 
@@ -146,6 +132,8 @@ namespace DevAddIns
         private static async Task docRebuild(Document doc)
         {
             doc.Rebuild();
-        } 
+        }
+
+       
     }
 }
