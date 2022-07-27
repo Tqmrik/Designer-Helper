@@ -621,7 +621,8 @@ namespace DevAddIns
         }
         public void createParasolid()
         {
-            TranslatorAddIn oParasolidTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{93D506C4-8355-4E28-9C4E-C2B5F1EDC6AE}"];
+            //TranslatorAddIn oParasolidTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{93D506C4-8355-4E28-9C4E-C2B5F1EDC6AE}"];
+            TranslatorAddIn oParasolidTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{8F9D3571-3CB8-42F7-8AFF-2DB2779C8465}"];
 
             TranslationContext oContext = InventorApplication.TransientObjects.CreateTranslationContext();
             oContext.Type = IOMechanismEnum.kFileBrowseIOMechanism; //Just specifies the type of the operation
@@ -641,6 +642,8 @@ namespace DevAddIns
                 MessageBox.Show("Couldn't connect to the PARASOLID translator");
                 return;
             }
+
+
 
             if (activeDocument.isDrawingDocument())//Drawing
             {
@@ -669,13 +672,14 @@ namespace DevAddIns
 
                     if (oParasolidTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
                     {
-                        oOptions.Value["ApplicationProtocolType"] = 3;
-                        oOptions.Value["Author"] = oFD.PropertySets[3][24].Value;
-                        //oOptions.Value("Authorization") = ""
-                        oOptions.Value["Description"] = oFD.PropertySets[3][14].Value;
-                        oOptions.Value["Organization"] = oFD.PropertySets[2][3].Value;
+                        //oOptions.Value["ApplicationProtocolType"] = 3;
+                        //oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
+                        ////oOptions.Value("Authorization") = ""
+                        //oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
+                        //oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
 
-                        oDataMedium.FileName = filePathParasolid;
+
+                        oOptions.Value["Version"] = 20;
 
                         try
                         {
@@ -716,17 +720,25 @@ namespace DevAddIns
 
                     if (oParasolidTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
                     {
-                        oOptions.Value["ApplicationProtocolType"] = 3;
-                        oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
-                        //oOptions.Value("Authorization") = ""
-                        oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
-                        oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
+                        //oOptions.Value["ApplicationProtocolType"] = 3;
+                        //oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
+                        ////oOptions.Value("Authorization") = ""
+                        //oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
+                        //oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
+                        oParasolidTranslator.ShowSaveCopyAsOptions(activeDocument, oContext, oOptions);
 
-                        oDataMedium.FileName = filePathParasolid;
+                        NameValueMap oPt = oOptions;
+                        for(int i = 1; i < oPt.Count+1; i++)
+                        {
+                            var nam = oPt.Name[i];
+                            var val = oPt.Value[nam];
+                        }
+                        //????
+                        oOptions.Value["Version"] = "20";
 
                         try
                         {
-                            oParasolidTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
+                            oParasolidTranslator.SaveCopyAs(activeDocument, oContext, oOptions, oDataMedium);
                         }
                         catch (Exception e)
                         {
@@ -748,13 +760,14 @@ namespace DevAddIns
 
                             if (oParasolidTranslator.HasSaveCopyAsOptions[oFD, oContext, oOptions])
                             {
-                                oOptions.Value["ApplicationProtocolType"] = 3;
-                                oOptions.Value["Author"] = oFD.PropertySets[3][24].Value;
-                                //oOptions.Value("Authorization") = ""
-                                oOptions.Value["Description"] = oFD.PropertySets[3][14].Value;
-                                oOptions.Value["Organization"] = oFD.PropertySets[2][3].Value;
+                                //oOptions.Value["ApplicationProtocolType"] = 3;
+                                //oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
+                                ////oOptions.Value("Authorization") = ""
+                                //oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
+                                //oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
 
-                                oDataMedium.FileName = filePathParasolid;
+
+                                oOptions.Value["Version"] = 20;
 
                                 try
                                 {
@@ -796,11 +809,14 @@ namespace DevAddIns
 
                 if (oParasolidTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
                 {
-                    oOptions.Value["ApplicationProtocolType"] = 3;
-                    oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
-                    //oOptions.Value("Authorization") = ""
-                    oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
-                    oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
+                    //oOptions.Value["ApplicationProtocolType"] = 3;
+                    //oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
+                    ////oOptions.Value("Authorization") = ""
+                    //oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
+                    //oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
+
+
+                    oOptions.Value["Version"] = 20;
 
                     oDataMedium.FileName = filePathParasolid;
 
