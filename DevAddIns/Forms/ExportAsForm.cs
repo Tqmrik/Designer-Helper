@@ -72,7 +72,8 @@ namespace DevAddIns
 
         private void dxfCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            
+            if (dxfCheckBox.Checked) makeDxf = true;
+            else makeDxf = false;
         }
         private void xtCheckBox_CheckedChanged(object sender, EventArgs e)
         {
