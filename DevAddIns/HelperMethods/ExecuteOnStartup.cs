@@ -8,7 +8,7 @@ namespace DevAddIns
 {
     class ExecuteOnStartup
     {
-        private TranslatorList m_translatorList;
+        private TranslatorList m_translatorList = new TranslatorList();
         public ExecuteOnStartup()
         {
             m_translatorList.DisplasyTranslatorOutput();
