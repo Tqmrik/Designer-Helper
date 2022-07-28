@@ -104,52 +104,62 @@ namespace DevAddIns
             else if (activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument())
             {
                 //Make pdf for the assembly drawing
-                if(!String.IsNullOrEmpty(activeDocument.FullFileName))
+                if (activeDocument != null)
                 {
-                    string assemblyDirectory = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
-                    string assemblyDrawingPath = PathConverter.guessDrawingPath(activeDocument);
-                    currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(assemblyDirectory, assemblyDrawingPath);
-
-
-                    if (String.IsNullOrEmpty(currentAssemblyDrawingPath))//Make more advanced directory search??
+                    if (((AssemblyDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                     {
-                        foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(assemblyDirectory).GetDirectories())
-                        {
-                            if (currentAssemblyDrawingPath == null)
-                            {
-                                currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, assemblyDrawingPath);
-                            }
-                            else break;
-                        }
+
                     }
-
-
-                    if (!String.IsNullOrEmpty(currentAssemblyDrawingPath))
-                    {
-                        drawingDocumentObject = InventorApplication.Documents.Open(currentAssemblyDrawingPath, OpenVisible: false);
-                        filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
-
-                        if (oPDFTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
-                        {
-                            oOptions.Value["All_Color_AS_Black"] = 0;
-                        }
-
-                        oDataMedium.FileName = filePath;
-
-                        try
-                        {
-                            oPDFTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
-                        }
-                    }
-
                     else
                     {
-                        MessageBox.Show("Wasn't able to find an assembly drawing");
+                        if (!String.IsNullOrEmpty(activeDocument.FullFileName))
+                        {
+                            string assemblyDirectory = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
+                            string assemblyDrawingPath = PathConverter.guessDrawingPath(activeDocument);
+                            currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(assemblyDirectory, assemblyDrawingPath);
+
+
+                            if (String.IsNullOrEmpty(currentAssemblyDrawingPath))//Make more advanced directory search??
+                            {
+                                foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(assemblyDirectory).GetDirectories())
+                                {
+                                    if (currentAssemblyDrawingPath == null)
+                                    {
+                                        currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, assemblyDrawingPath);
+                                    }
+                                    else break;
+                                }
+                            }
+
+
+                            if (!String.IsNullOrEmpty(currentAssemblyDrawingPath))
+                            {
+                                drawingDocumentObject = InventorApplication.Documents.Open(currentAssemblyDrawingPath, OpenVisible: false);
+                                filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
+
+                                if (oPDFTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
+                                {
+                                    oOptions.Value["All_Color_AS_Black"] = 0;
+                                }
+
+                                oDataMedium.FileName = filePath;
+
+                                try
+                                {
+                                    oPDFTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
+                                }
+                                catch (Exception e)
+                                {
+                                    MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+
+                                }
+                            }
+
+                            else
+                            {
+                                MessageBox.Show("Wasn't able to find an assembly drawing");
+                            }
+                        }
                     }
                 }
                 //Make pdfs for the parts drawings
@@ -157,6 +167,21 @@ namespace DevAddIns
                 {
                     foreach (Document referencedDocument in activeDocument.ReferencedDocuments)
                     {
+                        if(referencedDocument.isAssemblyDocument())
+                        {
+                            if (((AssemblyDocument)referencedDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            {
+                                continue;
+                            }
+                        }
+                        else if(referencedDocument.isPartDocument())
+                        {
+                            if (((PartDocument)referencedDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            {
+                                continue;
+                            }
+                        }
+                        
                         string sourcePartPath = System.IO.Path.GetDirectoryName(referencedDocument.FullDocumentName);
                         string tempDrawingFilePath = PathConverter.guessDrawingPath(referencedDocument);
 
@@ -219,60 +244,60 @@ namespace DevAddIns
                 }
                 else
                 {
-
-                }
-                string partDirectory = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
-                string partDrawingPath = PathConverter.guessDrawingPath(activeDocument);
-                referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
-
-                if (!String.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
-                {
+                    string partDirectory = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
+                    string partDrawingPath = PathConverter.guessDrawingPath(activeDocument);
                     referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
-                }
-                else return;
 
-                if (String.IsNullOrEmpty(referencedDocumentDrawingPath))//Make more advanced directory search??
-                {
-                    foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(partDirectory).GetDirectories())
+                    if (!String.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
                     {
-                        if (referencedDocumentDrawingPath == null)
+                        referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
+                    }
+                    else return;
+
+                    if (String.IsNullOrEmpty(referencedDocumentDrawingPath))//Make more advanced directory search??
+                    {
+                        foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(partDirectory).GetDirectories())
                         {
-                            referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, partDrawingPath);
+                            if (referencedDocumentDrawingPath == null)
+                            {
+                                referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, partDrawingPath);
+                            }
+                            else break;
                         }
-                        else break;
+                    }
+
+                    if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
+                    {//If drawing is placed in the folder, save it to the folder as well
+                        drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
+                        filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
+
+                        if (oPDFTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
+                        {
+                            oOptions.Value["All_Color_AS_Black"] = 0;
+                            //TODO: What are the other options?
+                        }
+
+                        oDataMedium.FileName = filePath;
+
+                        try
+                        {
+                            //Will adding the transaction alter the operation????
+                            //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
+                            oPDFTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
+                            drawingDocumentObject.Close();
+                        }
+                        catch (Exception e)
+                        {
+                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+
+                        }
+                    }
+                    else
+                    {
+                        return;
                     }
                 }
-
-                if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
-                {//If drawing is placed in the folder, save it to the folder as well
-                    drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
-                    filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
-
-                    if (oPDFTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
-                    {
-                        oOptions.Value["All_Color_AS_Black"] = 0;
-                        //TODO: What are the other options?
-                    }
-
-                    oDataMedium.FileName = filePath;
-
-                    try
-                    {
-                        //Will adding the transaction alter the operation????
-                        //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
-                        oPDFTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
-                        drawingDocumentObject.Close();
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
-                    }
-                }
-                else
-                {
-                    return;
-                }
+                
             }
 
             oPDFTranslator = null;
@@ -408,9 +433,19 @@ namespace DevAddIns
                 {
                     foreach (Document oFD in activeDocument.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
-                        if (((PartDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
+                        if (oFD.isAssemblyDocument())
                         {
-                            continue;
+                            if (((AssemblyDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            {
+                                continue;
+                            }
+                        }
+                        else if (oFD.isPartDocument())
+                        {
+                            if (((PartDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            {
+                                continue;
+                            }
                         }
                         if (!String.IsNullOrEmpty(oFD.FullFileName))
                         {
@@ -600,26 +635,39 @@ namespace DevAddIns
                 {
                     foreach (Document oFDF in activeDocument.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
+
                         if (!(oFDF.isPartDocument() || oFDF.isSheetMetalDocument()))
                         {
                             continue;
                         }
 
-                        else
+
+                        if (oFDF.isAssemblyDocument())
                         {
-                            oFD = (PartDocument)oFDF;
+                            if (((AssemblyDocument)oFDF).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            {
+                                continue;
+                            }
+                        }
+                        else if (oFDF.isPartDocument())
+                        {
+                            if (((PartDocument)oFDF).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            {
+                                continue;
+                            }
                         }
 
-                        if (!String.IsNullOrEmpty(oFD.FullFileName))
+
+                        if (!String.IsNullOrEmpty(oFDF.FullFileName))
                         {
-                            referencedDoc = (PartDocument)InventorApplication.Documents.ItemByName[oFD.FullFileName];
+                            referencedDoc = (PartDocument)InventorApplication.Documents.ItemByName[oFDF.FullFileName];
 
                             if (!oFDF.isSheetMetalDocument())
                             {
                                 continue;
                             }
 
-                            oSMDef = (SheetMetalComponentDefinition)oFD.ComponentDefinition;
+                            oSMDef = (SheetMetalComponentDefinition)((PartDocument)oFDF).ComponentDefinition;
                             oDataIO = oSMDef.DataIO;
 
                             filePathDXF = RevisionHelper.addRevisionLetter(oFDF, PathConverter.clearExtension(oFDF), extension);
