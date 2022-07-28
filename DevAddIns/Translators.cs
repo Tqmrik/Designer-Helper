@@ -53,6 +53,7 @@ namespace DevAddIns
             string currentAssemblyDrawingPath = null;
 
             string filePath = this.filePath;
+            string extension = "pdf";
 
             if (oPDFTranslator.Equals(null))
             {
@@ -65,7 +66,7 @@ namespace DevAddIns
                 if (!String.IsNullOrEmpty(activeDocument.FullDocumentName))
                 {
                     //Add revision letter to the file name
-                    filePath = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), "pdf");
+                    filePath = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
                 }
 
                 else
@@ -73,12 +74,12 @@ namespace DevAddIns
                     //Try to save to the desktop
                     filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
                     int iterator = 1;
-                    while (System.IO.File.Exists(filePath + ".pdf"))
+                    while (System.IO.File.Exists(filePath + $".{extension}"))
                     {
                         filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
                         iterator++;
                     }
-                    filePath += ".pdf";
+                    filePath += $".{extension}";
                 }
 
 
@@ -126,7 +127,7 @@ namespace DevAddIns
                     if (!String.IsNullOrEmpty(currentAssemblyDrawingPath))
                     {
                         drawingDocumentObject = InventorApplication.Documents.Open(currentAssemblyDrawingPath, OpenVisible: false);
-                        filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), "pdf");
+                        filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
 
                         if (oPDFTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
                         {
@@ -182,7 +183,7 @@ namespace DevAddIns
                         if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
                         {//If drawing is placed in the folder, save it to the folder as well
                             drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
-                            filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), "pdf");
+                            filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
 
                             if (oPDFTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
                             {
@@ -212,6 +213,14 @@ namespace DevAddIns
             }
             else if (activeDocument.isPartDocument() || activeDocument.isSheetMetalDocument())
             {
+                if (((PartDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                {
+
+                }
+                else
+                {
+
+                }
                 string partDirectory = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
                 string partDrawingPath = PathConverter.guessDrawingPath(activeDocument);
                 referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
@@ -237,7 +246,7 @@ namespace DevAddIns
                 if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
                 {//If drawing is placed in the folder, save it to the folder as well
                     drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
-                    filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), "pdf");
+                    filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
 
                     if (oPDFTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
                     {
@@ -283,6 +292,7 @@ namespace DevAddIns
 
             string filePath = this.filePath;
             string filePathStep = "";
+            string extension = "stp";
 
             Document referencedDocumentObject = null;
 
@@ -301,19 +311,19 @@ namespace DevAddIns
                     if (!String.IsNullOrEmpty(oFD.FullFileName))
                     {
                         referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName];
-                        filePathStep = RevisionHelper.addRevisionLetter(referencedDocumentObject, PathConverter.clearExtension(referencedDocumentObject), "stp");
+                        filePathStep = RevisionHelper.addRevisionLetter(referencedDocumentObject, PathConverter.clearExtension(referencedDocumentObject), extension);
                     }
                     else
                     {
                         //Add file check and then increment
                         filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
                         int iterator = 1;
-                        while (System.IO.File.Exists(filePath + ".stp"))
+                        while (System.IO.File.Exists(filePath + $".{extension}"))
                         {
                             filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
                             iterator++;
                         }
-                        filePathStep += ".stp";
+                        filePathStep += $".{extension}";
                     }
 
 
@@ -343,58 +353,70 @@ namespace DevAddIns
             }
             else if ((activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
             {
+
                 //Step for the assembly, only doing check to wrap things up
                 if (activeDocument != null)
                 {
-                    if (!String.IsNullOrEmpty(activeDocument.FullFileName))
+                    if (((AssemblyDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                     {
-                        referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                        filePathStep = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), "stp");
+
                     }
                     else
                     {
-                        //Add file check and then increment
-                        filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                        int iterator = 1;
-                        while (System.IO.File.Exists(filePath + ".stp"))
+                        if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                         {
-                            filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
-                            iterator++;
+                            referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
+                            filePathStep = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), "stp");
                         }
-                        filePathStep += ".stp";
+                        else
+                        {
+                            //Add file check and then increment
+                            filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
+                            int iterator = 1;
+                            while (System.IO.File.Exists(filePath + ".stp"))
+                            {
+                                filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
+                                iterator++;
+                            }
+                            filePathStep += ".stp";
+                        }
+
+                        if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
+                        {
+                            oOptions.Value["ApplicationProtocolType"] = 3;
+                            oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
+                            //oOptions.Value("Authorization") = ""
+                            oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
+                            oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
+
+                            oDataMedium.FileName = filePathStep;
+
+                            try
+                            {
+                                oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
+                            }
+                            catch (Exception e)
+                            {
+                                MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                            }
+                        }
                     }
-
-                    if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                    {
-                        oOptions.Value["ApplicationProtocolType"] = 3;
-                        oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
-                        //oOptions.Value("Authorization") = ""
-                        oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
-                        oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
-
-                        oDataMedium.FileName = filePathStep;
-
-                        try
-                        {
-                            oSTEPTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-                        }
-                    }
+                    
                 }
                 //Steps for the parts
                 if (includeParts)
                 {
                     foreach (Document oFD in activeDocument.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
-
+                        if (((PartDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
+                        {
+                            continue;
+                        }
                         if (!String.IsNullOrEmpty(oFD.FullFileName))
                         {
                             //It seems that to get the drawing you would need to search in the same folder for the file with the same name as a drawing
                             referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName]; //Why do i need that as well????
-                            filePathStep = RevisionHelper.addRevisionLetter(oFD, PathConverter.clearExtension(oFD), "stp");
+                            filePathStep = RevisionHelper.addRevisionLetter(oFD, PathConverter.clearExtension(oFD), extension);
 
                             if (oSTEPTranslator.HasSaveCopyAsOptions[oFD, oContext, oOptions])
                             {
@@ -426,22 +448,27 @@ namespace DevAddIns
             }
             else if (activeDocument.isPartDocument() || activeDocument.isSheetMetalDocument())
             {
+                if (((PartDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
+                {
+                    return;
+                }
+
                 if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                 {
                     referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                    filePathStep = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), "stp");
+                    filePathStep = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
                 }
                 else
                 {
                     //Add file check and then increment
                     filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
                     int iterator = 1;
-                    while (System.IO.File.Exists(filePath + ".stp"))
+                    while (System.IO.File.Exists(filePath + $".{extension}"))
                     {
                         filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
                         iterator++;
                     }
-                    filePathStep += ".stp";
+                    filePathStep += $".{extension}";
                 }
 
                 if (oSTEPTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
@@ -477,11 +504,14 @@ namespace DevAddIns
         {
             string filePath = this.filePath;
             string filePathDXF = "";
+            string extension = "dxf";
+
             PartDocument referencedDoc = null;
             SheetMetalComponentDefinition oSMDef = null;
             DataIO oDataIO = null;
-            string sOut = "FLAT PATTERN DXF?AcadVersion=2010&OuterProfileLayer=Outer&BendLayer=Bend&OuterProfileLayerColor=0;0;0&BendUpLayerColor=0;0;0&BendUpLayerLineType=37644&BendDownLayerColor=0;0;0&TrimCenterlinesAtContour=True&MergeProfilesIntoPolyline=True&InvisibleLayers=IV_TANGENT;IV_ARC_CENTERS;&RebaseGeometry=True";
+            string sOut = "FLAT PATTERN DXF?AcadVersion=2010&OuterProfileLayer=Outer&BendLayer=Bend&OuterProfileLayerColor=0;0;0&BendUpLayerColor=0;0;0&BendUpLayerLineType=37644&BendDownLayerColor=0;0;0&BendUpLayerLineWeight=.025&TrimCenterlinesAtContour=True&MergeProfilesIntoPolyline=True&InvisibleLayers=IV_TANGENT;IV_ARC_CENTERS;&RebaseGeometry=True";
             PartDocument oFD = null;
+
 
             if (activeDocument.isDrawingDocument())
             {
@@ -492,7 +522,7 @@ namespace DevAddIns
                     {
                         referencedDoc = (PartDocument)InventorApplication.Documents.ItemByName[oFDF.FullFileName];
 
-                        if (!(referencedDoc.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}"))
+                        if (!oFDF.isSheetMetalDocument())
                         {
                             return;
                         }
@@ -500,18 +530,18 @@ namespace DevAddIns
                         oSMDef = (SheetMetalComponentDefinition)referencedDoc.ComponentDefinition;
                         oDataIO = oSMDef.DataIO;
 
-                        filePathDXF = RevisionHelper.addRevisionLetter(oFDF, PathConverter.clearExtension(oFDF), "dxf");
+                        filePathDXF = RevisionHelper.addRevisionLetter(oFDF, PathConverter.clearExtension(oFDF), extension);
                     }
                     else
                     {
                         filePathDXF = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
                         int iterator = 1;
-                        while (System.IO.File.Exists(filePath + ".stp"))
+                        while (System.IO.File.Exists(filePath + $".{extension}"))
                         {
                             filePathDXF = filePathDXF.Remove(filePath.Length - 1) + iterator.ToString();
                             iterator++;
                         }
-                        filePathDXF += ".dxf";
+                        filePathDXF += $".{extension}";
                     }
 
                     if (!oSMDef.HasFlatPattern)
@@ -527,11 +557,12 @@ namespace DevAddIns
             }
             else if (activeDocument.isSheetMetalDocument())
             {
+
                 if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                 {
                     referencedDoc = (PartDocument)InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
 
-                    if (!(referencedDoc.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}"))
+                    if (!activeDocument.isSheetMetalDocument())
                     {
                         return;
                     }
@@ -539,19 +570,19 @@ namespace DevAddIns
                     oSMDef = (SheetMetalComponentDefinition)referencedDoc.ComponentDefinition;
                     oDataIO = oSMDef.DataIO;
 
-                    filePathDXF = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), "dxf");
+                    filePathDXF = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
                 }
                 else
                 {
                     //Add file check and then increment
                     filePathDXF = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
                     int iterator = 1;
-                    while (System.IO.File.Exists(filePath + ".dxf"))
+                    while (System.IO.File.Exists(filePath + $".{extension}"))
                     {
                         filePathDXF = filePathDXF.Remove(filePath.Length - 1) + iterator.ToString();
                         iterator++;
                     }
-                    filePathDXF += ".dxf";
+                    filePathDXF += $".{extension}";
                 }
 
                 if (!oSMDef.HasFlatPattern)
@@ -583,7 +614,7 @@ namespace DevAddIns
                         {
                             referencedDoc = (PartDocument)InventorApplication.Documents.ItemByName[oFD.FullFileName];
 
-                            if (!(referencedDoc.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}"))
+                            if (!oFDF.isSheetMetalDocument())
                             {
                                 continue;
                             }
@@ -591,7 +622,7 @@ namespace DevAddIns
                             oSMDef = (SheetMetalComponentDefinition)oFD.ComponentDefinition;
                             oDataIO = oSMDef.DataIO;
 
-                            filePathDXF = RevisionHelper.addRevisionLetter(oFDF, PathConverter.clearExtension(oFDF), "dxf");
+                            filePathDXF = RevisionHelper.addRevisionLetter(oFDF, PathConverter.clearExtension(oFDF), extension);
 
                             if (!oSMDef.HasFlatPattern)
                             {

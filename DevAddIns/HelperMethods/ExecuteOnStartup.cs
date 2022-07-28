@@ -11,7 +11,7 @@ namespace DevAddIns
         private TranslatorList m_translatorList = new TranslatorList();
         public ExecuteOnStartup()
         {
-            m_translatorList.DisplasyTranslatorOutput();
+            //m_translatorList.DisplasyTranslatorOutput();
         }
     }
 }
