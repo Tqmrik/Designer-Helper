@@ -99,7 +99,7 @@ namespace DevAddIns
                     activeDocument.PropertySets[1][2].Value = ""; //Summary -> Subject
                     activeDocument.PropertySets[1][3].Value = InventorApplication.GeneralOptions.UserName; //Summary -> Author
                     activeDocument.PropertySets[2][2].Value = "";//Summary->Manager
-                    activeDocument.PropertySets[2][3].Value = companyNameProperty.ToUpper();//Summary -> Company
+                    activeDocument.PropertySets[2][3].Value = companyNameProperty;//Summary -> Company
                     activeDocument.PropertySets[2][1].Value = "";//Summary -> Category
                     activeDocument.PropertySets[1][4].Value = ""; //Summary -> Keywords
                     activeDocument.PropertySets[1][5].Value = ""; //Summary -> Comments
@@ -146,7 +146,7 @@ namespace DevAddIns
                     //        activeDocument.PropertySets[3][20].Value = dateTime.Date.ToString(); //Project->Mfg.Approved By
                     //}
 
-                    if (activeDocument.SubType == "{BBF9FDF1-52DC-11D0-8C04-0800090BE8EC}")
+                    if (activeDocument.isDrawingDocument())
                     {
                         //Also you cannot add twice
 

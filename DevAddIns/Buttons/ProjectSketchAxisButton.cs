@@ -47,16 +47,16 @@ namespace DevAddIns
 
                 //Is there other way
                 //Guard clauses for different types of documents
-                if (activeDocument.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}") //Sheet metal
+                if (activeDocument.isSheetMetalDocument()) //Sheet metal
                 {
 
                     pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryBendPart[languageCode]].BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                     }
-                else if (activeDocument.SubType == "{E60F81E1-49B3-11D0-93C3-7E0706000000}") //Assembly
+                else if (activeDocument.isAssemblyDocument()) //Assembly
                 {
                     pathToOrigin = activeDocument.BrowserPanes["AmBrowserArrangement"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                 }
-                else if (activeDocument.SubType == "{4D29B490-49B2-11D0-93C3-7E0706000000}") //Part
+                else if (activeDocument.isPartDocument()) //Part
                 {
                     pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                 }

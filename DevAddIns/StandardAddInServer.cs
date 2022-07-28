@@ -320,8 +320,8 @@ namespace DevAddIns
             // when the Inventor session is terminated
             try
             {
-                m_userInterfaceEvents.OnResetCommandBars -= UserInterfaceEventsSink_OnResetCommandBarsEventDelegate;
-                m_userInterfaceEvents.OnResetEnvironments -= UserInterfaceEventsSink_OnResetEnvironmentsEventDelegate;
+                //m_userInterfaceEvents.OnResetCommandBars -= UserInterfaceEventsSink_OnResetCommandBarsEventDelegate;
+                //m_userInterfaceEvents.OnResetEnvironments -= UserInterfaceEventsSink_OnResetEnvironmentsEventDelegate;
 
                 UserInterfaceEventsSink_OnResetCommandBarsEventDelegate = null;
                 UserInterfaceEventsSink_OnResetEnvironmentsEventDelegate = null;
