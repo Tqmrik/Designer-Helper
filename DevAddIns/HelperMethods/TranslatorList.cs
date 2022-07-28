@@ -15,16 +15,28 @@ namespace DevAddIns
         public static Inventor.Application InventorApplication;
         public void DisplasyTranslatorOutput()
         {
-            StreamWriter sw = new StreamWriter(@"C:/Users/User/Desktop/AddInsList.txt");
+            StreamWriter sw = new StreamWriter($@"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)}/AddInsList.txt");
             var invdoc = InventorApplication.ApplicationAddIns;
             int index = 0;
-            foreach(ApplicationAddIn addin in invdoc)
+            sw.WriteLine(DateTime.Now);
+            sw.WriteLine();
+            foreach (ApplicationAddIn addin in invdoc)
             {
+                if(addin is TranslatorAddIn)
+                {
+                    TranslatorAddIn transAddIn = (TranslatorAddIn)addin;
+                    sw.WriteLine($"Index: {index}");
+                    sw.WriteLine(transAddIn.ToStringExt());
+                }
+                else
+                {
+                    sw.WriteLine($"Index: {index}");
+                    sw.WriteLine($"Class Id string: {addin.ClassIdString}");
+                    sw.WriteLine($"Client Id: {addin.ClientId}");
+                    sw.WriteLine($"Display name: {addin.DisplayName}");
+                }
                 //Add extension to the application add in
-                sw.WriteLine($"Index: {index}");
-                sw.WriteLine($"Class Id string: {addin.ClassIdString}");
-                sw.WriteLine($"Client Id: {addin.ClientId}");
-                sw.WriteLine($"Display name: {addin.DisplayName}");
+
                 sw.WriteLine();
                 index++;
             }

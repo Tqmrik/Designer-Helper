@@ -14,5 +14,10 @@ namespace DevAddIns
         {
             return $"Display name: \"{propSet.DisplayName}\"\nName: \"{propSet.Name}\nInternalname: \"{propSet.InternalName}\"\nCount: {propSet.Count}\nType: {propSet.Type}";
         }
+
+        public static string ToStringExt(this TranslatorAddIn transAddIn)
+        {
+            return $"Class Id string: {transAddIn.ClassIdString}\nDisplay name: {transAddIn.DisplayName}\nDescription: {transAddIn.Description}\nFile extensions: {transAddIn.FileExtensions}";
+        }
     }
 }

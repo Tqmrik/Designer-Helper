@@ -34,7 +34,7 @@ namespace DevAddIns
         private ShowPropertiesButton m_showProperties;
         private TestFunctionButton m_testFunctionButton;
         private BalloonsEndArrow m_balloonsEndArrow;
-        private TranslatorList m_translatorList;
+        private ExecuteOnStartup m_ExecuteOnStartUp;
 
         //comboBoxes
         private DrawingStyleComboBox m_drawingStyleComboBox;
@@ -99,10 +99,7 @@ namespace DevAddIns
                 TranslatorList.InventorApplication = m_inventorApplication;
 
 
-                m_translatorList = new TranslatorList();
-                m_translatorList.DisplasyTranslatorOutput();
-
-
+                m_ExecuteOnStartUp = new ExecuteOnStartup();
 
 
                 //m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;

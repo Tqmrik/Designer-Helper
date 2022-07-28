@@ -151,6 +151,7 @@
     <Compile Include="Forms\UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HelperMethods\ExecuteOnStartup.cs" />
     <Compile Include="HelperMethods\TranslatorList.cs" />
     <Compile Include="HelperMethods\RevisionHelper.cs" />
     <Compile Include="HelperMethods\PathConverter.cs" />
