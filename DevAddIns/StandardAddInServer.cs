@@ -35,6 +35,7 @@ namespace DevAddIns
         private TestFunctionButton m_testFunctionButton;
         private BalloonsEndArrow m_balloonsEndArrow;
         private ExecuteOnStartup m_ExecuteOnStartUp;
+        private NewExportAsButton m_newExportAsButton;
 
         //comboBoxes
         private DrawingStyleComboBox m_drawingStyleComboBox;
@@ -97,6 +98,7 @@ namespace DevAddIns
                 ExportAsForm.InventorApplication = m_inventorApplication;
                 Translators.InventorApplication = m_inventorApplication;
                 TranslatorList.InventorApplication = m_inventorApplication;
+                NewExportAsButton.InventorApplication = m_inventorApplication;
 
 
                 m_ExecuteOnStartUp = new ExecuteOnStartup();
@@ -207,6 +209,8 @@ namespace DevAddIns
 
                 //Apparently doesn't work with icons????
                 m_drawingStyleComboBox = new DrawingStyleComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style", "Change drawing style", ButtonDisplayEnum.kDisplayTextInLearningMode);
+
+                m_newExportAsButton = new NewExportAsButton("NewExport", "NewExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 
                     
@@ -337,6 +341,7 @@ namespace DevAddIns
                 m_showProperties = null;
                 m_testFunctionButton = null;
                 m_balloonsEndArrow = null;
+                m_newExportAsButton = null;
 
 
                 //Dispose comboboxes
@@ -544,10 +549,20 @@ namespace DevAddIns
                 }
 
 
+
                 drawingPanelSed.CommandControls.AddButton(m_balloonsEndArrow.ButtonDefinition);
+
+
                 assemblyPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
+                assemblyPanelSed.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
+
+
                 partPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
+                partPanelSed.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
+
+
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
+                iPropertiesDrawingPanel.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_updatePropertiesRevesionButton.ButtonDefinition);
 
                 //assemblyPanelSed.CommandControls.AddButton(m_showProperties.ButtonDefinition);

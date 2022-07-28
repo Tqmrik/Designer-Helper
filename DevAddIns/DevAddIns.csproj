@@ -149,6 +149,7 @@
     <Compile Include="HelperMethods\TranslatorList.cs" />
     <Compile Include="HelperMethods\RevisionHelper.cs" />
     <Compile Include="HelperMethods\PathConverter.cs" />
+    <Compile Include="Buttons\NewExportAsButton.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
