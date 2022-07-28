@@ -105,10 +105,10 @@ namespace DevAddIns
 
 
 
-                m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
+                //m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
 
                 //initialize event delegates
-                m_userInterfaceEvents = m_inventorApplication.UserInterfaceManager.UserInterfaceEvents;
+                //m_userInterfaceEvents = m_inventorApplication.UserInterfaceManager.UserInterfaceEvents;
 
 
                 //It's so bad but whatever for now

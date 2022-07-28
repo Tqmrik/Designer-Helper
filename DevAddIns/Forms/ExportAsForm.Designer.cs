@@ -126,6 +126,7 @@ namespace DevAddIns
             this.xtCheckBox.TabIndex = 6;
             this.xtCheckBox.Text = ".x_t";
             this.xtCheckBox.UseVisualStyleBackColor = true;
+            this.xtCheckBox.Visible = false;
             this.xtCheckBox.CheckedChanged += new System.EventHandler(this.xtCheckBox_CheckedChanged);
             // 
             // xtVersionsBox
@@ -161,6 +162,7 @@ namespace DevAddIns
             this.xtVersionsBox.Size = new System.Drawing.Size(139, 28);
             this.xtVersionsBox.TabIndex = 7;
             this.xtVersionsBox.Text = "Select the version";
+            this.xtVersionsBox.Visible = false;
             // 
             // ExportAsForm
             // 
