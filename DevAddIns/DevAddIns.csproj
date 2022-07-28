@@ -166,6 +166,9 @@
     </Compile>
     <Compile Include="Translators.cs" />
     <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
+    <Compile Include="WPFForms\UserControl55.xaml.cs">
+      <DependentUpon>UserControl55.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="AddInManual.pdf">
@@ -230,6 +233,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ExportAsButtonStates.txt" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Page Include="WPFForms\UserControl55.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
