@@ -33,7 +33,9 @@ namespace DevAddIns.Forms
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -49,6 +51,7 @@ namespace DevAddIns.Forms
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.elementHost1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -77,6 +80,15 @@ namespace DevAddIns.Forms
             this.tabPage3.Text = "tabPage3";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // elementHost1
+            // 
+            this.elementHost1.Location = new System.Drawing.Point(301, 77);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(200, 100);
+            this.elementHost1.TabIndex = 0;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = null;
+            // 
             // NewExportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -86,6 +98,7 @@ namespace DevAddIns.Forms
             this.Name = "NewExportForm";
             this.Text = "NewExportForm";
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -96,5 +109,6 @@ namespace DevAddIns.Forms
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
     }
 }

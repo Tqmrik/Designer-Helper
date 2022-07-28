@@ -145,12 +145,6 @@
     <Compile Include="Forms\NewExportForm.Designer.cs">
       <DependentUpon>NewExportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\UserControl1.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\UserControl1.Designer.cs">
-      <DependentUpon>UserControl1.cs</DependentUpon>
-    </Compile>
     <Compile Include="HelperMethods\ExecuteOnStartup.cs" />
     <Compile Include="HelperMethods\TranslatorList.cs" />
     <Compile Include="HelperMethods\RevisionHelper.cs" />
@@ -172,9 +166,6 @@
     </Compile>
     <Compile Include="Translators.cs" />
     <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
-    <Compile Include="UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="AddInManual.pdf">
@@ -211,19 +202,10 @@
     <EmbeddedResource Include="Forms\NewExportForm.resx">
       <DependentUpon>NewExportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\UserControl1.resx">
-      <DependentUpon>UserControl1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="UserControl1.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ChangeMassLengthUnitsToMetricIconLarge.png" />
