@@ -25,33 +25,33 @@ namespace DevAddIns
             InitializeComponent();
         }
 
-        private void ribbon_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //private void ribbonButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if(ribbon.SelectedItem != ribbonButton)
+        //    {
+        //        ribbon.SelectedItem = ribbonButton;
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //}
+
+        //private void ribbonButton1_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (ribbon.SelectedItem != ribbonButton1)
+        //    {
+        //        ribbon.SelectedItem = ribbonButton1;
+        //    }
+        //    else
+        //    {
+
+        //    }
+        //}
+
+        private void Ribbon_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
-               
-        }
 
-        private void ribbonButton_Click(object sender, RoutedEventArgs e)
-        {
-            if(ribbon.SelectedItem != ribbonButton)
-            {
-                ribbon.SelectedItem = ribbonButton;
-            }
-            else
-            {
-
-            }
-        }
-
-        private void ribbonButton1_Click(object sender, RoutedEventArgs e)
-        {
-            if (ribbon.SelectedItem != ribbonButton1)
-            {
-                ribbon.SelectedItem = ribbonButton1;
-            }
-            else
-            {
-
-            }
         }
     }
 }

@@ -10,10 +10,52 @@
     <Grid>
 
         <Grid HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" Background="#FFA09B9B">
-            <Ribbon x:Name="ribbon" HorizontalAlignment="Left" Height="123" VerticalAlignment="Top" Width="800">
-                <RibbonButton x:Name="ribbonButton" Content="Tools" Height="17" Width="75" Background="Transparent" Click="ribbonButton_Click"/>
-                <RibbonButton x:Name="ribbonButton1" Content="Help" Height="20" Width="75" Click="ribbonButton1_Click"/>
+            <Ribbon x:Name="Ribbon" Title="Ribbon Title" SelectionChanged="Ribbon_SelectionChanged_1">
+                <Ribbon.HelpPaneContent>
+                    <RibbonButton SmallImageSource="Imag/SmallIcon.png" />
+                </Ribbon.HelpPaneContent>
+                <Ribbon.QuickAccessToolBar>
+                    <RibbonQuickAccessToolBar >
+                        <RibbonButton x:Name="QATButton1" 
+                                         SmallImageSource="Imag/SmallIcon.png" />
+                        <RibbonButton x:Name="QATButton2" 
+                                         SmallImageSource="Imag/SmallIcon.png" />
+                    </RibbonQuickAccessToolBar>
+                </Ribbon.QuickAccessToolBar>
+                <Ribbon.ApplicationMenu>
+                    <RibbonApplicationMenu SmallImageSource="Imag/SmallIcon.png">
+                        <RibbonApplicationMenuItem Header="Hello _Ribbon"
+                                                      x:Name="MenuItem1"
+                                                      ImageSource="Imag/SmallIcon.png"/>
+                    </RibbonApplicationMenu>
+                </Ribbon.ApplicationMenu>
+                <RibbonTab x:Name="HomeTab" 
+                              Header="Home">
+                    <RibbonGroup x:Name="Group1" 
+                                    Header="Group1">
+                        <RibbonButton x:Name="Button1"
+                                         LargeImageSource="Imag/SmallIcon.png"
+                                         Label="Button1" />
+                        <RibbonButton x:Name="Button2"
+                                         SmallImageSource="Imag/SmallIcon.png"
+                                         Label="Button2" />
+                    </RibbonGroup>
+                </RibbonTab>
+                <RibbonTab x:Name="DXF_Export_Tab" Header="DXF Export" Margin="455,0,0,0"/>
             </Ribbon>
+
+            <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Height="269" Margin="0,181,0,0" VerticalAlignment="Top" Width="800">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Part Number"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Preview"></DataGridTextColumn>
+                    <DataGridTextColumn Header="BOM Structure"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Material"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Revision"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Quantity"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Grid HorizontalAlignment="Left" Height="58" Margin="0,123,0,0" VerticalAlignment="Top" Width="800" Background="Black"/>
+
 
         </Grid>
 
