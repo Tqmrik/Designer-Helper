@@ -164,8 +164,11 @@ namespace DevAddIns
                     //activeDocument.PropertySets[3][12].Value = ""; //Project->WEB Link
 
                     //--------------------
+                    if (String.IsNullOrEmpty(activeDocument.PropertySets[3][23].Expression))
+                    {
+                        activeDocument.PropertySets[3][23].Value = ""; //Project -> Status ????????
+                    }
 
-                    activeDocument.PropertySets[3][23].Value = ""; //Project -> Status ????????
                     //if(String.IsNullOrEmpty(Inventor.PropertiesForDesignTrackingPropertiesEnum.kCheckedByDesignTrackingProperties)) //??????
 
                     if(String.IsNullOrEmpty(activeDocument.PropertySets[3][5].Expression))
@@ -231,29 +234,93 @@ namespace DevAddIns
 
                         //Check if it exist or not, perhaps you might consider using an REGEX, it really fits in there
                         //for example we can check for DATE%n pattern and if it's empty go to next one???
-                        activeDocument.PropertySets[4]["DATE1"].Value = dateTime.Date;
-                        activeDocument.PropertySets[4]["DATE2"].Value = new DateTime(1601, 1, 1, 0, 0, 0);
-                        activeDocument.PropertySets[4]["DATE3"].Value = new DateTime(1601, 1, 1, 0, 0, 0);
+                        if(String.IsNullOrEmpty(activeDocument.PropertySets[4]["DATE1"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["DATE1"].Value = dateTime.Date;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["DATE2"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["DATE2"].Value = new DateTime(1601, 1, 1, 0, 0, 0);
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["DATE3"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["DATE3"].Value = new DateTime(1601, 1, 1, 0, 0, 0);
+                        }
+                        
                         activeDocument.PropertySets[4]["DocNumber"].Value = filePartNumberProperty;
-                        activeDocument.PropertySets[4]["HARDNESS"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["MADE1"].Value = InventorApplication.GeneralOptions.UserName;
-                        activeDocument.PropertySets[4]["MADE2"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["MADE3"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["NC1"].Value = "-";
-                        activeDocument.PropertySets[4]["NC2"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["NC3"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["NE1"].Value = "-";
-                        activeDocument.PropertySets[4]["NE2"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["NE3"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["REV1"].Value = "A";
-                        activeDocument.PropertySets[4]["REV2"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["REV3"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["REVIEWED1"].Value = checkedByProperty;
-                        activeDocument.PropertySets[4]["REVIEWED2"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["REVIEWED3"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["SURFACE"].Value = String.Empty;
-                        activeDocument.PropertySets[4]["VDS_Category"].Value = "Engineering";
 
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["HARDNESS"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["HARDNESS"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["MADE1"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["MADE1"].Value = activeDocument.PropertySets[3][24].Value;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["MADE2"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["MADE2"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["MADE3"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["MADE3"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["NC1"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["NC1"].Value = "-";
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["NC2"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["NC2"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["NC3"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["NC3"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["NE1"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["NE1"].Value = "-";
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["NE2"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["NE2"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["NE3"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["NE3"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["REV1"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["REV1"].Value = "A";
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["REV2"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["REV2"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["REV3"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["REV3"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["REVIEWED1"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["REVIEWED1"].Value = activeDocument.PropertySets[3][5].Value;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["REVIEWED2"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["REVIEWED2"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["REVIEWED3"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["REVIEWED3"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["SURFACE"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["SURFACE"].Value = String.Empty;
+                        }
+                        if (String.IsNullOrEmpty(activeDocument.PropertySets[4]["VDS_Category"].Expression))
+                        {
+                            activeDocument.PropertySets[4]["VDS_Category"].Value = "Engineering";
+                        }
                     }
 
                     oTransaction.End();
