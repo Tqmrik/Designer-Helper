@@ -42,7 +42,7 @@ namespace DevAddIns
 
 
                 string currentUserAppDataPath = filePath;
-                currentUserAppDataPath = currentUserAppDataPath + "Roaming\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData";
+                currentUserAppDataPath = currentUserAppDataPath + "\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData";
 
                 if (!System.IO.Directory.Exists(currentUserAppDataPath))
                 {
