@@ -127,14 +127,14 @@ namespace DevAddIns
 
             string lastCharacter = maxValue[maxValue.Length - 1].ToString();
 
-            activeDocument.PropertySets[4][maxValue].Value = Revision;
+            activeDocument.PropertySets[4][maxValue].Value = Revision; //Custom revision
             activeDocument.PropertySets[4]["DATE" + lastCharacter].Value = DateTime.Today;
             activeDocument.PropertySets[4]["MADE" + lastCharacter].Value = InventorApplication.GeneralOptions.UserName;
             activeDocument.PropertySets[4]["NC" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["NE" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["REVIEWED" + maxValue[maxValue.Length - 1]].Value = checkedByProperty;
 
-            activeDocument.PropertySets[1][7].Value = Revision;
+            activeDocument.PropertySets[1][7].Value = Revision; //Document revision in properties
 
             oTransaction.End();
         }
