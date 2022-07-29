@@ -113,11 +113,11 @@ namespace DevAddIns
             }
 
             // TODO: revisionIterator -> Change file to something else + add new file
-            string currentUserAppDataPath = InventorApplication.CurrentUserAppDataPath;
-            EditPropertiesForm editPropertiesForm = new EditPropertiesForm(currentUserAppDataPath);
-            currentUserAppDataPath = currentUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\DataSedenumPack\\EditProperties.txt";
+            string currentUserAppDataPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
+            EditPropertiesForm editPropertiesForm = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
+            currentUserAppDataPath = currentUserAppDataPath + "\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData\\EditProperties.txt";
 
-            if (!System.IO.File.Exists(currentUserAppDataPath)) editPropertiesForm.ShowDialog();
+            if (!System.IO.File.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData))) editPropertiesForm.ShowDialog();
 
             StreamReader fileObject = System.IO.File.OpenText(currentUserAppDataPath);
             string checkedByProperty = fileObject.ReadLine().Split(':')[1].Trim();
@@ -127,14 +127,14 @@ namespace DevAddIns
 
             string lastCharacter = maxValue[maxValue.Length - 1].ToString();
 
-            activeDocument.PropertySets[4][maxValue].Value = Revision;
+            activeDocument.PropertySets[4][maxValue].Value = Revision; //Custom revision
             activeDocument.PropertySets[4]["DATE" + lastCharacter].Value = DateTime.Today;
             activeDocument.PropertySets[4]["MADE" + lastCharacter].Value = InventorApplication.GeneralOptions.UserName;
             activeDocument.PropertySets[4]["NC" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["NE" + lastCharacter].Value = "-";
             activeDocument.PropertySets[4]["REVIEWED" + maxValue[maxValue.Length - 1]].Value = checkedByProperty;
 
-            activeDocument.PropertySets[1][7].Value = Revision;
+            activeDocument.PropertySets[1][7].Value = Revision; //Document revision in properties
 
             oTransaction.End();
         }
