@@ -101,8 +101,6 @@ namespace DevAddIns
             this.partDoc = (PartDocument)partDocument;
             this.accessDoc = accessDocument;
         }
-
-        
     }
 }
 

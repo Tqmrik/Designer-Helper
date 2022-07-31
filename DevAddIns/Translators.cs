@@ -924,6 +924,9 @@ namespace DevAddIns
 //TODO: CheckBox for replacing existing files???
 
 
+//TODO: There is apparently option to save sheet metal into pdf document???
+
+
 //PDF options:
 //oOptions.Value("Remove_Line_Weights") = 0
 //oOptions.Value("Vector_Resolution") = 400
