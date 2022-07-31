@@ -34,6 +34,9 @@ namespace DevAddIns
             // 
             // panel1
             // 
+            this.panel1.AutoSize = true;
+            this.panel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.panel1.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
@@ -46,10 +49,12 @@ namespace DevAddIns
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.panel1);
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "NewExportForm";
             this.Text = "NewExportForm";
             this.Load += new System.EventHandler(this.NewExportForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

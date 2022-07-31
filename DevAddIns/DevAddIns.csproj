@@ -150,8 +150,11 @@
     <Compile Include="HelperMethods\RevisionHelper.cs" />
     <Compile Include="HelperMethods\PathConverter.cs" />
     <Compile Include="Buttons\NewExportAsButton.cs" />
-    <Compile Include="Interfaces\IPartDocument.cs" />
-    <Compile Include="Interfaces\ISheetMetalDocument.cs" />
+    <Compile Include="Interfaces\assemblyDocum.cs" />
+    <Compile Include="Interfaces\IDocument.cs" />
+    <Compile Include="Interfaces\partDocum.cs" />
+    <Compile Include="Interfaces\sheetMetalDocum.cs" />
+    <Compile Include="Interfaces\weldmentDocum.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -245,9 +248,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WPFForms\Imag\SmallIcon.png">
+    <Resource Include="WPFForms\Imag\SmallIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

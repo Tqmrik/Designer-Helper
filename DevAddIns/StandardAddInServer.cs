@@ -99,7 +99,7 @@ namespace DevAddIns
                 Translators.InventorApplication = m_inventorApplication;
                 TranslatorList.InventorApplication = m_inventorApplication;
                 NewExportAsButton.InventorApplication = m_inventorApplication;
-
+                UserControl55.InventorApplication = m_inventorApplication;
 
                 m_ExecuteOnStartUp = new ExecuteOnStartup();
 
