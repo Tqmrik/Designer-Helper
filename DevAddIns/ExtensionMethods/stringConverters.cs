@@ -17,7 +17,22 @@ namespace DevAddIns
 
         public static string ToStringExt(this TranslatorAddIn transAddIn)
         {
-            return $"Class Id string: {transAddIn.ClassIdString}\nDisplay name: {transAddIn.DisplayName}\nDescription: {transAddIn.Description}\nFile extensions: {transAddIn.FileExtensions}";
+            return $"Class Id string: {transAddIn.ClassIdString}\nDisplay name: {transAddIn.DisplayName}\nDescription: {transAddIn.Description}\nFile extensions: {transAddIn.FileExtensions}\nSupports save copy as from: {transAddIn.SupportsSaveCopyAsFrom}";
+        }
+
+        public static string ToStringExt(this BOMStructureEnum BOMSE)
+        {
+            switch(BOMSE)
+            {
+                case BOMStructureEnum.kDefaultBOMStructure: return "Default";
+                case BOMStructureEnum.kNormalBOMStructure: return "Normal";
+                case BOMStructureEnum.kPhantomBOMStructure: return "Phantom";
+                case BOMStructureEnum.kReferenceBOMStructure: return "Reference";
+                case BOMStructureEnum.kPurchasedBOMStructure: return "Purchased";
+                case BOMStructureEnum.kInseparableBOMStructure: return "Inseparable";
+                case BOMStructureEnum.kVariesBOMStructure: return "*Varies*";
+                default: return BOMSE.ToString();
+            }
         }
     }
 }

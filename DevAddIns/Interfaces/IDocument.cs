@@ -19,6 +19,12 @@ namespace DevAddIns
         int Quantity { get;}
     }
 
+    //Add unit qty(amount in the first level of the assembly, get by referdocs)
+    //qty - get by counting all ref docs
+
     //Do we really need set?
     //Perhaps only if we are planning to work with Vault
 }
+
+
+//NOTE: Change to the class since all the docs have almost the same implementation????

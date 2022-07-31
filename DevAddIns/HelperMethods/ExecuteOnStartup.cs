@@ -12,6 +12,7 @@ namespace DevAddIns
         public ExecuteOnStartup()
         {
             //m_translatorList.DisplasyTranslatorOutput();
+
         }
     }
 }

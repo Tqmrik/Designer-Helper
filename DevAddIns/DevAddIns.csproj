@@ -150,6 +150,7 @@
     <Compile Include="HelperMethods\RevisionHelper.cs" />
     <Compile Include="HelperMethods\PathConverter.cs" />
     <Compile Include="Buttons\NewExportAsButton.cs" />
+    <Compile Include="HelperMethods\TranslatorOptions.cs" />
     <Compile Include="Interfaces\assemblyDocum.cs" />
     <Compile Include="Interfaces\IDocument.cs" />
     <Compile Include="Interfaces\partDocum.cs" />
@@ -240,7 +241,9 @@
   <ItemGroup>
     <None Include="Resources\ExportAsButtonStates.txt" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="WPFForms\SmallIcon.png" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="WPFForms\FileExportControl.xaml">
       <SubType>Designer</SubType>

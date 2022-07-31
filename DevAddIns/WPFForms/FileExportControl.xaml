@@ -4,21 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DevAddIns"
-             xmlns:Primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon" xmlns:Imaging="clr-namespace:System.Drawing.Imaging;assembly=System.Drawing" x:Name="mainWindow" x:Class="DevAddIns.UserControl55"
-             mc:Ignorable="d" Height="439" Width="614">
+             xmlns:Primitives="clr-namespace:System.Windows.Controls.Ribbon.Primitives;assembly=System.Windows.Controls.Ribbon" xmlns:Imaging="clr-namespace:System.Drawing.Imaging;assembly=System.Drawing" x:Name="mainWindow" x:Class="DevAddIns.FileExportControl"
+             mc:Ignorable="d" Height="439" Width="614" BorderThickness="0" UseLayoutRounding="False">
     <Grid x:Name="MainGrid" Background="#FFF03838" RenderTransformOrigin="0.5,0.5" Margin="0">
-        <Ribbon x:Name="RibbonPanel" Title="File export" SelectionChanged="Ribbon_SelectionChanged_1" Margin="0,0,0,299">
+        <Ribbon x:Name="RibbonPanel" Title="Export Form" SelectionChanged="Ribbon_SelectionChanged_1" Margin="0,-20,0,299" Grid.ColumnSpan="2">
             <Ribbon.HelpPaneContent>
                 <RibbonButton SmallImageSource="Images/SmallIcon.png" />
             </Ribbon.HelpPaneContent>
-            <Ribbon.QuickAccessToolBar>
+
+            <!--<Ribbon.QuickAccessToolBar>
                 <RibbonQuickAccessToolBar >
                     <RibbonButton x:Name="QATButton1" 
                                          SmallImageSource="Images/SmallIcon.png" />
                     <RibbonButton x:Name="QATButton2" 
                                          SmallImageSource="Images/SmallIcon.png" />
                 </RibbonQuickAccessToolBar>
-            </Ribbon.QuickAccessToolBar>
+            </Ribbon.QuickAccessToolBar>-->
+
             <Ribbon.ApplicationMenu>
                 <RibbonApplicationMenu SmallImageSource="Images/SmallIcon.png">
                     <RibbonApplicationMenuItem Header="Hello _Ribbon"
@@ -26,6 +28,7 @@
                                                       ImageSource="Images/SmallIcon.png"/>
                 </RibbonApplicationMenu>
             </Ribbon.ApplicationMenu>
+
             <RibbonTab x:Name="HomeTab" 
                               Header="Home" IsSelected="True">
                 <RibbonGroup x:Name="Group1" 
@@ -40,13 +43,40 @@
             </RibbonTab>
             <RibbonTab x:Name="DXF_Export_Tab" Header="DXF Export"/>
         </Ribbon>
-        <Grid x:Name="GridTabs" Margin="0,138,0,0" Background="#FF61B6D6" >
+        <Grid x:Name="GridTabs" Margin="0,118,0,0" Background="#FF61B6D6" Grid.ColumnSpan="2" >
             <TabControl x:Name="TabsPanel" Margin="0">
-                <TabItem Header="TabItem">
+                <TabItem Header="Part List">
                     <Grid x:Name="grid" Background="#FFE5E5E5" Margin="0">
-                        <DataGrid x:Name="dataGrid" Margin="0,0,2,0" ItemsSource="{Binding}" AutoGenerateColumns="False">
+                        <DataGrid x:Name="dataGrid" Margin="0,0,2,0" ItemsSource="{Binding}" AutoGenerateColumns="False" VerticalContentAlignment="Stretch">
+
+                            <DataGrid.Resources>
+                                <Style x:Key="DataGridVerticalText" TargetType="TextBlock">
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </DataGrid.Resources>
+
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Part Number" Binding="{Binding PartNumber}"/>
+                                <DataGridTemplateColumn Header="PartNumber" SortMemberPath="PartNumberField">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+
+                                            <!--<Grid Margin="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <Colum
+                                            nDefinition Width="16*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                
+                                            </Grid>-->
+
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Image Source="Images/SmallIcon.png" Width="16" Height="16"></Image>
+                                                <Label Name="PartNumberField" Content="{Binding PartNumber}" Width="Auto"></Label>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
                                 <DataGridTemplateColumn x:Name="dataGridTemplateColumn" Header="Prev">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -54,19 +84,52 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <!--<DataGridTextColumn Header="Preview" Binding="{Binding Thumbnail}"></DataGridTextColumn>-->
-                                <DataGridTextColumn Header="BOM Structure" Binding="{Binding BOMStructure}"/>
-                                <DataGridTextColumn Header="Material" Binding="{Binding Material}"/>
-                                <DataGridTextColumn Header="Revision" Binding="{Binding Revision}"/>
-                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
+                                <DataGridTemplateColumn Header="BOM Structure" SortMemberPath="BOMStructureField">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <Image Source="Images/SmallIcon.png" Width="16" Height="16"></Image>
+                                                <Label Name="BOMStructureField" Content="{Binding BOMStructure}" Width="Auto"></Label>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Material" Binding="{Binding Material}" ElementStyle="{StaticResource DataGridVerticalText}"/>
+                                <DataGridTextColumn Header="Revision" Binding="{Binding Revision}" ElementStyle="{StaticResource DataGridVerticalText}"/>
+                                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" ElementStyle="{StaticResource DataGridVerticalText}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        
                     </Grid>
-
                 </TabItem>
-                <TabItem Header="TabItem" Margin="-2,-2,2,0" Width="Auto">
-                    <Grid Background="#FFE5E5E5"/>
+                <TabItem Header="DXF Settings" Margin="-2,-2,2,0" Width="Auto">
+                    <Grid Background="#FFE5E5E5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="213*"/>
+                            <RowDefinition Height="80*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                            <ColumnDefinition Width="25*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <GroupBox x:Name="groupBox" Header="Geometry options" Height="196" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" />
+                        <GroupBox x:Name="groupBox1" Header="Customize layers" Height="196" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0"/>
+                        <GroupBox x:Name="groupBox2" Header="IProperties as Text" Height="196" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="0"/>
+                        <GroupBox x:Name="groupBox3" Header="Filename customization" Height="196" Margin="0,10,0,0" VerticalAlignment="Top" Grid.Column="3" Grid.ColumnSpan="1" Grid.Row="0"/>
+                        <Image x:Name="image" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="60" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Width="284" Margin="10,10,0,0"/>
+
+                        <Grid x:Name="ButtonGridDXFTab" Grid.Column="2" HorizontalAlignment="Left" Height="80" Grid.Row="1" VerticalAlignment="Top" Width="304" Grid.ColumnSpan="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50*"/>
+                                <RowDefinition Height="50*"/>
+                            </Grid.RowDefinitions>
+                            <Button x:Name="button" Content="Save configuration" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="123"/>
+                            <Button x:Name="button1" Content="Export configuration" HorizontalAlignment="Left" Margin="10,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="123"/>
+                        </Grid>
+
+                    </Grid>
                 </TabItem>
             </TabControl>
         </Grid>

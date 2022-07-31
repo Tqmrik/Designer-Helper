@@ -25,19 +25,22 @@ namespace DevAddIns
         #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
-            Document activeDocument = InventorApplication.ActiveDocument;
+            //Document activeDocument = InventorApplication.ActiveDocument;
 
-            if(activeDocument.isAssemblyDocument())
-            {
-                DocumentsEnumerator asb = (DocumentsEnumerator)activeDocument.File.AvailableDocuments;
-                
-                for(int i = 0; i< asb.Count; i++)
-                {
-                    var fgf = asb[i];
-                }
+            //if(activeDocument.isAssemblyDocument())
+            //{
+            //    DocumentsEnumerator asb = (DocumentsEnumerator)activeDocument.File.AvailableDocuments;
 
-            }
+            //    for(int i = 0; i< asb.Count; i++)
+            //    {
+            //        var fgf = asb[i];
+            //    }
 
+            //}
+
+
+            //TranslatorOptions translator = new TranslatorOptions();
+            //translator.DisplayTranslatorOptions();
 
         }
         #endregion

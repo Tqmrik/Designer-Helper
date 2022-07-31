@@ -72,19 +72,13 @@ namespace DevAddIns
         {
 
             //TODO: ADD Choose language combobox in the ribbon 
-
             /*
             // This method is called by Inventor when it loads the addin.
             // The AddInSiteObject provides access to the Inventor Application object.
             // The FirstTime flag indicates if the addin is loaded for the first time.
-
             // Initialize AddIn members.
-             * Sample to illustrate creating a button definition.
-        'Dim largeIcon As stdole.IPictureDisp = PictureDispConverter.ToIPictureDisp(My.Resources.YourBigImage)
-        'Dim smallIcon As stdole.IPictureDisp = PictureDispConverter.ToIPictureDisp(My.Resources.YourSmallImage)
-        'Dim controlDefs As Inventor.ControlDefinitions = g_inventorApplication.CommandManager.ControlDefinitions
-        'm_sampleButton = controlDefs.AddButtonDefinition("Command Name", "Internal Name", CommandTypesEnum.kShapeEditCmdType, AddInClientID)
             */
+
             try
             {
                 //the Activate method is called by Inventor when it loads the addin
@@ -93,13 +87,15 @@ namespace DevAddIns
 
                 //initialize AddIn members
                 m_inventorApplication = addInSiteObject.Application;
+
                 Button.InventorApplication = m_inventorApplication;
                 ComboBox.InventorApplication = m_inventorApplication;
                 ExportAsForm.InventorApplication = m_inventorApplication;
                 Translators.InventorApplication = m_inventorApplication;
                 TranslatorList.InventorApplication = m_inventorApplication;
                 NewExportAsButton.InventorApplication = m_inventorApplication;
-                UserControl55.InventorApplication = m_inventorApplication;
+                FileExportControl.InventorApplication = m_inventorApplication;
+                TranslatorOptions.InventorApplication = m_inventorApplication;
 
                 m_ExecuteOnStartUp = new ExecuteOnStartup();
 
@@ -211,13 +207,6 @@ namespace DevAddIns
                 m_drawingStyleComboBox = new DrawingStyleComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style", "Change drawing style", ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 m_newExportAsButton = new NewExportAsButton("NewExport", "NewExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
-
-                
-                    
-                    
-                    //("Change drawing style", "ChangeDrawingStyleComboBoxSedenum",
-                    //CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style sistem", "Change drawing style", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
-
 
 
                 //create the command category
@@ -552,14 +541,11 @@ namespace DevAddIns
 
                 drawingPanelSed.CommandControls.AddButton(m_balloonsEndArrow.ButtonDefinition);
 
-
                 assemblyPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 assemblyPanelSed.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
 
-
                 partPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 partPanelSed.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
-
 
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
                 iPropertiesDrawingPanel.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
@@ -723,6 +709,8 @@ namespace DevAddIns
 
 
 #region "TODO land"
-    // TODO: Add web pages into the form???
-    // TODO: Work with WPF
+// TODO: Add web pages into the form???
+// TODO: Implements on reset ribbon
+// TODO: Advanced form to work with properties
+// NOTE: Working with IPictDisp: https://docs.microsoft.com/en-us/archive/blogs/andreww/converting-between-ipicturedisp-and-system-drawing-image
 #endregion

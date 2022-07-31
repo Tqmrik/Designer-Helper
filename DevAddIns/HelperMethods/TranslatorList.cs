@@ -15,7 +15,7 @@ namespace DevAddIns
         public static Inventor.Application InventorApplication;
         public void DisplasyTranslatorOutput()
         {
-            StreamWriter sw = new StreamWriter($@"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)}/AddInsList.txt");
+            StreamWriter sw = new StreamWriter($@"{System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop)}/FileDir/AddInsList.txt");
             var invdoc = InventorApplication.ApplicationAddIns;
             int index = 0;
             sw.WriteLine(DateTime.Now);
@@ -40,6 +40,7 @@ namespace DevAddIns
                 sw.WriteLine();
                 index++;
             }
+            sw.Dispose();
         }
     }
 }

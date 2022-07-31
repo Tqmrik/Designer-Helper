@@ -42,7 +42,7 @@ namespace DevAddIns
         {
             get
             {
-                string bomStruct = partDoc.ComponentDefinition.BOMStructure.ToString();
+                string bomStruct = partDoc.ComponentDefinition.BOMStructure.ToStringExt();
                 if(string.IsNullOrEmpty(bomStruct))
                 {
                     return "NONE";
@@ -105,3 +105,7 @@ namespace DevAddIns
         
     }
 }
+
+
+
+//TODO: Qunatity for the partDocument
