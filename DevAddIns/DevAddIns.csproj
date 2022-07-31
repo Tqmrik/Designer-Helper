@@ -172,8 +172,8 @@
     </Compile>
     <Compile Include="Translators.cs" />
     <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
-    <Compile Include="WPFForms\UserControl55.xaml.cs">
-      <DependentUpon>UserControl55.xaml</DependentUpon>
+    <Compile Include="WPFForms\FileExportControl.xaml.cs">
+      <DependentUpon>FileExportControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -242,13 +242,13 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="WPFForms\UserControl55.xaml">
+    <Page Include="WPFForms\FileExportControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="WPFForms\Imag\SmallIcon.png">
+    <Resource Include="WPFForms\Images\SmallIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

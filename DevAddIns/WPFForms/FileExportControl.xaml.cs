@@ -44,33 +44,8 @@ namespace DevAddIns
             InitializeComponent();
 
             ObservableCollection<IDocument> partList = GetPartList();
-
-            //dataGrid.DataContext = partList;
+            dataGrid.DataContext = partList;
         }
-
-        //private void ribbonButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if(ribbon.SelectedItem != ribbonButton)
-        //    {
-        //        ribbon.SelectedItem = ribbonButton;
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //}
-
-        //private void ribbonButton1_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (ribbon.SelectedItem != ribbonButton1)
-        //    {
-        //        ribbon.SelectedItem = ribbonButton1;
-        //    }
-        //    else
-        //    {
-
-        //    }
-        //}
 
         private ObservableCollection<IDocument> GetPartList()
         {
@@ -92,3 +67,5 @@ namespace DevAddIns
         }
     }
 }
+
+//NOTE: Data bindings: https://docs.microsoft.com/en-us/dotnet/api/system.windows.controls.datagrid?view=windowsdesktop-6.0-->

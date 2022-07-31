@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.Compatibility.VB6;
+using System.Drawing;
+using System.Windows.Media;
+using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace DevAddIns
 {
@@ -14,10 +19,62 @@ namespace DevAddIns
 
 
         public string PartNumber { get => partDoc.PropertySets[3][2].Value.ToString(); }
-        public stdole.IPictureDisp Thumbnail { get => partDoc.Thumbnail;}
-        public string BOMStructure { get => partDoc.ComponentDefinition.BOMStructure.ToString();}
-        public string Material { get => partDoc.ActiveMaterial.DisplayName.ToString(); }
-        public string Revision { get => partDoc.PropertySets[1][7].Value.ToString();}
+        public ImageSource Thumbnail
+        {
+            get
+            {
+                using (var ms = new MemoryStream())
+                {
+                    Support.IPictureDispToImage(partDoc.Thumbnail).Save(ms,System.Drawing.Imaging.ImageFormat.Bmp);
+                    ms.Seek(0, SeekOrigin.Begin);
+
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = ms;
+                    bitmapImage.EndInit();
+
+                    return bitmapImage;
+                }
+            }
+        }
+        public string BOMStructure
+        {
+            get
+            {
+                string bomStruct = partDoc.ComponentDefinition.BOMStructure.ToString();
+                if(string.IsNullOrEmpty(bomStruct))
+                {
+                    return "NONE";
+                }
+                return bomStruct;
+            }
+        }
+        public string Material 
+        {
+            get
+            {
+                string material = partDoc.ActiveMaterial.DisplayName.ToString();
+                if (String.IsNullOrEmpty(material))
+                {
+                    return "NONE";
+                }
+                return material;
+
+            }
+        }
+        public string Revision
+        {
+            get
+            {
+                string revision = partDoc.PropertySets[1][7].Value.ToString();
+                if(String.IsNullOrEmpty(revision))
+                {
+                    return "NONE";
+                }
+                return revision;
+            }
+        }
         public int Quantity
         {
             get
