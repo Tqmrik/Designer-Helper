@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -72,6 +73,30 @@ namespace DevAddIns
         {
 
         }
+
+        private void textBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");//Allow only integers
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void radioSheetsInRangePDF_Checked(object sender, RoutedEventArgs e)
+        {
+            SheetRangeFromPDF.IsEnabled = true;
+            SheetRangeToPDF.IsEnabled = true;
+        }
+
+        private void radioSheetsInRangePDF_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SheetRangeFromPDF.IsEnabled = false;
+            SheetRangeToPDF.IsEnabled = false;
+        }
+
+        private void comboBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");//Allow only integers
+            e.Handled = regex.IsMatch(e.Text);
+        }
     }
 }
 
@@ -80,7 +105,7 @@ namespace DevAddIns
 //NOTE: Binding in WPF: https://docs.microsoft.com/en-us/dotnet/desktop/wpf/data/?view=netdesktop-6.0
 //NOTE: Bind modes: https://docs.microsoft.com/en-us/dotnet/api/system.windows.data.bindingmode?view=windowsdesktop-6.0#system-windows-data-bindingmode-twoway
 //NOTE: Width binding: https://stackoverflow.com/questions/36458766/custom-expression-to-define-width-and-height-in-wpf
-
+//NOTE: Integers only in a textBox: https://abundantcode.com/how-to-allow-only-numeric-input-in-a-textbox-in-wpf/
 
 //TODO: Add item number???
 //TODO: Display drawings in the list???
