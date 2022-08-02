@@ -119,6 +119,8 @@
     <Compile Include="Buttons\ShowPropertiesButton.cs" />
     <Compile Include="Buttons\TestFunctionButton.cs" />
     <Compile Include="ComboBoxes\ComboBox.cs" />
+    <Compile Include="DXFTranslator.cs" />
+    <Compile Include="ExtensionMethods\CheckIfPurchased.cs" />
     <Compile Include="ExtensionMethods\DocumentChecker.cs" />
     <Compile Include="Buttons\ExportAsButton.cs" />
     <Compile Include="Data\DrawingPropertiesSet.cs" />
@@ -156,6 +158,8 @@
     <Compile Include="Interfaces\partDocum.cs" />
     <Compile Include="Interfaces\sheetMetalDocum.cs" />
     <Compile Include="Interfaces\weldmentDocum.cs" />
+    <Compile Include="ParasolidTranslator.cs" />
+    <Compile Include="PDFTranslator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -171,6 +175,7 @@
     <Compile Include="StandardAddInServer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="STEPTranslator.cs" />
     <Compile Include="Translators.cs" />
     <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
     <Compile Include="WPFForms\FileExportControl.xaml.cs">

@@ -39,6 +39,11 @@ namespace DevAddIns
 
         private Translators translator = new Translators();
 
+        private PDFTranslator pdfTranslator = new PDFTranslator();
+        private STEPTranslator stepTranslator = new STEPTranslator();
+        private DXFTranslator dxfTranslator = new DXFTranslator();
+        private ParasolidTranslator parasolidTranslator = new ParasolidTranslator();
+
         Dictionary<bool, CheckState> checkToState = new Dictionary<bool, CheckState>();
         MultilanguageDictionary MLDict = new MultilanguageDictionary();
 
@@ -46,7 +51,8 @@ namespace DevAddIns
         bool makeStep = false;
         bool makeDxf = false;
         bool makeXt = false;
-        bool includeParts = false;
+        //bool includeParts = false;
+        //bool packAssembly = false;
 
         public ExportAsForm()
         {
@@ -81,30 +87,52 @@ namespace DevAddIns
             else makeXt = false;
         }
 
+
         private void includePartsButton_CheckedChanged(object sender, EventArgs e)
         {
             if (includePartsButton.Checked)
             {
-                includeParts = true;
-                translator.includeParts = true;
+                //includeParts = true;
+                Translators.includeParts = true;
+                packAssemblyButton.Enabled = false;
             }
 
             else
             {
-                includeParts = false;
-                translator.includeParts = false;
+                //includeParts = false;
+                Translators.includeParts = false;
+                packAssemblyButton.Enabled = true;
             }
         }
+
+
+        private void packAssemblyButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (packAssemblyButton.Checked)
+            {
+                //packAssembly = true;
+                Translators.packAssembly = true;
+                includePartsButton.Enabled = false;
+            }
+
+            else
+            {
+                //packAssembly = false;
+                Translators.packAssembly = false;
+                includePartsButton.Enabled = true;
+            }
+        }
+
 
         private void exportButton_Click(object sender, EventArgs e)
         {
             var rebuildTask = docRebuild(activeDocument);
             rebuildTask.Wait();
 
-            if (makePdf == true) translator.createPDF();
-            if (makeDxf == true) translator.createFlatDXF();
-            if (makeStep == true) translator.createSTEP();
-            if (makeXt == true) translator.createParasolid();
+            if (makePdf == true) pdfTranslator.createPDF(activeDocument);
+            if (makeDxf == true) dxfTranslator.createFlatDXF();
+            if (makeStep == true) stepTranslator.createSTEP();
+            if (makeXt == true) parasolidTranslator.createParasolid();
             Close();
         }
 
@@ -135,6 +163,6 @@ namespace DevAddIns
             doc.Rebuild();
         }
 
-       
+
     }
 }

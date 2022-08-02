@@ -14,11 +14,9 @@ namespace DevAddIns
         {
             try
             {
-                System.IO.Path.GetFullPath(documentObject.FullDocumentName);
-
-                string outputVal = System.IO.Path.GetDirectoryName(documentObject.FullDocumentName) + "\\" + System.IO.Path.GetFileNameWithoutExtension(documentObject.DisplayName) + ".idw";
-
-                return outputVal;
+                //Regex??
+                //return System.IO.Path.GetDirectoryName(documentObject.FullDocumentName) + "\\" + System.IO.Path.GetFileNameWithoutExtension(documentObject.DisplayName) + ".idw";
+                return System.IO.Path.GetFileNameWithoutExtension(documentObject.FullFileName) + ".idw";
             }
             catch(ArgumentException e)
             { 
@@ -30,11 +28,7 @@ namespace DevAddIns
         {
             try
             {
-                System.IO.Path.GetFullPath(documentObject.FullDocumentName);
-
-                string outputVal = System.IO.Path.GetDirectoryName(documentObject.FullDocumentName) + "\\" + System.IO.Path.GetFileNameWithoutExtension(documentObject.DisplayName);
-
-                return outputVal;
+                return System.IO.Path.GetDirectoryName(documentObject.FullDocumentName) + "\\" + System.IO.Path.GetFileNameWithoutExtension(documentObject.DisplayName);
             }
             catch (ArgumentException e)
             {

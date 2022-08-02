@@ -37,6 +37,7 @@ namespace DevAddIns
             this.checkAllBox = new System.Windows.Forms.CheckBox();
             this.xtCheckBox = new System.Windows.Forms.CheckBox();
             this.xtVersionsBox = new System.Windows.Forms.ComboBox();
+            this.packAssemblyButton = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pdfCheckBox
@@ -82,7 +83,7 @@ namespace DevAddIns
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.exportButton.Location = new System.Drawing.Point(12, 174);
             this.exportButton.Name = "exportButton";
-            this.exportButton.Size = new System.Drawing.Size(198, 35);
+            this.exportButton.Size = new System.Drawing.Size(264, 35);
             this.exportButton.TabIndex = 0;
             this.exportButton.Text = "Export";
             this.exportButton.UseVisualStyleBackColor = true;
@@ -95,7 +96,7 @@ namespace DevAddIns
             | System.Windows.Forms.AnchorStyles.Right)));
             this.includePartsButton.AutoSize = true;
             this.includePartsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.includePartsButton.Location = new System.Drawing.Point(122, 148);
+            this.includePartsButton.Location = new System.Drawing.Point(92, 148);
             this.includePartsButton.Name = "includePartsButton";
             this.includePartsButton.Size = new System.Drawing.Size(88, 17);
             this.includePartsButton.TabIndex = 4;
@@ -164,11 +165,23 @@ namespace DevAddIns
             this.xtVersionsBox.Text = "Select the version";
             this.xtVersionsBox.Visible = false;
             // 
+            // packAssemblyButton
+            // 
+            this.packAssemblyButton.AutoSize = true;
+            this.packAssemblyButton.Location = new System.Drawing.Point(187, 148);
+            this.packAssemblyButton.Name = "packAssemblyButton";
+            this.packAssemblyButton.Size = new System.Drawing.Size(97, 17);
+            this.packAssemblyButton.TabIndex = 8;
+            this.packAssemblyButton.Text = "Pack assembly";
+            this.packAssemblyButton.UseVisualStyleBackColor = true;
+            this.packAssemblyButton.CheckedChanged += new System.EventHandler(this.packAssemblyButton_CheckedChanged);
+            // 
             // ExportAsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(222, 223);
+            this.ClientSize = new System.Drawing.Size(288, 221);
+            this.Controls.Add(this.packAssemblyButton);
             this.Controls.Add(this.xtVersionsBox);
             this.Controls.Add(this.xtCheckBox);
             this.Controls.Add(this.checkAllBox);
@@ -194,5 +207,6 @@ namespace DevAddIns
         private System.Windows.Forms.CheckBox checkAllBox;
         private System.Windows.Forms.CheckBox xtCheckBox;
         private System.Windows.Forms.ComboBox xtVersionsBox;
+        private System.Windows.Forms.CheckBox packAssemblyButton;
     }
 }
