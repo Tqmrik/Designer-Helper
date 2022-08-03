@@ -30,10 +30,6 @@ namespace DevAddIns
         {
             
             Document activeDocument = InventorApplication.ActiveDocument;
-            foreach (var rDD in activeDocument.ReferencedDocumentDescriptors)
-            {
-                var sdsd = rDD.ToString();
-            }
                 if (activeDocument == null)
             {
                 return;

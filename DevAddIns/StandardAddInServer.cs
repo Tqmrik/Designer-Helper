@@ -100,6 +100,11 @@ namespace DevAddIns
                 m_ExecuteOnStartUp = new ExecuteOnStartup();
 
 
+
+                //m_inventorApplication.FileOptions.DefaultTemplateDrawingStandard = DraftingStandardEnum.kANSI_DraftingStandard;
+                m_inventorApplication.FileOptions.DefaultTemplateUnitsAreInches = false;
+
+
                 //m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
 
                 //initialize event delegates

@@ -130,8 +130,8 @@ namespace DevAddIns
             rebuildTask.Wait();
 
             if (makePdf == true) pdfTranslator.createPDF(activeDocument);
-            if (makeDxf == true) dxfTranslator.createFlatDXF();
-            if (makeStep == true) stepTranslator.createSTEP();
+            if (makeDxf == true) dxfTranslator.createFlatDXF(activeDocument);
+            if (makeStep == true) stepTranslator.createSTEP(activeDocument);
             if (makeXt == true) parasolidTranslator.createParasolid();
             Close();
         }
@@ -160,7 +160,7 @@ namespace DevAddIns
         
         private static async Task docRebuild(Document doc)
         {
-            doc.Rebuild();
+            //doc.Rebuild();
         }
 
 

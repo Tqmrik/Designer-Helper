@@ -6,22 +6,18 @@ namespace DevAddIns
 {
     class STEPTranslator : Translators
     {
+        string filePath = "";
+        string extension = "stp";
 
         public STEPTranslator() : base()
         {
             oTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
         }
 
-        public void createSTEP()
+        public void createSTEP(Document doc)
         {
             //Wrap in the try/catch???
             oContext.Type = IOMechanismEnum.kFileBrowseIOMechanism;
-
-            string filePath = "";
-            string filePathStep = "";
-            string extension = "stp";
-
-            Document referencedDocumentObject = null;
 
             if (oTranslator.Equals(null))
             {
@@ -29,111 +25,50 @@ namespace DevAddIns
                 return;
             }
 
-            if (activeDocument.isDrawingDocument())//Drawing
+            if (doc.isDrawingDocument())
             {
-                foreach (Document oFD in activeDocument.ReferencingDocuments)
-                {//Check for every referenced document in the drawing and create step file of each
-                    //How did i found out about the type though
-
-                    if (!String.IsNullOrEmpty(oFD.FullFileName))
-                    {
-                        referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName];
-                        filePathStep = RevisionHelper.addRevisionLetter(referencedDocumentObject, PathConverter.clearExtension(referencedDocumentObject), extension);
-                    }
-                    else
-                    {
-                        //Add file check and then increment
-                        filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                        int iterator = 1;
-                        while (System.IO.File.Exists(filePath + $".{extension}"))
-                        {
-                            filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
-                            iterator++;
-                        }
-                        filePathStep += $".{extension}";
-                    }
-
-
-                    if (oTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                    {
-                        oOptions.Value["ApplicationProtocolType"] = 3;
-                        oOptions.Value["Author"] = oFD.PropertySets[3][24].Value;
-                        //oOptions.Value("Authorization") = ""
-                        oOptions.Value["Description"] = oFD.PropertySets[3][14].Value;
-                        oOptions.Value["Organization"] = oFD.PropertySets[2][3].Value;
-
-                        oDataMedium.FileName = filePathStep;
-
-                        try
-                        {
-                            oTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                            referencedDocumentObject.Close();
-                            //Close doc, save memory
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-                        }
-
-                    }
-                }
-            }
-            else if ((activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
-            {
-
-                //Step for the assembly, only doing check to wrap things up
-                if (activeDocument != null)
+                if(packAssembly)
                 {
-                    if (((AssemblyDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                    foreach (Document oFD in doc.AllReferencedDocuments)
                     {
-
+                        TestMeth(oFD);
                     }
-                    else
+                    return;
+                }
+                else
+                {
+                    foreach (Document oFD in doc.ReferencedDocuments)
                     {
-                        if (!String.IsNullOrEmpty(activeDocument.FullFileName))
-                        {
-                            referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                            filePathStep = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), "stp");
-                        }
-                        else
-                        {
-                            //Add file check and then increment
-                            filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                            int iterator = 1;
-                            while (System.IO.File.Exists(filePath + ".stp"))
-                            {
-                                filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
-                                iterator++;
-                            }
-                            filePathStep += ".stp";
-                        }
-
-                        if (oTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                        {
-                            oOptions.Value["ApplicationProtocolType"] = 3;
-                            oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
-                            //oOptions.Value("Authorization") = ""
-                            oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
-                            oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
-
-                            oDataMedium.FileName = filePathStep;
-
-                            try
-                            {
-                                oTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-                            }
-                        }
+                        TestMeth(oFD);
                     }
+                }
+               
+            }
+            else if ((doc.isAssemblyDocument() || doc.isWeldmentDocument()))
+            {
+                if (((AssemblyDocument)doc).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                {
 
                 }
-                //Steps for the parts
+                else
+                {
+                    filePathHelper(doc);
+                    TestMeth(doc);
+                }
+
+                if(packAssembly)
+                {
+                    TestMeth(doc);
+                    foreach (Document oFD in doc.AllReferencedDocuments)
+                    { 
+                        TestMeth(oFD);
+                    }
+                    return;
+                }
+
                 if (includeParts)
                 {
-                    foreach (Document oFD in activeDocument.ReferencedDocuments)
+                    foreach (Document oFD in doc.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
                         if (oFD.isAssemblyDocument())
                         {
@@ -149,93 +84,82 @@ namespace DevAddIns
                                 continue;
                             }
                         }
-                        if (!String.IsNullOrEmpty(oFD.FullFileName))
-                        {
-                            //It seems that to get the drawing you would need to search in the same folder for the file with the same name as a drawing
-                            referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName]; //Why do i need that as well????
-                            filePathStep = RevisionHelper.addRevisionLetter(oFD, PathConverter.clearExtension(oFD), extension);
-
-                            if (oTranslator.HasSaveCopyAsOptions[oFD, oContext, oOptions])
-                            {
-                                oOptions.Value["ApplicationProtocolType"] = 3;
-                                oOptions.Value["Author"] = oFD.PropertySets[3][24].Value;
-                                //oOptions.Value("Authorization") = ""
-                                oOptions.Value["Description"] = oFD.PropertySets[3][14].Value;
-                                oOptions.Value["Organization"] = oFD.PropertySets[2][3].Value;
-
-                                oDataMedium.FileName = filePathStep;
-
-                                try
-                                {
-                                    oTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                                    if (referencedDocumentObject != InventorApplication.ActiveDocument) referencedDocumentObject.Close();
-                                }
-                                catch (Exception e)
-                                {
-                                    MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
+                        TestMeth(oFD);
                     }
                 }
             }
-            else if (activeDocument.isPartDocument() || activeDocument.isSheetMetalDocument())
+            else if (doc.isPartDocument() || doc.isSheetMetalDocument())
             {
-                if (((PartDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
+                if (((PartDocument)doc).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
                 {
                     return;
                 }
-
-                if (!String.IsNullOrEmpty(activeDocument.FullFileName))
-                {
-                    referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                    filePathStep = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
-                }
-                else
-                {
-                    //Add file check and then increment
-                    filePathStep = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                    int iterator = 1;
-                    while (System.IO.File.Exists(filePath + $".{extension}"))
-                    {
-                        filePathStep = filePathStep.Remove(filePath.Length - 1) + iterator.ToString();
-                        iterator++;
-                    }
-                    filePathStep += $".{extension}";
-                }
-
-                if (oTranslator.HasSaveCopyAsOptions[activeDocument, oContext, oOptions])
-                {
-                    oOptions.Value["ApplicationProtocolType"] = 3;
-                    oOptions.Value["Author"] = activeDocument.PropertySets[3][24].Value;
-                    //oOptions.Value("Authorization") = ""
-                    oOptions.Value["Description"] = activeDocument.PropertySets[3][14].Value;
-                    oOptions.Value["Organization"] = activeDocument.PropertySets[2][3].Value;
-
-                    oDataMedium.FileName = filePathStep;
-
-                    try
-                    {
-                        oTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                    }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-
-                    }
-
-                }
+                TestMeth(doc);               
             }
 
             oTranslator = null;
             oContext = null;
             oDataMedium = null;
             oDataMedium = null;
+        }
 
+        private void filePathHelper(Document doc) //Add a revision letter to the output file name
+        {
+            if (!String.IsNullOrEmpty(doc.FullDocumentName))
+            {
+                //Add revision letter to the file name
+                filePath = RevisionHelper.addRevisionLetter(doc, PathConverter.clearExtension(doc), extension);
+            }
+            else
+            {
+                //Try to save to the desktop
+                filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+                int iterator = 1;
+                while (System.IO.File.Exists(filePath + $".{extension}"))
+                {
+                    filePath = filePath.Remove(filePath.Length - 1) + $"{iterator}";
+                    iterator++;
+                }
+                filePath += $".{extension}";
+            }
+        }
+        private void oOptionsSetter(Document doc)
+        {
+            oOptions.Value["ApplicationProtocolType"] = 3;
+            oOptions.Value["Author"] = doc.PropertySets[3][24].Value;
+            //oOptions.Value("Authorization") = ""
+            oOptions.Value["Description"] = doc.PropertySets[3][14].Value;
+            oOptions.Value["Organization"] = doc.PropertySets[2][3].Value;
+        }
+        private void TestMeth(Document doc)
+        {
+            if(!(doc is null))
+            {
+                //Document referencedDocumentObject = InventorApplication.Documents.ItemByName[doc.FullFileName];
+
+                 if (oTranslator.HasSaveCopyAsOptions[doc, oContext, oOptions])
+                 {
+
+                    filePathHelper(doc);
+                    oOptionsSetter(doc);
+                    oDataMedium.FileName = filePath;
+
+                    try
+                    {
+                        oTranslator.SaveCopyAs(doc, oContext, oOptions, oDataMedium);
+                        if(doc != InventorApplication.ActiveDocument)
+                        {
+                            doc.Close();
+                        }
+                         //Do i even need this????
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                    }
+                 }
+            }
+            else { return; }
         }
     }
 }
