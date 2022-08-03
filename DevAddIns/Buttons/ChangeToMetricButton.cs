@@ -30,10 +30,10 @@ namespace DevAddIns
         {
             
             Document activeDocument = InventorApplication.ActiveDocument;
-                if (activeDocument == null)
-                {
-                    return;
-                }
+            if (activeDocument == null)
+            {
+                return;
+            }
 
             activeDocument.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
             activeDocument.UnitsOfMeasure.MassUnits = UnitsTypeEnum.kKilogramMassUnits;
