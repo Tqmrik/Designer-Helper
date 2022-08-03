@@ -25,7 +25,7 @@ namespace DevAddIns
 
 
             if (oTranslator.Equals(null))
-            {
+            { 
                 MessageBox.Show("Couldn't connect to the PDF translator");
                 return;
             }
@@ -65,62 +65,63 @@ namespace DevAddIns
                     return;
                 }
                 //Make pdf for the assembly drawing
-                if (activeDocument != null)
+                if (document != null)
                 {
-                    if (((AssemblyDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                    if (((AssemblyDocument)document).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                     {
 
                     }
                     else
                     {
-                        if (!String.IsNullOrEmpty(activeDocument.FullFileName))
-                        {
-                            string assemblyDirectory = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
-                            string assemblyDrawingPath = PathConverter.guessDrawingPath(activeDocument);
-                            currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(assemblyDirectory, assemblyDrawingPath);
+                        TestMeth(document);
+                        //if (!String.IsNullOrEmpty(activeDocument.FullFileName))
+                        //{
+                        //    string assemblyDirectory = System.IO.Path.GetDirectoryName(activeDocument.FullDocumentName);
+                        //    string assemblyDrawingPath = PathConverter.guessDrawingPath(activeDocument);
+                        //    currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(assemblyDirectory, assemblyDrawingPath);
 
 
-                            if (String.IsNullOrEmpty(currentAssemblyDrawingPath))//Make more advanced directory search??
-                            {
-                                foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(assemblyDirectory).GetDirectories())
-                                {
-                                    if (currentAssemblyDrawingPath == null)
-                                    {
-                                        currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, assemblyDrawingPath);
-                                    }
-                                    else break;
-                                }
-                            }
+                        //    if (String.IsNullOrEmpty(currentAssemblyDrawingPath))//Make more advanced directory search??
+                        //    {
+                        //        foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(assemblyDirectory).GetDirectories())
+                        //        {
+                        //            if (currentAssemblyDrawingPath == null)
+                        //            {
+                        //                currentAssemblyDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, assemblyDrawingPath);
+                        //            }
+                        //            else break;
+                        //        }
+                        //    }
 
 
-                            if (!String.IsNullOrEmpty(currentAssemblyDrawingPath))
-                            {
-                                drawingDocumentObject = InventorApplication.Documents.Open(currentAssemblyDrawingPath, OpenVisible: false);
-                                filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
+                        //    if (!String.IsNullOrEmpty(currentAssemblyDrawingPath))
+                        //    {
+                        //        drawingDocumentObject = InventorApplication.Documents.Open(currentAssemblyDrawingPath, OpenVisible: false);
+                        //        filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
 
-                                if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
-                                {
-                                    oOptionsSetter();
-                                }
+                        //        if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
+                        //        {
+                        //            oOptionsSetter();
+                        //        }
 
-                                oDataMedium.FileName = filePath;
+                        //        oDataMedium.FileName = filePath;
 
-                                try
-                                {
-                                    oTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
-                                }
-                                catch (Exception e)
-                                {
-                                    MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                        //        try
+                        //        {
+                        //            oTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
+                        //        }
+                        //        catch (Exception e)
+                        //        {
+                        //            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
 
-                                }
-                            }
+                        //        }
+                        //    }
 
-                            else
-                            {
-                                MessageBox.Show("Wasn't able to find an assembly drawing");
-                            }
-                        }
+                        //    else
+                        //    {
+                        //        MessageBox.Show("Wasn't able to find an assembly drawing");
+                        //    }
+                        //}
                     }
                 }
                 //Make pdfs for the parts drawings
@@ -143,57 +144,59 @@ namespace DevAddIns
                             }
                         }
 
-                        string sourcePartPath = System.IO.Path.GetDirectoryName(referencedDocument.FullDocumentName);
-                        string tempDrawingFilePath = PathConverter.guessDrawingPath(referencedDocument);
+                        TestMeth(referencedDocument);
 
-                        if (!String.IsNullOrEmpty(tempDrawingFilePath)) //If there is invalid path
-                        {
-                            referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(sourcePartPath, tempDrawingFilePath);
-                        }
-                        else continue;
+                        //string sourcePartPath = System.IO.Path.GetDirectoryName(referencedDocument.FullDocumentName);
+                        //string tempDrawingFilePath = PathConverter.guessDrawingPath(referencedDocument);
+
+                        //if (!String.IsNullOrEmpty(tempDrawingFilePath)) //If there is invalid path
+                        //{
+                        //    referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(sourcePartPath, tempDrawingFilePath);
+                        //}
+                        //else continue;
 
 
-                        if (String.IsNullOrEmpty(referencedDocumentDrawingPath))//Make more advanced directory search??
-                        {
-                            foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(sourcePartPath).GetDirectories())
-                            {
-                                if (referencedDocumentDrawingPath == null)
-                                {
-                                    referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, tempDrawingFilePath);
-                                }
-                                else break;
-                            }
-                        }
+                        //if (String.IsNullOrEmpty(referencedDocumentDrawingPath))//Make more advanced directory search??
+                        //{
+                        //    foreach (System.IO.DirectoryInfo directory in new System.IO.DirectoryInfo(sourcePartPath).GetDirectories())
+                        //    {
+                        //        if (referencedDocumentDrawingPath == null)
+                        //        {
+                        //            referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(directory.FullName, tempDrawingFilePath);
+                        //        }
+                        //        else break;
+                        //    }
+                        //}
 
-                        //If file path was finally found tries to convert it
-                        if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
-                        {//If drawing is placed in the folder, save it to the folder as well
-                            drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
-                            filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
+                        ////If file path was finally found tries to convert it
+                        //if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
+                        //{//If drawing is placed in the folder, save it to the folder as well
+                        //    drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
+                        //    filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
 
-                            if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
-                            {
-                                oOptionsSetter();
-                            }
+                        //    if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
+                        //    {
+                        //        oOptionsSetter();
+                        //    }
 
-                            oDataMedium.FileName = filePath;
+                        //    oDataMedium.FileName = filePath;
 
-                            try
-                            {
-                                //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
-                                oTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
-                            }
-                            catch (Exception e)
-                            {
-                                MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                        //    try
+                        //    {
+                        //        //TODO: Check if document is opened if so: 1)Try to close(kinda intrusive); 2)don't perform an export and display message
+                        //        oTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
+                        //    }
+                        //    catch (Exception e)
+                        //    {
+                        //        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
 
-                            }
-                        }
-                        //Else just skips the part
-                        else
-                        {
-                            continue;
-                        }
+                        //    }
+                        //}
+                        ////Else just skips the part
+                        //else
+                        //{
+                        //    continue;
+                        //}
                     }
                 }
             }
@@ -205,41 +208,42 @@ namespace DevAddIns
                 }
                 else
                 {
-                    string partDirectory = System.IO.Path.GetDirectoryName(document.FullDocumentName);
-                    string partDrawingPath = PathConverter.guessDrawingPath(document);
+                    TestMeth(document);
+                    //string partDirectory = System.IO.Path.GetDirectoryName(document.FullDocumentName);
+                    //string partDrawingPath = PathConverter.guessDrawingPath(document);
 
-                    if (!String.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
-                    {
-                        referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
-                        //Resolve file also searches all the subdirectories that it could find
-                    }
-                    else return;
+                    //if (!String.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
+                    //{
+                    //    referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
+                    //    //Resolve file also searches all the subdirectories that it could find
+                    //}
+                    //else return;
 
-                    if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
-                    {
-                        //If drawing is placed in the folder, save it to the folder as well
-                        drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
-                        filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
+                    //if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
+                    //{
+                    //    //If drawing is placed in the folder, save it to the folder as well
+                    //    drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
+                    //    filePathHelper(drawingDocumentObject);
 
-                        if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
-                        {
-                            oOptionsSetter();
-                        }
-                        oDataMedium.FileName = filePath;
-                        try
-                        {                          
-                            oTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
-                            drawingDocumentObject.Close();
-                        }
-                        catch (Exception e)
-                        {
-                            MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
-                        }
-                    }
-                    else
-                    {
-                        return;
-                    }
+                    //    if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
+                    //    {
+                    //        oOptionsSetter();
+                    //    }
+                    //    oDataMedium.FileName = filePath;
+                    //    try
+                    //    {                          
+                    //        oTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);
+                    //        drawingDocumentObject.Close();
+                    //    }
+                    //    catch (Exception e)
+                    //    {
+                    //        MessageBox.Show(e.Message + "\n" + e.Source + "\n" + e.StackTrace + "\nAddIn: Sedenum Pack\nMethod: CreatePdfStep");
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    return;
+                    //}
                 }
             }
 
@@ -286,6 +290,8 @@ namespace DevAddIns
 
         private void TestMeth(Document document)
         {
+            //Takes not a drawing file -> tries to find a drawing for it in the active project -> creates pdf of it with revision from drawing
+            //Not document dependent(can take part as well as assembly documents)
             Document drawingDocumentObject = null;
             string referencedDocumentDrawingPath = null;
             string currentAssemblyDrawingPath = null;
@@ -303,7 +309,7 @@ namespace DevAddIns
             {
                 //If drawing is placed in the folder, save it to the folder as well
                 drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
-                filePath = RevisionHelper.addRevisionLetter(drawingDocumentObject, PathConverter.clearExtension(drawingDocumentObject), extension);
+                filePathHelper(drawingDocumentObject);
 
                 if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
                 {
