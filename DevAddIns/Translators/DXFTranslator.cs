@@ -24,7 +24,7 @@ namespace DevAddIns
                 {
                     foreach (Document oFD in doc.AllReferencedDocuments)
                     {
-                        TestMeth(oFD);
+                        dxfCreate(oFD);
                     }
                     return;
                 }
@@ -32,7 +32,7 @@ namespace DevAddIns
                 {
                     foreach (Document oFDF in activeDocument.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
-                        TestMeth(oFDF);
+                        dxfCreate(oFDF);
                         //referencedDoc = (PartDocument)InventorApplication.Documents.ItemByName[doc.FullFileName
                     }
                 }
@@ -40,7 +40,7 @@ namespace DevAddIns
             }
             else if (doc.isSheetMetalDocument())
             {
-                TestMeth(doc);
+                dxfCreate(doc);
             }
             else if (doc.isAssemblyDocument() || doc.isWeldmentDocument())
             {
@@ -48,7 +48,7 @@ namespace DevAddIns
                 {
                     foreach(Document oFD in doc.AllReferencedDocuments)
                     {
-                        TestMeth(oFD);
+                        dxfCreate(oFD);
                     }
                 }
                 else if (includeParts)
@@ -80,7 +80,7 @@ namespace DevAddIns
                             continue;
                         }
 
-                        TestMeth(oFDF);
+                        dxfCreate(oFDF);
                     }
                 }
                 else
@@ -112,7 +112,7 @@ namespace DevAddIns
             }
         }
 
-        private void TestMeth(Document doc)
+        private void dxfCreate(Document doc)
         {
             if (doc.isSheetMetalDocument())
             {

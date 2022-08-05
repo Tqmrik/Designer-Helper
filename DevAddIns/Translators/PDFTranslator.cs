@@ -57,15 +57,15 @@ namespace DevAddIns
                     }
                     else
                     {
-                        TestMeth(document);
+                        pdfCreate(document);
                     }
 
                     if (packAssembly)
                     {
-                        TestMeth(document);
+                        pdfCreate(document);
                         foreach (Document dasd in document.AllReferencedDocuments)
                         {
-                            TestMeth(dasd);
+                            pdfCreate(dasd);
                         }
                         return;
                     }
@@ -90,7 +90,7 @@ namespace DevAddIns
                             }
                         }
 
-                        TestMeth(referencedDocument);
+                        pdfCreate(referencedDocument);
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace DevAddIns
                 }
                 else
                 {
-                    TestMeth(document);
+                    pdfCreate(document);
                 }
             }
 
@@ -144,7 +144,7 @@ namespace DevAddIns
 
             //oOptions.Value["Vector_Resolution"] = 400;
         }
-        private void TestMeth(Document document)
+        private void pdfCreate(Document document)
         {
             //Takes not a drawing file -> tries to find a drawing for it in the active project -> creates pdf of it with revision from drawing
             //Not document dependent(can take part as well as assembly documents)

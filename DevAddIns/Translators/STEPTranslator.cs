@@ -31,7 +31,7 @@ namespace DevAddIns
                 {
                     foreach (Document oFD in doc.AllReferencedDocuments)
                     {
-                        TestMeth(oFD);
+                        stepCreate(oFD);
                     }
                     return;
                 }
@@ -39,7 +39,7 @@ namespace DevAddIns
                 {
                     foreach (Document oFD in doc.ReferencedDocuments)
                     {
-                        TestMeth(oFD);
+                        stepCreate(oFD);
                     }
                 }
                
@@ -53,15 +53,15 @@ namespace DevAddIns
                 else
                 {
                     filePathHelper(doc);
-                    TestMeth(doc);
+                    stepCreate(doc);
                 }
 
                 if(packAssembly)
                 {
-                    TestMeth(doc);
+                    stepCreate(doc);
                     foreach (Document oFD in doc.AllReferencedDocuments)
                     { 
-                        TestMeth(oFD);
+                        stepCreate(oFD);
                     }
                     return;
                 }
@@ -84,7 +84,7 @@ namespace DevAddIns
                                 continue;
                             }
                         }
-                        TestMeth(oFD);
+                        stepCreate(oFD);
                     }
                 }
             }
@@ -94,7 +94,7 @@ namespace DevAddIns
                 {
                     return;
                 }
-                TestMeth(doc);               
+                stepCreate(doc);               
             }
 
             oTranslator = null;
@@ -131,7 +131,7 @@ namespace DevAddIns
             oOptions.Value["Description"] = doc.PropertySets[3][14].Value;
             oOptions.Value["Organization"] = doc.PropertySets[2][3].Value;
         }
-        private void TestMeth(Document doc)
+        private void stepCreate(Document doc)
         {
             if(!(doc is null))
             {
