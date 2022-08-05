@@ -17,6 +17,7 @@ namespace DevAddIns
         string Material { get;}
         string Revision { get;}
         int Quantity { get;}
+        string SubType { get; }
     }
 
     //Add unit qty(amount in the first level of the assembly, get by referdocs)

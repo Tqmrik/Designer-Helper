@@ -93,7 +93,7 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <DataGridTextColumn Header="Material" Binding="{Binding Material}" ElementStyle="{StaticResource DataGridVerticalText}"/>
-                                <DataGridTextColumn x:Name="metalThicknessDataField" Header="Thickness" Binding="{Binding Thickness}" ElementStyle="{StaticResource DataGridVerticalText}"/>
+                                <DataGridTextColumn x:Name="metalThicknessDataField" Header="Thickness" Binding="{Binding SheetThickness}" ElementStyle="{StaticResource DataGridVerticalText}" Visibility="Hidden"/>
                                 <DataGridTextColumn x:Name="revisionLetterDataField" Header="Revision" Binding="{Binding Revision}" ElementStyle="{StaticResource DataGridVerticalText}"/>
                                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" ElementStyle="{StaticResource DataGridVerticalText}"/>
                             </DataGrid.Columns>

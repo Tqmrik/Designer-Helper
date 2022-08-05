@@ -46,19 +46,19 @@ namespace DevAddIns
             }
         }
 
-        string SheetThickness
+        public string SheetThickness
         {
             get
             {
                 if (partDoc.isSheetMetalDocument())
                 {
                     oSMCD = (SheetMetalComponentDefinition)((PartDocument)partDoc).ComponentDefinition;
-                    string thickness = oSMCD.Thickness.ToString();
-                    if (String.IsNullOrEmpty(thickness))
+                    string thickness = oSMCD.Thickness.Expression;
+                    if (!String.IsNullOrEmpty(thickness))
                     {
-                        return "NONE";
+                        return thickness;
                     }
-                    return "asd";
+                    return "";
                 }
 
                 //TODO: Change
@@ -76,7 +76,6 @@ namespace DevAddIns
                     return "NONE";
                 }
                 return material;
-
             }
         }
         public string Revision
@@ -104,11 +103,18 @@ namespace DevAddIns
                     if (accessDoc is AssemblyDocument)
                     {
                         AssemblyDocument tempDOc = (AssemblyDocument)accessDoc;
-                        BOMView sd = tempDOc.ComponentDefinition.BOM.BOMViews[this.BOMStructure];
+                        //BOMView sd = tempDOc.ComponentDefinition.BOM.BOMViews[this.BOMStructure];
                         return 2;
                     }
                 }
                 return 3;
+            }
+        }
+        public string SubType
+        {
+            get
+            {
+                return partDoc.SubType;
             }
         }
 

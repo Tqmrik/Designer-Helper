@@ -82,11 +82,18 @@ namespace DevAddIns
                     if (accessDoc is AssemblyDocument)
                     {
                         AssemblyDocument tempDOc = (AssemblyDocument)accessDoc;
-                        BOMView sd = tempDOc.ComponentDefinition.BOM.BOMViews[this.BOMStructure];
+                        //BOMView sd = tempDOc.ComponentDefinition.BOM.BOMViews[this.BOMStructure];
                         return 2;
                     }
                 }
                 return 3;
+            }
+        }
+        public string SubType
+        {
+            get
+            {
+                return partDoc.SubType;
             }
         }
 

@@ -26,7 +26,7 @@ namespace DevAddIns
 
         private static Inventor.Application m_inventorApplication;
         private Document activeDocument;
-        private IDocument partDocument;
+        private IDocument bomDocument;
         public static Inventor.Application InventorApplication 
         {
             get
@@ -55,16 +55,58 @@ namespace DevAddIns
 
             if(activeDocument.isPartDocument())
             {
-                metalThicknessDataField.Visibility = Visibility.Hidden;
-                partDocument = new partDocum(activeDocument, activeDocument);
-                returnPartList.Add(partDocument);
+                bomDocument = new partDocum(activeDocument, activeDocument);
+                returnPartList.Add(bomDocument);
             }
 
             if(activeDocument.isSheetMetalDocument())
             {
-                sheetMetalDocum partDocum = new sheetMetalDocum(activeDocument, activeDocument);
-                returnPartList.Add(partDocument);
+                bomDocument = new sheetMetalDocum(activeDocument, activeDocument);
+                returnPartList.Add(bomDocument);
+
             }
+            if(activeDocument.isAssemblyDocument())
+            {
+
+                bomDocument = new assemblyDocum(activeDocument, activeDocument);
+                returnPartList.Add(bomDocument);
+
+                foreach(Document doc in activeDocument.AllReferencedDocuments)
+                {
+                    //TODO: rewrite to the case statement?????
+                    if(doc.isPartDocument())
+                    {
+                        bomDocument = new partDocum(doc, activeDocument);
+                        returnPartList.Add(bomDocument);
+                    }
+                    else if(doc.isSheetMetalDocument())
+                    {
+                        bomDocument = new sheetMetalDocum(doc, activeDocument);
+                        returnPartList.Add(bomDocument);
+                    }
+                    else if(doc.isAssemblyDocument())
+                    {
+                        bomDocument = new assemblyDocum(doc, activeDocument);
+                        returnPartList.Add(bomDocument);
+                    }
+                    else if(doc.isWeldmentDocument())
+                    {
+                        bomDocument = new weldmentDocum();
+                        returnPartList.Add(bomDocument);
+                    }
+                }
+
+            }
+
+            foreach(IDocument doc in returnPartList)
+            {
+                if(doc.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}")
+                {
+                    metalThicknessDataField.Visibility = Visibility.Visible;
+                    break;
+                }
+            }
+
 
             //TODO: Traverse the collection to see if there is sheetMetal part and add new datagrid column if so
             //TODO: Add a search bar 

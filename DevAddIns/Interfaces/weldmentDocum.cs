@@ -17,5 +17,6 @@ namespace DevAddIns
         public string Material { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string Revision { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public int Quantity { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SubType { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
