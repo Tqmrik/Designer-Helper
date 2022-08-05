@@ -1,13 +1,8 @@
 ﻿using Inventor;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.VisualBasic.Compatibility.VB6;
-using System.Drawing;
-using System.Windows.Media;
+using System;
 using System.IO;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace DevAddIns
@@ -17,7 +12,6 @@ namespace DevAddIns
         private PartDocument partDoc;
         private Document accessDoc;
 
-
         public string PartNumber { get => partDoc.PropertySets[3][2].Value.ToString(); }
         public ImageSource Thumbnail
         {
@@ -25,7 +19,7 @@ namespace DevAddIns
             {
                 using (var ms = new MemoryStream())
                 {
-                    Support.IPictureDispToImage(partDoc.Thumbnail).Save(ms,System.Drawing.Imaging.ImageFormat.Bmp);
+                    Support.IPictureDispToImage(partDoc.Thumbnail).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
                     ms.Seek(0, SeekOrigin.Begin);
 
                     var bitmapImage = new BitmapImage();
@@ -43,14 +37,14 @@ namespace DevAddIns
             get
             {
                 string bomStruct = partDoc.ComponentDefinition.BOMStructure.ToStringExt();
-                if(string.IsNullOrEmpty(bomStruct))
+                if (string.IsNullOrEmpty(bomStruct))
                 {
                     return "NONE";
                 }
                 return bomStruct;
             }
         }
-        public string Material 
+        public string Material
         {
             get
             {
@@ -68,7 +62,7 @@ namespace DevAddIns
             get
             {
                 string revision = partDoc.PropertySets[1][7].Value.ToString();
-                if(String.IsNullOrEmpty(revision))
+                if (String.IsNullOrEmpty(revision))
                 {
                     return "NONE";
                 }
@@ -83,11 +77,11 @@ namespace DevAddIns
                 {
                     return 1;
                 }
-                else if(accessDoc.isAssemblyDocument() || accessDoc.isWeldmentDocument())
+                else if (accessDoc.isAssemblyDocument() || accessDoc.isWeldmentDocument())
                 {
-                    if(accessDoc is AssemblyDocument)
+                    if (accessDoc is AssemblyDocument)
                     {
-                        AssemblyDocument tempDOc= (AssemblyDocument)accessDoc;
+                        AssemblyDocument tempDOc = (AssemblyDocument)accessDoc;
                         BOMView sd = tempDOc.ComponentDefinition.BOM.BOMViews[this.BOMStructure];
                         return 2;
                     }

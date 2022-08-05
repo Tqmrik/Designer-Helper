@@ -120,6 +120,7 @@ namespace DevAddIns
 
                 filePathHelper(doc);
                 oSMDef = (SheetMetalComponentDefinition)((PartDocument)doc).ComponentDefinition;
+
                 oDataIO = oSMDef.DataIO;
 
                 if (!oSMDef.HasFlatPattern)
