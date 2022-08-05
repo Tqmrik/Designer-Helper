@@ -93,8 +93,8 @@
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
                                 <DataGridTextColumn Header="Material" Binding="{Binding Material}" ElementStyle="{StaticResource DataGridVerticalText}"/>
-                                <DataGridTextColumn Header="Thickness" Binding="{Binding Thickness}" ElementStyle="{StaticResource DataGridVerticalText}"/>
-                                <DataGridTextColumn Header="Revision" Binding="{Binding Revision}" ElementStyle="{StaticResource DataGridVerticalText}"/>
+                                <DataGridTextColumn x:Name="metalThicknessDataField" Header="Thickness" Binding="{Binding Thickness}" ElementStyle="{StaticResource DataGridVerticalText}"/>
+                                <DataGridTextColumn x:Name="revisionLetterDataField" Header="Revision" Binding="{Binding Revision}" ElementStyle="{StaticResource DataGridVerticalText}"/>
                                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" ElementStyle="{StaticResource DataGridVerticalText}"/>
                             </DataGrid.Columns>
                         </DataGrid>
@@ -154,13 +154,14 @@
                             </Grid>
                         </GroupBox>
                         <GroupBox x:Name="groupBox2322" Header="Vector resolution" Margin="2" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1">
-                            <ComboBox x:Name="comboBox" Margin="10,15,80,65" IsEditable="True" MinWidth="130" MinHeight="20" FontSize="10" FontFamily="Tahoma" VerticalContentAlignment="Center" SelectedIndex="3" PreviewTextInput="comboBox_PreviewTextInput">
-                                <Label Content="100 DPI"/>
-                                <Label Content="200 DPI"/>
-                                <Label Content="300 DPI"/>
-                                <Label Content="400 DPI"/>
+                            <ComboBox x:Name="comboBox" Margin="10,15,80,65" IsEditable="True" MinWidth="130" MinHeight="20" FontSize="10" FontFamily="Tahoma" VerticalContentAlignment="Center" SelectedIndex="2" PreviewTextInput="comboBox_PreviewTextInput">
+                                <Label x:Name="dpi100" Content="100 DPI"/>
+                                <Label x:Name="dpi200" Content="200 DPI"/>
+                                <Label x:Name="dpi300" Content="300 DPI"/>
+                                <Label x:Name="dpi400" Content="400 DPI"/>
                             </ComboBox>
                         </GroupBox>
+                        
                         <GroupBox x:Name="groupBox3232" Header="Filename customization" Margin="2" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2"/>
                         <Image x:Name="image232" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="60" Grid.Column="0" Grid.Row="2" VerticalAlignment="Top" Width="284" Margin="10,10,0,0"/>
 

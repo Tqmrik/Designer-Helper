@@ -58,7 +58,7 @@ namespace DevAddIns
                     {
                         return "NONE";
                     }
-                    return thickness;
+                    return "asd";
                 }
 
                 //TODO: Change
@@ -110,6 +110,12 @@ namespace DevAddIns
                 }
                 return 3;
             }
+        }
+
+        public sheetMetalDocum(Document partDocument, Document accessDocument)
+        {
+            this.partDoc = partDocument;
+            this.accessDoc = accessDocument;
         }
 
     }

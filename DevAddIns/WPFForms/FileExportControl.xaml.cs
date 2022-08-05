@@ -55,7 +55,14 @@ namespace DevAddIns
 
             if(activeDocument.isPartDocument())
             {
+                metalThicknessDataField.Visibility = Visibility.Hidden;
                 partDocument = new partDocum(activeDocument, activeDocument);
+                returnPartList.Add(partDocument);
+            }
+
+            if(activeDocument.isSheetMetalDocument())
+            {
+                sheetMetalDocum partDocum = new sheetMetalDocum(activeDocument, activeDocument);
                 returnPartList.Add(partDocument);
             }
 
