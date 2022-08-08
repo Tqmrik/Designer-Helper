@@ -26,7 +26,7 @@ namespace DevAddIns
 
         private static Inventor.Application m_inventorApplication;
         private Document activeDocument;
-        private IDocument bomDocument;
+        private _documentObject bomDocument;
         public static Inventor.Application InventorApplication 
         {
             get
@@ -44,31 +44,31 @@ namespace DevAddIns
         {
             InitializeComponent();
 
-            ObservableCollection<IDocument> partList = GetPartList();
+            ObservableCollection<_documentObject> partList = GetPartList();
             dataGrid.DataContext = partList;
         }
 
-        private ObservableCollection<IDocument> GetPartList()
+        private ObservableCollection<_documentObject> GetPartList()
         {
-            ObservableCollection<IDocument> returnPartList = new ObservableCollection<IDocument>();
+            ObservableCollection<_documentObject> returnPartList = new ObservableCollection<_documentObject>();
             activeDocument = m_inventorApplication.ActiveDocument;
 
             if(activeDocument.isPartDocument())
             {
-                bomDocument = new partDocum(activeDocument, activeDocument);
+                bomDocument = new partDocument(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
             }
 
             if(activeDocument.isSheetMetalDocument())
             {
-                bomDocument = new sheetMetalDocum(activeDocument, activeDocument);
+                bomDocument = new sheetMetalDocument(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
 
             }
             if(activeDocument.isAssemblyDocument())
             {
 
-                bomDocument = new assemblyDocum(activeDocument, activeDocument);
+                bomDocument = new assemblyDocument(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
 
                 foreach(Document doc in activeDocument.AllReferencedDocuments)
@@ -76,29 +76,29 @@ namespace DevAddIns
                     //TODO: rewrite to the case statement?????
                     if(doc.isPartDocument())
                     {
-                        bomDocument = new partDocum(doc, activeDocument);
+                        bomDocument = new partDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);
                     }
                     else if(doc.isSheetMetalDocument())
                     {
-                        bomDocument = new sheetMetalDocum(doc, activeDocument);
+                        bomDocument = new sheetMetalDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);
                     }
                     else if(doc.isAssemblyDocument())
                     {
-                        bomDocument = new assemblyDocum(doc, activeDocument);
+                        bomDocument = new assemblyDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);
                     }
                     else if(doc.isWeldmentDocument())
                     {
-                        bomDocument = new weldmentDocum();
+                        bomDocument = new weldmentDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);
                     }
                 }
 
             }
 
-            foreach(IDocument doc in returnPartList)
+            foreach(_documentObject doc in returnPartList)
             {
                 if(doc.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}")
                 {

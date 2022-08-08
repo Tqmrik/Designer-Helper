@@ -153,11 +153,11 @@
     <Compile Include="HelperMethods\PathConverter.cs" />
     <Compile Include="Buttons\NewExportAsButton.cs" />
     <Compile Include="HelperMethods\TranslatorOptions.cs" />
-    <Compile Include="Interfaces\assemblyDocum.cs" />
-    <Compile Include="Interfaces\IDocument.cs" />
-    <Compile Include="Interfaces\partDocum.cs" />
-    <Compile Include="Interfaces\sheetMetalDocum.cs" />
-    <Compile Include="Interfaces\weldmentDocum.cs" />
+    <Compile Include="Interfaces\assemblyDocument.cs" />
+    <Compile Include="Interfaces\_documentObject.cs" />
+    <Compile Include="Interfaces\partDocument.cs" />
+    <Compile Include="Interfaces\sheetMetalDocument.cs" />
+    <Compile Include="Interfaces\weldmentDocument.cs" />
     <Compile Include="Translators\ParasolidTranslator.cs" />
     <Compile Include="Translators\PDFTranslator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

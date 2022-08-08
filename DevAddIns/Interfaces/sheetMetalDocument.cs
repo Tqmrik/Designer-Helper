@@ -7,33 +7,12 @@ using System.Windows.Media.Imaging;
 
 namespace DevAddIns
 {
-    class sheetMetalDocum : IDocument
+    class sheetMetalDocument : _documentObject
     {
-        private Document partDoc;
-        private Document accessDoc;
+        private PartDocument partDoc;
         private SheetMetalComponentDefinition oSMCD;
 
-        public string PartNumber { get => partDoc.PropertySets[3][2].Value.ToString(); }
-        public ImageSource Thumbnail
-        {
-            get
-            {
-                using (var ms = new MemoryStream())
-                {
-                    Support.IPictureDispToImage(partDoc.Thumbnail).Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-                    ms.Seek(0, SeekOrigin.Begin);
-
-                    var bitmapImage = new BitmapImage();
-                    bitmapImage.BeginInit();
-                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                    bitmapImage.StreamSource = ms;
-                    bitmapImage.EndInit();
-
-                    return bitmapImage;
-                }
-            }
-        }
-        public string BOMStructure
+        public override string BOMStructure
         {
             get
             {
@@ -50,7 +29,7 @@ namespace DevAddIns
         {
             get
             {
-                if (partDoc.isSheetMetalDocument())
+                if (currentDocument.isSheetMetalDocument())
                 {
                     oSMCD = (SheetMetalComponentDefinition)((PartDocument)partDoc).ComponentDefinition;
                     string thickness = oSMCD.Thickness.Expression;
@@ -78,31 +57,20 @@ namespace DevAddIns
                 return material;
             }
         }
-        public string Revision
-        {
-            get
-            {
-                string revision = partDoc.PropertySets[1][7].Value.ToString();
-                if (String.IsNullOrEmpty(revision))
-                {
-                    return "NONE";
-                }
-                return revision;
-            }
-        }
+
         public int Quantity
         {
             get
             {
-                if (accessDoc == partDoc)
+                if (accessDocument == partDoc)
                 {
                     return 1;
                 }
-                else if (accessDoc.isAssemblyDocument() || accessDoc.isWeldmentDocument())
+                else if (accessDocument.isAssemblyDocument() || accessDocument.isWeldmentDocument())
                 {
-                    if (accessDoc is AssemblyDocument)
+                    if (accessDocument is AssemblyDocument)
                     {
-                        AssemblyDocument tempDOc = (AssemblyDocument)accessDoc;
+                        AssemblyDocument tempDOc = (AssemblyDocument)accessDocument;
                         //BOMView sd = tempDOc.ComponentDefinition.BOM.BOMViews[this.BOMStructure];
                         return 2;
                     }
@@ -110,18 +78,12 @@ namespace DevAddIns
                 return 3;
             }
         }
-        public string SubType
-        {
-            get
-            {
-                return partDoc.SubType;
-            }
-        }
 
-        public sheetMetalDocum(Document partDocument, Document accessDocument)
+        public sheetMetalDocument(Document partDocument, Document accessDocument)
         {
-            this.partDoc = partDocument;
-            this.accessDoc = accessDocument;
+            this.currentDocument = partDocument;
+            this.partDoc = (PartDocument)currentDocument;
+            this.accessDocument = accessDocument;
         }
 
     }
