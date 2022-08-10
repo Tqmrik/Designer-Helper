@@ -64,12 +64,21 @@ namespace DevAddIns
 
             foreach(Document refDoc in doc.ReferencedDocuments)
             {
-                switch(refDoc)
+                if(refDoc.isAssemblyDocument())
                 {
-                    case refDoc.isAssemblyDocument():
-                    {
-
-                    }
+                    referencedParts.Add(new assemblyDocument(refDoc, doc));
+                }
+                else if(refDoc.isPartDocument())
+                {
+                    referencedParts.Add(new partDocument(refDoc, doc));
+                }
+                else if(refDoc.isSheetMetalDocument())
+                {
+                    referencedParts.Add(new sheetMetalDocument(refDoc, doc));
+                }
+                else if(refDoc.isWeldmentDocument())
+                {
+                    referencedParts.Add(new weldmentDocument(refDoc, doc));
                 }
             }
         }

@@ -119,6 +119,12 @@
     <Compile Include="Buttons\ShowPropertiesButton.cs" />
     <Compile Include="Buttons\TestFunctionButton.cs" />
     <Compile Include="ComboBoxes\ComboBox.cs" />
+    <Compile Include="IPropertiesForm\IPropertiesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IPropertiesForm\IPropertiesForm.Designer.cs">
+      <DependentUpon>IPropertiesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Translators\DXFTranslator.cs" />
     <Compile Include="ExtensionMethods\CheckIfPurchased.cs" />
     <Compile Include="ExtensionMethods\DocumentChecker.cs" />
@@ -178,6 +184,9 @@
     <Compile Include="Translators\STEPTranslator.cs" />
     <Compile Include="Translators\Translators.cs" />
     <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
+    <Compile Include="IPropertiesForm\IPropertiesWPFForm.xaml.cs">
+      <DependentUpon>IPropertiesWPFForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WPFForms\FileExportControl.xaml.cs">
       <DependentUpon>FileExportControl.xaml</DependentUpon>
     </Compile>
@@ -217,6 +226,9 @@
     <EmbeddedResource Include="Forms\NewExportForm.resx">
       <DependentUpon>NewExportForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IPropertiesForm\IPropertiesForm.resx">
+      <DependentUpon>IPropertiesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -250,6 +262,10 @@
     <Content Include="WPFForms\SmallIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="IPropertiesForm\IPropertiesWPFForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WPFForms\FileExportControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -260,6 +276,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
