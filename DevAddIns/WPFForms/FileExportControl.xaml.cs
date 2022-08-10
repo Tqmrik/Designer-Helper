@@ -108,6 +108,11 @@ namespace DevAddIns
             }
 
 
+            //TODO: Assembly wrapper 
+
+
+
+
             //TODO: Traverse the collection to see if there is sheetMetal part and add new datagrid column if so
             //TODO: Add a search bar 
             //TODO: add export checkboxes

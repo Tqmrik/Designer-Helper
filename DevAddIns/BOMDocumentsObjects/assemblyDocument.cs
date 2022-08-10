@@ -1,4 +1,5 @@
 ﻿using Inventor;
+using System.Collections.Generic;
 using Microsoft.VisualBasic.Compatibility.VB6;
 using System;
 using System.IO;
@@ -53,12 +54,24 @@ namespace DevAddIns
             }
         }
 
+        public List<_documentObject> referencedParts = new List<_documentObject>();
 
         public assemblyDocument(Document doc, Document accessDocument)
         {
             this.currentDocument = doc;
             this.assemblyDoc = (AssemblyDocument)currentDocument;
             this.accessDocument = accessDocument;
+
+            foreach(Document refDoc in doc.ReferencedDocuments)
+            {
+                switch(refDoc)
+                {
+                    case refDoc.isAssemblyDocument():
+                    {
+
+                    }
+                }
+            }
         }
     }
 }
