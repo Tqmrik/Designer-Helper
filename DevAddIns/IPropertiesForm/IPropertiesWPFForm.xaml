@@ -4,10 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DevAddIns"
-             mc:Ignorable="d" Height="650" Width="500" MinWidth="500" MaxWidth="500" MinHeight="650" MaxHeight="650">
-    <Grid Background="#FFB99090">
+             mc:Ignorable="d" MinWidth="460" MaxWidth="460" MinHeight="560" MaxHeight="560">
+    <Grid>
         <TabControl x:Name="tabControl">
-            <TabItem x:Name="tabItem" Header="TabItem">
+            <TabItem x:Name="tabItem" Header="Summary">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -16,9 +16,8 @@
                 </TabItem.Background>
                 <Grid Background="White">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25*"/>
-                        <ColumnDefinition Width="80
-                                          *"/>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="189*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition x:Name="FirstRow" Height="20*"/>
@@ -32,35 +31,28 @@
                         <RowDefinition Height="70*"/>
                         <RowDefinition Height="100*"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="label4" Content="Title:" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <Label x:Name="label5" Content="Subject:" HorizontalAlignment="Left" Grid.Row="1"  VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <Label x:Name="label6" Content="Author:" HorizontalAlignment="Left" Grid.Row="2"  VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <Label x:Name="label7" Content="Manager:" HorizontalAlignment="Left" Grid.Row="3"  VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <Label x:Name="label8" Content="Company:" HorizontalAlignment="Left" Grid.Row="4"  VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <Separator Height="10" Grid.Row="5" Grid.ColumnSpan="2" Margin="5,2"/>
-                    <Label x:Name="label9" Content="Category:" HorizontalAlignment="Left" Grid.Row="6"  VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <Label x:Name="label10" Content="Keywords:" HorizontalAlignment="Left" Grid.Row="7"  VerticalAlignment="Center" Margin="5,0,0,0"/>
-                    <Label x:Name="label11" Content="Comments:" HorizontalAlignment="Left" Grid.Row="8"  VerticalAlignment="Top" Margin="5,10,0,0"/>
+                    <Label x:Name="label4" Content="Title:" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Label x:Name="label5" Content="Subject:" HorizontalAlignment="Left" Grid.Row="1"  VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Label x:Name="label6" Content="Author:" HorizontalAlignment="Left" Grid.Row="2"  VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Label x:Name="label7" Content="Manager:" HorizontalAlignment="Left" Grid.Row="3"  VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Label x:Name="label8" Content="Company:" HorizontalAlignment="Left" Grid.Row="4"  VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Separator Grid.Row="5" Grid.ColumnSpan="2" Margin="5,4"/>
+                    <Label x:Name="label9" Content="Category:" HorizontalAlignment="Left" Grid.Row="6"  VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Label x:Name="label10" Content="Keywords:" HorizontalAlignment="Left" Grid.Row="7"  VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Label x:Name="label11" Content="Comments:" HorizontalAlignment="Left" Grid.Row="8"  VerticalAlignment="Top" Margin="2,4,2,2"/>
 
 
-                    <TextBox x:Name="textBox" Grid.Column="1" TextWrapping="Wrap" Text="TextBox" VerticalContentAlignment="Center" Margin="10" BorderThickness="2,2,2,2">
-                        <TextBox.BorderBrush>
-                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                <GradientStop Color="Black" Offset="0"/>
-                                <GradientStop Color="White" Offset="1"/>
-                            </LinearGradientBrush>
-                        </TextBox.BorderBrush>
-                    </TextBox>
-                    <TextBox x:Name="textBox1" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="textBox2" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="textBox3" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="textBox4" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="textBox5" Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="textBox6" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="10"/>
-                    <TextBox x:Name="textBox7" Grid.Column="1" Grid.Row="8" TextWrapping="Wrap" Text="" Margin="10,10,10,10" BorderThickness="2" BorderBrush="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                    <TextBox x:Name="textBox" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox1" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox2" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox3" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox4" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox5" Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox6" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox7" Grid.Column="1" Grid.Row="8" TextWrapping="Wrap" Text="" Margin="8,8,30,8"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="TabItem">
+            <TabItem Header="Project">
                 <TabItem.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -68,88 +60,109 @@
                     </LinearGradientBrush>
                 </TabItem.Background>
                 <Grid Background="White">
-                    <Grid HorizontalAlignment="Left" Height="602" Margin="10,10,0,0" VerticalAlignment="Top" Width="474">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="39*"/>
-                            <RowDefinition Height="33*"/>
-                            <RowDefinition Height="21*"/>
-                            <RowDefinition Height="32*"/>
-                            <RowDefinition Height="29*"/>
-                            <RowDefinition Height="27*"/>
-                            <RowDefinition Height="37*"/>
-                            <RowDefinition Height="39*"/>
-                            <RowDefinition Height="23*"/>
-                            <RowDefinition Height="32*"/>
-                            <RowDefinition Height="26*"/>
-                            <RowDefinition Height="35*"/>
-                            <RowDefinition Height="33*"/>
-                            <RowDefinition Height="32*"/>
-                            <RowDefinition Height="164*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="115*"/>
-                            <ColumnDefinition Width="359*"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="TabItem">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                <Grid Background="White">
-                    <Grid HorizontalAlignment="Left" Height="602" Margin="10,10,0,0" VerticalAlignment="Top" Width="474">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50*"/>
-                            <RowDefinition Height="25*"/>
-                            <RowDefinition Height="34*"/>
-                            <RowDefinition Height="26*"/>
-                            <RowDefinition Height="16*"/>
-                            <RowDefinition Height="27*"/>
-                            <RowDefinition Height="45*"/>
-                            <RowDefinition Height="28*"/>
-                            <RowDefinition Height="29*"/>
-                            <RowDefinition Height="45*"/>
-                            <RowDefinition Height="82*"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="95*"/>
-                            <ColumnDefinition Width="379*"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Header="TabItem">
-                <TabItem.Background>
-                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
-                        <GradientStop Color="White" Offset="1"/>
-                    </LinearGradientBrush>
-                </TabItem.Background>
-                <Grid Background="White">
-                    <Grid HorizontalAlignment="Left" Height="602" Margin="10,10,0,0" VerticalAlignment="Top" Width="474">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="50*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="300*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="label12" Content="Location:" Margin="2,2,2,5" VerticalAlignment="Center" Height="23"/>
+                    <Label x:Name="label13" Content="File Subtype:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="1" Height="24"/>
+                    <Label x:Name="label14" Content="Part Number:" Margin="2,3,2,6" VerticalAlignment="Center" Grid.Row="2" Height="22"/>
+                    <Label x:Name="label15" Content="Stock Number:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="3" Height="24"/>
+                    <Label x:Name="label16" Content="Description:" Margin="2,3,2,6" VerticalAlignment="Center" Grid.Row="4" Height="22"/>
+                    <Label x:Name="label17" Content="Revision Number:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="5" Height="24"/>
+                    <Label x:Name="label18" Content="Project:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="6" Height="23"/>
+                    <Label x:Name="label19" Content="Designer:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="7" Height="23"/>
+                    <Label x:Name="label20" Content="Engineer:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="8" Height="23"/>
+                    <Label x:Name="label21" Content="Authority" Margin="2,3,2,6" VerticalAlignment="Center" Grid.Row="9" Height="22"/>
+                    <Label x:Name="label22" Content="Cost Center:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="10" Height="23"/>
+                    <Label x:Name="label23" Content="Estimated Cost:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="11" Height="23"/>
+                    <Label x:Name="label24" Content="Creation Date:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="12" Height="23"/>
+                    <Label x:Name="label25" Content="Vendor:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="13" Height="23"/>
+                    <Label x:Name="label26" Content="WEB Link:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="14" Height="23"/>
 
-                        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="160" Margin="10,10,0,0" VerticalAlignment="Top" Width="454">
-                            <Grid HorizontalAlignment="Left" Height="138" Margin="10,26,0,0" VerticalAlignment="Top" Width="454">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="58*"/>
-                                    <ColumnDefinition Width="96*"/>
-                                    <ColumnDefinition Width="73*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="19*"/>
-                                    <RowDefinition Height="27*"/>
-                                </Grid.RowDefinitions>
-                                <Label x:Name="label" Content="Name" HorizontalAlignment="Left" Margin="36,23,0,0" VerticalAlignment="Top"/>
-                                <Label x:Name="label1" Content="Type" Grid.Column="1" HorizontalAlignment="Left" Margin="73,24,0,0" VerticalAlignment="Top"/>
-                                <Label x:Name="label2" Content="Value" Grid.Column="2" HorizontalAlignment="Left" Margin="41,24,0,0" VerticalAlignment="Top"/>
-                                <Label x:Name="label3" Content="Click to add custom property" HorizontalAlignment="Left" Margin="10,22,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="310" Grid.Column="1"/>
-                            </Grid>
-                        </Border>
-                    </Grid>
+                    <TextBox x:Name="textBox8" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" IsReadOnly="True" Height="18"/>
+                    <TextBox x:Name="textBox9" Grid.Column="1" Margin="5,6,30,7" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1" Height="18"/>
+                    <TextBox x:Name="textBox10" Grid.Column="1" Margin="5,7,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="2" Height="18"/>
+                    <TextBox x:Name="textBlock" Grid.Column="1" Margin="5,6,30,7" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="3" Height="18"/>
+                    <TextBox x:Name="textBox11" Grid.Column="1" Margin="5,7,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="4" Height="18"/>
+                    <TextBox x:Name="textBox12" Grid.Column="1" Margin="5,6,30,7" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="5" Height="18"/>
+                    <TextBox x:Name="textBox13" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="6" Height="18"/>
+                    <TextBox x:Name="textBox14" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="7" Height="18"/>
+                    <TextBox x:Name="textBox15" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="8" Height="18"/>
+                    <TextBox x:Name="textBox16" Grid.Column="1" Margin="5,7,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="9" Height="18"/>
+                    <TextBox x:Name="textBox17" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="10" Height="18"/>
+                    <TextBox x:Name="textBox18" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="11" Height="18"/>
+                    <TextBox x:Name="textBox19" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="12" Height="18"/>
+                    <TextBox x:Name="textBox20" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="13" Height="18"/>
+                    <TextBox x:Name="textBox21" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="14" Height="18"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Status">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="25*"/>
+                        <RowDefinition Height="34*"/>
+                        <RowDefinition Height="26*"/>
+                        <RowDefinition Height="16*"/>
+                        <RowDefinition Height="27*"/>
+                        <RowDefinition Height="45*"/>
+                        <RowDefinition Height="28*"/>
+                        <RowDefinition Height="29*"/>
+                        <RowDefinition Height="45*"/>
+                        <RowDefinition Height="82*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="95*"/>
+                        <ColumnDefinition Width="379*"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Custom">
+                <TabItem.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                        <GradientStop Color="White" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabItem.Background>
+                <Grid Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="58*"/>
+                        <ColumnDefinition Width="96*"/>
+                        <ColumnDefinition Width="73*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="19*"/>
+                        <RowDefinition Height="27*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="label" Content="Name" HorizontalAlignment="Left" Margin="36,23,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label1" Content="Type" Grid.Column="1" HorizontalAlignment="Left" Margin="73,24,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label2" Content="Value" Grid.Column="2" HorizontalAlignment="Left" Margin="41,24,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="label3" Content="Click to add custom property" HorizontalAlignment="Left" Margin="10,22,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="310" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>
