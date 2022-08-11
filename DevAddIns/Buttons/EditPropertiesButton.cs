@@ -27,7 +27,10 @@ namespace DevAddIns
             if (InventorApplication.ActiveDocument == null) return;
             try
             {
-                EditPropertiesForm editProperties = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
+                //EditPropertiesForm editProperties = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
+                //editProperties.ShowDialog();
+
+                IPropertiesForm editProperties = new IPropertiesForm();
                 editProperties.ShowDialog();
 
             }

@@ -18,9 +18,9 @@ namespace DevAddIns
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class IPropertiesWPFForm : UserControl
     {
-        public UserControl1()
+        public IPropertiesWPFForm()
         {
             InitializeComponent();
         }
