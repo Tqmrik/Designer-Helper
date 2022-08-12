@@ -30,15 +30,17 @@ namespace DevAddIns
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelHolderForm = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.panelHolderForm = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button1);
@@ -49,6 +51,33 @@ namespace DevAddIns
             this.panel1.Size = new System.Drawing.Size(484, 611);
             this.panel1.TabIndex = 0;
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(372, 580);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(100, 21);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "Apply";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(279, 581);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(87, 19);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "Cancel";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(147, 580);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(126, 21);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "Save Configuration";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // panelHolderForm
             // 
             this.panelHolderForm.Location = new System.Drawing.Point(12, 12);
@@ -57,32 +86,14 @@ namespace DevAddIns
             this.panelHolderForm.Size = new System.Drawing.Size(460, 560);
             this.panelHolderForm.TabIndex = 0;
             // 
-            // button1
+            // button4
             // 
-            this.button1.Location = new System.Drawing.Point(147, 580);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(126, 21);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(279, 581);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 19);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(372, 580);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 21);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
+            this.button4.Location = new System.Drawing.Point(12, 578);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(129, 24);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Import Configuration";
+            this.button4.UseVisualStyleBackColor = true;
             // 
             // IPropertiesForm
             // 
@@ -108,5 +119,6 @@ namespace DevAddIns
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button4;
     }
 }
