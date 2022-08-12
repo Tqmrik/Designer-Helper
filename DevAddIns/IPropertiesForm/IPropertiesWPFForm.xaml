@@ -16,8 +16,8 @@
                 </TabItem.Background>
                 <Grid Background="White">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="189*"/>
+                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="300*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition x:Name="FirstRow" Height="20*"/>
@@ -31,15 +31,15 @@
                         <RowDefinition Height="70*"/>
                         <RowDefinition Height="100*"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="label4" Content="Title:" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Center" Margin="2,0,2,2"/>
-                    <Label x:Name="label5" Content="Subject:" HorizontalAlignment="Left" Grid.Row="1"  VerticalAlignment="Center" Margin="2,0,2,2"/>
-                    <Label x:Name="label6" Content="Author:" HorizontalAlignment="Left" Grid.Row="2"  VerticalAlignment="Center" Margin="2,0,2,2"/>
-                    <Label x:Name="label7" Content="Manager:" HorizontalAlignment="Left" Grid.Row="3"  VerticalAlignment="Center" Margin="2,0,2,2"/>
-                    <Label x:Name="label8" Content="Company:" HorizontalAlignment="Left" Grid.Row="4"  VerticalAlignment="Center" Margin="2,0,2,2"/>
+                    <Label x:Name="label4" Content="Title:" Grid.Row="0" VerticalAlignment="Center" Margin="2"/>
+                    <Label x:Name="label5" Content="Subject:" Grid.Row="1"  VerticalAlignment="Center" Margin="2"/>
+                    <Label x:Name="label6" Content="Author:" Grid.Row="2"  VerticalAlignment="Center" Margin="2"/>
+                    <Label x:Name="label7" Content="Manager:" Grid.Row="3"  VerticalAlignment="Center" Margin="2"/>
+                    <Label x:Name="label8" Content="Company:" Grid.Row="4"  VerticalAlignment="Center" Margin="2"/>
                     <Separator Grid.Row="5" Grid.ColumnSpan="2" Margin="5,4"/>
-                    <Label x:Name="label9" Content="Category:" HorizontalAlignment="Left" Grid.Row="6"  VerticalAlignment="Center" Margin="2,0,2,2"/>
-                    <Label x:Name="label10" Content="Keywords:" HorizontalAlignment="Left" Grid.Row="7"  VerticalAlignment="Center" Margin="2,0,2,2"/>
-                    <Label x:Name="label11" Content="Comments:" HorizontalAlignment="Left" Grid.Row="8"  VerticalAlignment="Top" Margin="2,4,2,2"/>
+                    <Label x:Name="label9" Content="Category:" Grid.Row="6"  VerticalAlignment="Center" Margin="2"/>
+                    <Label x:Name="label10" Content="Keywords:" Grid.Row="7"  VerticalAlignment="Center" Margin="2"/>
+                    <Label x:Name="label11" Content="Comments:" Grid.Row="8"  VerticalAlignment="Top" Margin="2"/>
 
 
                     <TextBox x:Name="textBox" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
@@ -76,43 +76,43 @@
                         <RowDefinition Height="20*"/>
                         <RowDefinition Height="20*"/>
                         <RowDefinition Height="20*"/>
-                        <RowDefinition Height="50*"/>
+                        <RowDefinition Height="40*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="120*"/>
                         <ColumnDefinition Width="300*"/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="label12" Content="Location:" Margin="2,2,2,5" VerticalAlignment="Center" Height="23"/>
-                    <Label x:Name="label13" Content="File Subtype:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="1" Height="24"/>
-                    <Label x:Name="label14" Content="Part Number:" Margin="2,3,2,6" VerticalAlignment="Center" Grid.Row="2" Height="22"/>
-                    <Label x:Name="label15" Content="Stock Number:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="3" Height="24"/>
-                    <Label x:Name="label16" Content="Description:" Margin="2,3,2,6" VerticalAlignment="Center" Grid.Row="4" Height="22"/>
-                    <Label x:Name="label17" Content="Revision Number:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="5" Height="24"/>
-                    <Label x:Name="label18" Content="Project:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="6" Height="23"/>
-                    <Label x:Name="label19" Content="Designer:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="7" Height="23"/>
-                    <Label x:Name="label20" Content="Engineer:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="8" Height="23"/>
-                    <Label x:Name="label21" Content="Authority" Margin="2,3,2,6" VerticalAlignment="Center" Grid.Row="9" Height="22"/>
-                    <Label x:Name="label22" Content="Cost Center:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="10" Height="23"/>
-                    <Label x:Name="label23" Content="Estimated Cost:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="11" Height="23"/>
-                    <Label x:Name="label24" Content="Creation Date:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="12" Height="23"/>
-                    <Label x:Name="label25" Content="Vendor:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="13" Height="23"/>
-                    <Label x:Name="label26" Content="WEB Link:" Margin="2,2,2,5" VerticalAlignment="Center" Grid.Row="14" Height="23"/>
+                    <Label x:Name="label12" Content="Location:" Margin="2,2,2,2" VerticalAlignment="Center"/>
+                    <Label x:Name="label13" Content="File Subtype:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="1"/>
+                    <Label x:Name="label14" Content="Part Number:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="2"/>
+                    <Label x:Name="label15" Content="Stock Number:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="3"/>
+                    <Label x:Name="label16" Content="Description:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="4"/>
+                    <Label x:Name="label17" Content="Revision Number:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="5"/>
+                    <Label x:Name="label18" Content="Project:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="6"/>
+                    <Label x:Name="label19" Content="Designer:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="7"/>
+                    <Label x:Name="label20" Content="Engineer:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="8"/>
+                    <Label x:Name="label21" Content="Authority" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="9" />
+                    <Label x:Name="label22" Content="Cost Center:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="10"/>
+                    <Label x:Name="label23" Content="Estimated Cost:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="11"/>
+                    <Label x:Name="label24" Content="Creation Date:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="12"/>
+                    <Label x:Name="label25" Content="Vendor:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="13"/>
+                    <Label x:Name="label26" Content="WEB Link:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="14"/>
 
-                    <TextBox x:Name="textBox8" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" IsReadOnly="True" Height="18"/>
-                    <TextBox x:Name="textBox9" Grid.Column="1" Margin="5,6,30,7" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1" Height="18"/>
-                    <TextBox x:Name="textBox10" Grid.Column="1" Margin="5,7,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="2" Height="18"/>
-                    <TextBox x:Name="textBlock" Grid.Column="1" Margin="5,6,30,7" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="3" Height="18"/>
-                    <TextBox x:Name="textBox11" Grid.Column="1" Margin="5,7,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="4" Height="18"/>
-                    <TextBox x:Name="textBox12" Grid.Column="1" Margin="5,6,30,7" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="5" Height="18"/>
-                    <TextBox x:Name="textBox13" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="6" Height="18"/>
-                    <TextBox x:Name="textBox14" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="7" Height="18"/>
-                    <TextBox x:Name="textBox15" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="8" Height="18"/>
-                    <TextBox x:Name="textBox16" Grid.Column="1" Margin="5,7,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="9" Height="18"/>
-                    <TextBox x:Name="textBox17" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="10" Height="18"/>
-                    <TextBox x:Name="textBox18" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="11" Height="18"/>
-                    <TextBox x:Name="textBox19" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="12" Height="18"/>
-                    <TextBox x:Name="textBox20" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="13" Height="18"/>
-                    <TextBox x:Name="textBox21" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="14" Height="18"/>
+                    <TextBox x:Name="textBox8" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" IsReadOnly="True"/>
+                    <TextBox x:Name="textBox9" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1"/>
+                    <TextBox x:Name="textBox10" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="2"/>
+                    <TextBox x:Name="textBlock" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="3"/>
+                    <TextBox x:Name="textBox11" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="4"/>
+                    <TextBox x:Name="textBox12" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="5"/>
+                    <TextBox x:Name="textBox13" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="6"/>
+                    <TextBox x:Name="textBox14" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="7"/>
+                    <TextBox x:Name="textBox15" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="8"/>
+                    <TextBox x:Name="textBox16" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="9"/>
+                    <TextBox x:Name="textBox17" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="10"/>
+                    <TextBox x:Name="textBox18" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="11"/>
+                    <TextBox x:Name="textBox19" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="12"/>
+                    <TextBox x:Name="textBox20" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="13"/>
+                    <TextBox x:Name="textBox21" Grid.Column="1" Margin="5,6,30,6" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="14"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Status">
@@ -137,8 +137,8 @@
                         <RowDefinition Height="80*"/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="65*"/>
-                        <ColumnDefinition Width="162*"/>
+                        <ColumnDefinition Width="120*"/>
+                        <ColumnDefinition Width="300*"/>
                     </Grid.ColumnDefinitions>
                     <Label x:Name="label27" Content="Part Number:" Margin="5" VerticalAlignment="Center"/>
                     <Label x:Name="label28" Content="Stock Number:" Grid.Row="1" Margin="5" VerticalAlignment="Center"/>
@@ -150,17 +150,17 @@
                     <Label x:Name="label34" Content="Eng. Approved Date:" Grid.Row="7" Margin="5" VerticalAlignment="Center"/>
                     <Label x:Name="label35" Content="Mfg. Approved By:" Grid.Row="8" Margin="5" VerticalAlignment="Center"/>
                     <Label x:Name="label36" Content="Mfg. Approved Date:" Grid.Row="9" Margin="5" VerticalAlignment="Center"/>
-                    
-                    <TextBox x:Name="textBox22" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="304"/>
-                    <TextBox x:Name="textBox23" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="10,16,0,0" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="298"/>
-                    <TextBox x:Name="textBox24" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="10,10,0,0" Grid.Row="2" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="298"/>
-                    <TextBox x:Name="textBox25" Grid.Column="1" HorizontalAlignment="Left" Height="21" Margin="16,10,0,0" Grid.Row="3" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="292"/>
-                    <TextBox x:Name="textBox26" Grid.Column="1" HorizontalAlignment="Left" Height="15" Margin="20,16,0,0" Grid.Row="4" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="288"/>
-                    <TextBox x:Name="textBox27" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="20,15,0,0" Grid.Row="5" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="288"/>
-                    <TextBox x:Name="textBox28" Grid.Column="1" HorizontalAlignment="Left" Height="17" Margin="24,14,0,0" Grid.Row="6" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="284"/>
-                    <TextBox x:Name="textBox29" Grid.Column="1" HorizontalAlignment="Left" Height="16" Margin="20,15,0,0" Grid.Row="7" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="288"/>
-                    <TextBox x:Name="textBox30" Grid.Column="1" HorizontalAlignment="Left" Height="12" Margin="24,19,0,0" Grid.Row="8" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="284"/>
-                    <TextBox x:Name="textBox31" Grid.Column="1" HorizontalAlignment="Left" Height="12" Margin="24,19,0,0" Grid.Row="9" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="284"/>
+
+                    <TextBox x:Name="textBox22" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8"/>
+                    <TextBox x:Name="textBox23" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="1"/>
+                    <TextBox x:Name="textBox24" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="2"/>
+                    <TextBox x:Name="textBox25" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="3"/>
+                    <TextBox x:Name="textBox26" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="4"/>
+                    <TextBox x:Name="textBox27" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="5"/>
+                    <TextBox x:Name="textBox28" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="6"/>
+                    <TextBox x:Name="textBox29" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="7"/>
+                    <TextBox x:Name="textBox30" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="8"/>
+                    <TextBox x:Name="textBox31" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="9"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Custom">
