@@ -88,6 +88,7 @@ namespace DevAddIns
                 //initialize AddIn members
                 m_inventorApplication = addInSiteObject.Application;
 
+
                 Button.InventorApplication = m_inventorApplication;
                 ComboBox.InventorApplication = m_inventorApplication;
                 ExportAsForm.InventorApplication = m_inventorApplication;

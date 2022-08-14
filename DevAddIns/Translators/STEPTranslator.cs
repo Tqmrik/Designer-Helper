@@ -31,6 +31,7 @@ namespace DevAddIns
                 {
                     foreach (Document oFD in doc.AllReferencedDocuments)
                     {
+                        
                         stepCreate(oFD);
                     }
                     return;

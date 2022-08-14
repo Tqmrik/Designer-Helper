@@ -3,8 +3,9 @@
 
 namespace DevAddIns
 {
-    static class StringConverters
+    public static class StringConverters
     {
+
         //If you'll ever think to rename them to ToString then field will use the default ToString methode instead of one you provided.
         public static string ToStringExt(this Property proper)
         {
@@ -21,28 +22,46 @@ namespace DevAddIns
             return $"Class Id string: {transAddIn.ClassIdString}\nDisplay name: {transAddIn.DisplayName}\nDescription: {transAddIn.Description}\nFile extensions: {transAddIn.FileExtensions}\nSupports save copy as from: {transAddIn.SupportsSaveCopyAsFrom}";
         }
 
+
+        #region "Test string holders"
+        public const string DefaultStructure = "Default";
+        public const string NormalStructure = "Normal";
+        public const string PhantomStructure = "Phantom";
+        public const string ReferenceStructure = "Reference";
+        public const string PurchasedStructure = "Purchased";
+        public const string InseparableStructure = "Inseparable";
+        public const string VariesStructure = "*Varies*";
+        #endregion
+
         public static string ToStringExt(this BOMStructureEnum BOMSE)
         {
             switch(BOMSE)
             {
-                case BOMStructureEnum.kDefaultBOMStructure: return "Default";
-                case BOMStructureEnum.kNormalBOMStructure: return "Normal";
-                case BOMStructureEnum.kPhantomBOMStructure: return "Phantom";
-                case BOMStructureEnum.kReferenceBOMStructure: return "Reference";
-                case BOMStructureEnum.kPurchasedBOMStructure: return "Purchased";
-                case BOMStructureEnum.kInseparableBOMStructure: return "Inseparable";
-                case BOMStructureEnum.kVariesBOMStructure: return "*Varies*";
+                case BOMStructureEnum.kDefaultBOMStructure: return DefaultStructure;
+                case BOMStructureEnum.kNormalBOMStructure: return NormalStructure;
+                case BOMStructureEnum.kPhantomBOMStructure: return PhantomStructure;
+                case BOMStructureEnum.kReferenceBOMStructure: return ReferenceStructure;
+                case BOMStructureEnum.kPurchasedBOMStructure: return PurchasedStructure;
+                case BOMStructureEnum.kInseparableBOMStructure: return InseparableStructure;
+                case BOMStructureEnum.kVariesBOMStructure: return VariesStructure;
                 default: return BOMSE.ToString();
             }
         }
-        
+
+
+        #region "Test string holders"
+        public const string InchUnits = "inch";
+        public const string MeterUnits = "m";
+        public const string MillimiterUnits = "mm";
+        #endregion
+
         public static string ToStringExt(this UnitsTypeEnum unitsType)
         {
             switch(unitsType)
             {
-                case UnitsTypeEnum.kInchLengthUnits: return "inch";
-                case UnitsTypeEnum.kMeterLengthUnits: return "m";
-                case UnitsTypeEnum.kMillimeterLengthUnits: return "mm";
+                case UnitsTypeEnum.kInchLengthUnits: return InchUnits;
+                case UnitsTypeEnum.kMeterLengthUnits: return MeterUnits;
+                case UnitsTypeEnum.kMillimeterLengthUnits: return MillimiterUnits;
                 default: return unitsType.ToString();
             }
         }

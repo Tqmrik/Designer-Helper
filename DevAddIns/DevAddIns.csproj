@@ -125,6 +125,7 @@
     <Compile Include="IPropertiesForm\IPropertiesForm.Designer.cs">
       <DependentUpon>IPropertiesForm.cs</DependentUpon>
     </Compile>
+    <None Include="NOTES\NotesClass.cs" />
     <Compile Include="SurfaceAreaForm\surfaceAreaForm.cs">
       <SubType>Form</SubType>
     </Compile>
