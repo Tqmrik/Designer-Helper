@@ -16,7 +16,7 @@ namespace DevAddIns
         {
             get
             {
-                string bomStruct = ((PartDocument)partDoc).ComponentDefinition.BOMStructure.ToStringExt();
+                string bomStruct = StringConverters.ToStringExt(((PartDocument)partDoc).ComponentDefinition.BOMStructure);
                 if (string.IsNullOrEmpty(bomStruct))
                 {
                     return "NONE";

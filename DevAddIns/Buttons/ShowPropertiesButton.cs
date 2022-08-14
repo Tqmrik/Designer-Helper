@@ -39,12 +39,12 @@ namespace DevAddIns
             SW.WriteLine("");
             foreach (PropertySet propTab in activeDocument.PropertySets)
             {
-                SW.WriteLine(propTab.ToStringExt());
+                SW.WriteLine(StringConverters.ToStringExt(propTab));
                 SW.WriteLine("\t==================================");
 
                 foreach (Property proper in propTab)
                 {
-                    foreach (var line in proper.ToStringExt().Split('\n'))
+                    foreach (var line in StringConverters.ToStringExt(proper).Split('\n'))
                     {
                         SW.WriteLine("\t" + line);
                     }

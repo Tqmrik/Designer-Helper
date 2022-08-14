@@ -5,6 +5,7 @@ namespace DevAddIns
 {
     static class StringConverters
     {
+        //If you'll ever think to rename them to ToString then field will use the default ToString methode instead of one you provided.
         public static string ToStringExt(this Property proper)
         {
             return $"Display name: \"{proper.DisplayName}\"\nName: \"{proper.Name}\"\nValue: {proper.Value}\nExpression: {proper.Expression}\nType: {proper.Type}\nPropId: {proper.PropId}";
@@ -34,5 +35,20 @@ namespace DevAddIns
                 default: return BOMSE.ToString();
             }
         }
+        
+        public static string ToStringExt(this UnitsTypeEnum unitsType)
+        {
+            switch(unitsType)
+            {
+                case UnitsTypeEnum.kInchLengthUnits: return "inch";
+                case UnitsTypeEnum.kMeterLengthUnits: return "m";
+                case UnitsTypeEnum.kMillimeterLengthUnits: return "mm";
+                default: return unitsType.ToString();
+            }
+        }
+
+        //NOTE: int to string format provider: https://docs.microsoft.com/en-us/dotnet/api/system.int64.tostring?view=net-6.0#system-int64-tostring(system-string)
+        //NOTE: Custom numeric format strings: https://docs.microsoft.com/en-us/dotnet/standard/base-types/custom-numeric-format-strings
+        //NOTE: Standart numeric format strings: https://docs.microsoft.com/en-us/dotnet/standard/base-types/standard-numeric-format-strings
     }
 }

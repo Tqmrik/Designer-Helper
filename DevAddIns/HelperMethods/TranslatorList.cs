@@ -26,7 +26,7 @@ namespace DevAddIns
                 {
                     TranslatorAddIn transAddIn = (TranslatorAddIn)addin;
                     sw.WriteLine($"Index: {index}");
-                    sw.WriteLine(transAddIn.ToStringExt());
+                    sw.WriteLine(StringConverters.ToStringExt(transAddIn));
                 }
                 else
                 {

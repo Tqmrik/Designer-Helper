@@ -7,6 +7,9 @@ namespace DevAddIns
 {
     internal class EditPropertiesButton : Button
     {
+        public delegate void selectSetChanged();
+        public event selectSetChanged ChangeArea;
+
         #region "Constructors"
         //Use constructors of the base class
         public EditPropertiesButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
@@ -31,13 +34,24 @@ namespace DevAddIns
                 //editProperties.ShowDialog();
 
                 IPropertiesForm editProperties = new IPropertiesForm();
+                IPropertiesWPFForm.invApp = InventorApplication;
                 editProperties.ShowDialog();
 
+
+
+                //surfaceAreaForm.invApp = InventorApplication;
+                //surfaceAreaForm sd = new surfaceAreaForm();
+                //sd.Show();
             }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message + "\nAddIn: Sedenum Pack\nMethod:EditPropertiesButton");
             }
+        }
+
+        public void updateLabel()
+        {
+
         }
         #endregion
     }

@@ -125,6 +125,12 @@
     <Compile Include="IPropertiesForm\IPropertiesForm.Designer.cs">
       <DependentUpon>IPropertiesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SurfaceAreaForm\surfaceAreaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SurfaceAreaForm\surfaceAreaForm.Designer.cs">
+      <DependentUpon>surfaceAreaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Translators\DXFTranslator.cs" />
     <Compile Include="ExtensionMethods\CheckIfPurchased.cs" />
     <Compile Include="ExtensionMethods\DocumentChecker.cs" />
@@ -232,6 +238,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SurfaceAreaForm\surfaceAreaForm.resx">
+      <DependentUpon>surfaceAreaForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -44,7 +44,7 @@ namespace DevAddIns
                         if (translator.HasSaveCopyAsOptions[InventorApplication.ActiveDocument, oContext, oOptions] && translator.SupportsSaveCopyAsFrom.Contains(System.IO.Path.GetExtension(InventorApplication.ActiveDocument.FullFileName)))
                         {
                             sw.WriteLine($"Index: {index}");
-                            sw.WriteLine(translator.ToStringExt());
+                            sw.WriteLine(StringConverters.ToStringExt(translator));
                             sw.WriteLine("----Options----");
                             translator.ShowSaveCopyAsOptions(InventorApplication.ActiveDocument, oContext, oOptions);
                             for (int i = 1; i < oOptions.Count; i++)
