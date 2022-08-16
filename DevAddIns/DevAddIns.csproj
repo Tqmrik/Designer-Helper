@@ -151,7 +151,7 @@
     <Compile Include="Forms\ExportAsForm.Designer.cs">
       <DependentUpon>ExportAsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExtensionMethods\stringConverters.cs" />
+    <Compile Include="ExtensionMethods\StringConverters.cs" />
     <Compile Include="Data\MultilanguageDictionary.cs" />
     <Compile Include="Buttons\ProjectSketchAxisButton.cs" />
     <Compile Include="Forms\NewExportForm.cs">

@@ -14,90 +14,114 @@ namespace DevAddIns
         public const string DrawingDocumentCLSID = "{BBF9FDF1-52DC-11D0-8C04-0800090BE8EC}";
         public const string WeldmentDocumentCLSID = "{28EC8354-9024-440F-A8A2-0E0E55D635B0}";
 
-        public static bool isPartDocument(this Document doc)
+        //TODO: add documents CLSIDs
+
+        public static bool IsPartDocument(this Document inputDocument)
         {
 
-            if (doc is null)
+            if (inputDocument is null)
             {
                 return false;
             }
 
-            else if (doc.SubType == PartDocumentCLSID)
+            else if (inputDocument.SubType == PartDocumentCLSID)
             {
                 return true;
             }
             else return false;
         }
 
-        public static bool isSheetMetalDocument(this Document doc)
+        public static bool IsSheetMetalDocument(this Document inputDocument)
         {
-            if (doc is null)
+            if (inputDocument is null)
             {
                 return false;
             }
 
-            else if (doc.SubType == SheetMetalDocumentCLSID)
+            else if (inputDocument.SubType == SheetMetalDocumentCLSID)
             {
                 return true;
             }
             else return false;
         }
 
-        public static bool isMoldedPartDocument(this Document doc)
+        public static bool IsMoldedPartDocument(this Document inputDocument)
         {
-            if (doc is null)
+            if (inputDocument is null)
             {
                 return false;
             }
 
-            else if (doc.SubType == MoldedPartDocumentCLSID)
+            else if (inputDocument.SubType == MoldedPartDocumentCLSID)
             {
                 return true;
             }
             else return false;
         }
 
-        public static bool isDrawingDocument(this Document doc)
+        public static bool IsDrawingDocument(this Document inputDocument)
         {
-            if (doc is null)
+            if (inputDocument is null)
             {
                 return false;
             }
 
-            else if (doc.SubType == DrawingDocumentCLSID)
+            else if (inputDocument.SubType == DrawingDocumentCLSID)
             {
                 return true;
             }
             else return false;
         }
 
-        public static bool isAssemblyDocument(this Document doc)
+        public static bool IsAssemblyDocument(this Document inputDocument)
         {
-            if (doc is null)
+            if (inputDocument is null)
             {
                 return false;
             }
 
-            else if (doc.SubType == AssemblyPartDocumentCLSID)
+            else if (inputDocument.SubType == AssemblyPartDocumentCLSID)
             {
                 return true;
             }
             else return false;
         }
 
-        public static bool isWeldmentDocument(this Document doc)
+        public static bool IsWeldmentDocument(this Document inputDocument)
         {
-            if (doc is null)
+            if (inputDocument is null)
             {
                 return false;
             }
 
-            else if (doc.SubType == WeldmentDocumentCLSID)
+            else if (inputDocument.SubType == WeldmentDocumentCLSID)
             {
                 return true;
             }
             else return false;
         }
+
+        public static string InventorDocumentType(this string inputString)
+        {
+            switch (inputString.Trim().ToLowerInvariant())
+            {
+                case PartDocumentCLSID:
+                    return "Part Document"; //Official: Modeling??
+                case SheetMetalDocumentCLSID:
+                    return "Sheet Metal";
+                case MoldedPartDocumentCLSID:
+                    return "Moleded Part";
+                case AssemblyPartDocumentCLSID:
+                    return "Assembly";
+                case DrawingDocumentCLSID:
+                    return "Drawing";
+                case WeldmentDocumentCLSID:
+                    return "Weldment assembly";
+                default:
+                    return inputString;
+            }
+        }
+
     }
 
 }

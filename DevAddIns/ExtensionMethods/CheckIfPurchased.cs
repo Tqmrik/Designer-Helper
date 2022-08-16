@@ -11,7 +11,8 @@ namespace DevAddIns.ExtensionMethods
     {
         public static bool IsPurchased(Document document)
         {
-            return true;
+            //TODO: Implement
+            throw new NotImplementedException();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace DevAddIns
         public void createFlatDXF(Document doc)
         {
 
-            if(doc.isDrawingDocument())
+            if(doc.IsDrawingDocument())
             {
                 if (packAssembly)
                 {
@@ -38,11 +38,11 @@ namespace DevAddIns
                 }
 
             }
-            else if (doc.isSheetMetalDocument())
+            else if (doc.IsSheetMetalDocument())
             {
                 dxfCreate(doc);
             }
-            else if (doc.isAssemblyDocument() || doc.isWeldmentDocument())
+            else if (doc.IsAssemblyDocument() || doc.IsWeldmentDocument())
             {
                 if(packAssembly)
                 {
@@ -56,14 +56,14 @@ namespace DevAddIns
                     foreach (Document oFDF in doc.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
 
-                        if (oFDF.isAssemblyDocument())
+                        if (oFDF.IsAssemblyDocument())
                         {
                             if (((AssemblyDocument)oFDF).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
                                 continue;
                             }
                         }
-                        else if (oFDF.isPartDocument())
+                        else if (oFDF.IsPartDocument())
                         {
                             if (((PartDocument)oFDF).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
@@ -75,7 +75,7 @@ namespace DevAddIns
                             continue;
                         }
 
-                        if (!oFDF.isSheetMetalDocument())
+                        if (!oFDF.IsSheetMetalDocument())
                         {
                             continue;
                         }
@@ -93,7 +93,7 @@ namespace DevAddIns
         {
             if (!String.IsNullOrEmpty(doc.FullFileName))
             {
-                if (!doc.isSheetMetalDocument())
+                if (!doc.IsSheetMetalDocument())
                 {
                     return;
                 }
@@ -114,7 +114,7 @@ namespace DevAddIns
 
         private void dxfCreate(Document doc)
         {
-            if (doc.isSheetMetalDocument())
+            if (doc.IsSheetMetalDocument())
             {
                 doc.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
 

@@ -21,12 +21,11 @@ namespace DevAddIns
     /// </summary>
     public partial class IPropertiesWPFForm : UserControl
     {
-        private static Inventor.Application inventorApplication;
-        private Document activeDocument;
-        private Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
-        private PropertySets propSet;
 
-        public static Inventor.Application invApp
+        
+
+        private static Inventor.Application inventorApplication;
+        public static Inventor.Application _inventorApplication
         {
             get
             {
@@ -38,7 +37,51 @@ namespace DevAddIns
             }
 
         }
-        private PropertySets propSetter
+
+        //IProperties of the Summary tab 
+        private string title;
+        private string subject;
+        private string author;
+        private string manager;
+        private string company;
+        private string category;
+        private string keywords;
+        private string comments;
+
+        //IProperties of the Project tab
+        private string location;
+        private string fileSubtype;
+        private string partNumber;
+        private string stockNumber;
+        private string description;
+        private string revisionNumber;
+        private string project;
+        private string designer;
+        private string engineer;
+        private string authority;
+        private string costCenter;
+        private string estimatedCost;
+        private string creationDate;
+        private string vendor;
+        private string webLink;
+
+        //IProperties of the Status tab
+        //partNumb
+        //stockNumb
+        private string status;
+        private string designState;
+        private string checkedBy;
+        private string checkedByDate;
+        private string engApprovedBy;
+        private string engApprovedByDate;
+        private string mfgApprovedBy;
+        private string mfgApprovedByDate;
+
+
+        private Document activeDocument;
+
+        private PropertySets propSet;
+        private PropertySets _propSetter
         {
             get
             {
@@ -49,21 +92,33 @@ namespace DevAddIns
                 propSet = value;
             }
         }
+
+
+        private Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
         
-
-
+       
         public IPropertiesWPFForm()
         {
             InitializeComponent();
             activeDocument = inventorApplication.ActiveDocument;
-            propSetter = activeDocument.PropertySets;
-            populateDictionary();
+            _propSetter = activeDocument.PropertySets;
+            try
+            {
+                PopulateDictionary();
+                AssignVariables();
+                FillTextBoxes();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"{e.Message}\n{e.StackTrace}\n{e.Source}");
+            }
+
         }
 
 
+        //Wrap in try catch blocks??
 
-
-        private void populateDictionary()
+        private void PopulateDictionary()
         {
             for (int i = 1; i < activeDocument.PropertySets.Count+1; i++)
             {
@@ -72,9 +127,6 @@ namespace DevAddIns
                     keyValuePairs.Add(activeDocument.PropertySets[i][j].DisplayName, activeDocument.PropertySets[i][j].Expression);
                 }
             }
-
-            var s = 2;
-
 
             //if (String.IsNullOrEmpty(activeDocument.PropertySets[1][1].Expression))
             //{
@@ -179,6 +231,81 @@ namespace DevAddIns
             ////{
             ////        activeDocument.PropertySets[3][20].Value = dateTime.Date.ToString(); //Project->Mfg.Approved By
             ////}
+        }
+
+        private void AssignVariables()
+        {
+            title = keyValuePairs["Title"] ?? "";
+            subject = keyValuePairs["Subject"] ?? "";
+            author = keyValuePairs["Author"] ?? "";
+            manager = keyValuePairs["Manager"] ?? "";
+            company = keyValuePairs["Company"] ?? "";
+            category = keyValuePairs["Category"] ?? "";
+            keywords = keyValuePairs["Keywords"] ?? "";
+            comments = keyValuePairs["Comments"] ?? "";
+
+            location = activeDocument.FullFileName ?? "";
+            fileSubtype = DocumentChecker.InventorDocumentType(keyValuePairs["Part Type"]) ?? "";
+            partNumber = keyValuePairs["Part Number"] ?? "";
+            stockNumber = keyValuePairs["Stock Number"] ?? "";
+            description = keyValuePairs["Description"] ?? "";
+            revisionNumber = keyValuePairs["Revision Number"] ?? "";
+            project = keyValuePairs["Project"] ?? "";
+            designer = keyValuePairs["Designer"] ?? "";
+            engineer = keyValuePairs["Engineer"] ?? "";
+            authority = keyValuePairs["Authority"] ?? "";
+            costCenter = keyValuePairs["Cost Center"] ?? "";
+            estimatedCost = keyValuePairs["Cost"] ?? "";
+            creationDate = keyValuePairs["Date Created"];
+            vendor = keyValuePairs["Vendor"] ?? "";
+            webLink = keyValuePairs["Catalog web link"] ?? "";
+
+            status = keyValuePairs["Design Status"] ?? "";
+            //designState = keyValuePairs[""] ???
+            checkedBy = keyValuePairs["Checked by"] ?? "";
+            checkedByDate = keyValuePairs["Date Checked"];
+            engApprovedBy = keyValuePairs["Engr Approved by"] ?? "";
+            engApprovedByDate = keyValuePairs["Date Eng Approved"];
+            mfgApprovedBy = keyValuePairs["Mfg Approved by"] ?? "";
+            mfgApprovedByDate = keyValuePairs["Date Mfg Approved"];
+
+        }
+
+        private void FillTextBoxes()
+        {
+            titleBox.Text = title;
+            subjectBox.Text = subject;
+            authorBox.Text = author;
+            managerBox.Text = manager;
+            companyBox.Text = company;
+            categoryBox.Text = category;
+            keywordsBox.Text = keywords;
+            commentsBox.Text = comments;
+
+            locationBox.Text = location;
+            fileSubtypeBox.Text = fileSubtype;
+            partNumberBox.Text = partNumber;
+            stockNumberBox.Text = stockNumber;
+            descriptionBox.Text = description;
+            revisionNumberBox.Text = revisionNumber;
+            projectBox.Text = project;
+            designerBox.Text = designer;
+            engineerBox.Text = engineer;
+            authorityBox.Text = authority;
+            costCenterBox.Text = costCenter;
+            costBox.Text = estimatedCost;
+            creationDateBox.Text = creationDate;
+            vendorBox.Text = vendor;
+            webLinkBox.Text = webLink;
+
+            statusBox.Text = status;
+            designStateBox.Text = designState;
+            checkedByBox.Text = checkedBy;
+            checkedDateBox.Text = checkedByDate;
+            engApprovedByBox.Text = engApprovedBy;
+            engApprovedDateBox.Text = engApprovedByDate;
+            mfgApprovedByBox.Text = mfgApprovedBy;
+            mfgApprovedDateBox.Text = mfgApprovedByDate;
         }
     }
 }

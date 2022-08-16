@@ -34,7 +34,7 @@ namespace DevAddIns
                 //editProperties.ShowDialog();
 
                 IPropertiesForm editProperties = new IPropertiesForm();
-                IPropertiesWPFForm.invApp = InventorApplication;
+                IPropertiesWPFForm._inventorApplication = InventorApplication;
                 editProperties.ShowDialog();
 
 

@@ -44,7 +44,7 @@ namespace DevAddIns
                 {
                     return 1;
                 }
-                else if (accessDocument.isAssemblyDocument() || accessDocument.isWeldmentDocument())
+                else if (accessDocument.IsAssemblyDocument() || accessDocument.IsWeldmentDocument())
                 {
                     if (accessDocument is AssemblyDocument)
                     {

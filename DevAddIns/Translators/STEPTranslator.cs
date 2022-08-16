@@ -25,7 +25,7 @@ namespace DevAddIns
                 return;
             }
 
-            if (doc.isDrawingDocument())
+            if (doc.IsDrawingDocument())
             {
                 if(packAssembly)
                 {
@@ -45,7 +45,7 @@ namespace DevAddIns
                 }
                
             }
-            else if ((doc.isAssemblyDocument() || doc.isWeldmentDocument()))
+            else if ((doc.IsAssemblyDocument() || doc.IsWeldmentDocument()))
             {
                 if (((AssemblyDocument)doc).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                 {
@@ -71,14 +71,14 @@ namespace DevAddIns
                 {
                     foreach (Document oFD in doc.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
-                        if (oFD.isAssemblyDocument())
+                        if (oFD.IsAssemblyDocument())
                         {
                             if (((AssemblyDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
                                 continue;
                             }
                         }
-                        else if (oFD.isPartDocument())
+                        else if (oFD.IsPartDocument())
                         {
                             if (((PartDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
@@ -89,7 +89,7 @@ namespace DevAddIns
                     }
                 }
             }
-            else if (doc.isPartDocument() || doc.isSheetMetalDocument())
+            else if (doc.IsPartDocument() || doc.IsSheetMetalDocument())
             {
                 if (((PartDocument)doc).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
                 {

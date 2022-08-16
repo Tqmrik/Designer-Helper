@@ -41,7 +41,7 @@ namespace DevAddIns
                 {
                     return 1;
                 }
-                else if (accessDocument.isAssemblyDocument() || accessDocument.isWeldmentDocument())
+                else if (accessDocument.IsAssemblyDocument() || accessDocument.IsWeldmentDocument())
                 {
                     if (accessDocument is AssemblyDocument)
                     {
@@ -64,19 +64,19 @@ namespace DevAddIns
 
             foreach(Document refDoc in doc.ReferencedDocuments)
             {
-                if(refDoc.isAssemblyDocument())
+                if(refDoc.IsAssemblyDocument())
                 {
                     referencedParts.Add(new assemblyDocument(refDoc, doc));
                 }
-                else if(refDoc.isPartDocument())
+                else if(refDoc.IsPartDocument())
                 {
                     referencedParts.Add(new partDocument(refDoc, doc));
                 }
-                else if(refDoc.isSheetMetalDocument())
+                else if(refDoc.IsSheetMetalDocument())
                 {
                     referencedParts.Add(new sheetMetalDocument(refDoc, doc));
                 }
-                else if(refDoc.isWeldmentDocument())
+                else if(refDoc.IsWeldmentDocument())
                 {
                     referencedParts.Add(new weldmentDocument(refDoc, doc));
                 }

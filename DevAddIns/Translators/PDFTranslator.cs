@@ -23,7 +23,7 @@ namespace DevAddIns
                 return;
             }
 
-            if (document.isDrawingDocument())
+            if (document.IsDrawingDocument())
             {
                 filePathHelper(document);
 
@@ -45,7 +45,7 @@ namespace DevAddIns
 
                 }
             }
-            else if (document.isAssemblyDocument() || document.isWeldmentDocument())
+            else if (document.IsAssemblyDocument() || document.IsWeldmentDocument())
             {
                
                 //Make pdf for the assembly drawing
@@ -75,14 +75,14 @@ namespace DevAddIns
                 {
                     foreach (Document referencedDocument in document.ReferencedDocuments)
                     {
-                        if (referencedDocument.isAssemblyDocument())
+                        if (referencedDocument.IsAssemblyDocument())
                         {
                             if (((AssemblyDocument)referencedDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
                                 continue;
                             }
                         }
-                        else if (referencedDocument.isPartDocument())
+                        else if (referencedDocument.IsPartDocument())
                         {
                             if (((PartDocument)referencedDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
@@ -94,7 +94,7 @@ namespace DevAddIns
                     }
                 }
             }
-            else if (document.isPartDocument() || document.isSheetMetalDocument())
+            else if (document.IsPartDocument() || document.IsSheetMetalDocument())
             {
                 if (((PartDocument)activeDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                 {

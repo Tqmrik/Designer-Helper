@@ -30,7 +30,7 @@ namespace DevAddIns
 
             string path = $"{activeDocument.FullFileName.Substring(0, activeDocument.FullFileName.Length - 4)}IProperties.txt";
 
-            if (activeDocument.isDrawingDocument()) path = path.Replace("IProperties", "DrawingIProperties");
+            if (activeDocument.IsDrawingDocument()) path = path.Replace("IProperties", "DrawingIProperties");
 
             StreamWriter SW = new StreamWriter(path);
             SW.WriteLine($"Path: {path}");

@@ -53,19 +53,19 @@ namespace DevAddIns
             ObservableCollection<_documentObject> returnPartList = new ObservableCollection<_documentObject>();
             activeDocument = m_inventorApplication.ActiveDocument;
 
-            if(activeDocument.isPartDocument())
+            if(activeDocument.IsPartDocument())
             {
                 bomDocument = new partDocument(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
             }
 
-            if(activeDocument.isSheetMetalDocument())
+            if(activeDocument.IsSheetMetalDocument())
             {
                 bomDocument = new sheetMetalDocument(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
 
             }
-            if(activeDocument.isAssemblyDocument())
+            if(activeDocument.IsAssemblyDocument())
             {
 
                 bomDocument = new assemblyDocument(activeDocument, activeDocument);
@@ -74,22 +74,22 @@ namespace DevAddIns
                 foreach(Document doc in activeDocument.AllReferencedDocuments)
                 {
                     //TODO: rewrite to the case statement?????
-                    if(doc.isPartDocument())
+                    if(doc.IsPartDocument())
                     {
                         bomDocument = new partDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);
                     }
-                    else if(doc.isSheetMetalDocument())
+                    else if(doc.IsSheetMetalDocument())
                     {
                         bomDocument = new sheetMetalDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);
                     }
-                    else if(doc.isAssemblyDocument())
+                    else if(doc.IsAssemblyDocument())
                     {
                         bomDocument = new assemblyDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);
                     }
-                    else if(doc.isWeldmentDocument())
+                    else if(doc.IsWeldmentDocument())
                     {
                         bomDocument = new weldmentDocument(doc, activeDocument);
                         returnPartList.Add(bomDocument);

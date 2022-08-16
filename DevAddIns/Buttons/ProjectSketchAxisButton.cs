@@ -47,16 +47,16 @@ namespace DevAddIns
 
                 //Is there other way
                 //Guard clauses for different types of documents
-                if (activeDocument.isSheetMetalDocument()) //Sheet metal
+                if (activeDocument.IsSheetMetalDocument()) //Sheet metal
                 {
 
                     pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryBendPart[languageCode]].BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                     }
-                else if (activeDocument.isAssemblyDocument()) //Assembly
+                else if (activeDocument.IsAssemblyDocument()) //Assembly
                 {
                     pathToOrigin = activeDocument.BrowserPanes["AmBrowserArrangement"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                 }
-                else if (activeDocument.isPartDocument()) //Part
+                else if (activeDocument.IsPartDocument()) //Part
                 {
                     pathToOrigin = activeDocument.BrowserPanes["PmDefault"].TopNode.BrowserNodes[MLDict.dictionaryOrigin[languageCode]]; 
                 }

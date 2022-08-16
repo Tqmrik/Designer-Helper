@@ -23,7 +23,7 @@ namespace DevAddInsTests
         //TODO: How to check???
 
 
-        [TestMethod]
+        //[TestMethod]
         //public void isPartDocument_PartDocument_true()
         //{
         //    //Arrange

@@ -29,7 +29,7 @@ namespace DevAddIns
         {
             get
             {
-                if (currentDocument.isSheetMetalDocument())
+                if (currentDocument.IsSheetMetalDocument())
                 {
                     oSMCD = (SheetMetalComponentDefinition)((PartDocument)partDoc).ComponentDefinition;
                     string thickness = oSMCD.Thickness.Expression;
@@ -66,7 +66,7 @@ namespace DevAddIns
                 {
                     return 1;
                 }
-                else if (accessDocument.isAssemblyDocument() || accessDocument.isWeldmentDocument())
+                else if (accessDocument.IsAssemblyDocument() || accessDocument.IsWeldmentDocument())
                 {
                     if (accessDocument is AssemblyDocument)
                     {

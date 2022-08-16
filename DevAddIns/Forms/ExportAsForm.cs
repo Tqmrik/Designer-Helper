@@ -57,7 +57,7 @@ namespace DevAddIns
         public ExportAsForm()
         {
             InitializeComponent();
-            if(!(activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
+            if(!(activeDocument.IsAssemblyDocument() || activeDocument.IsWeldmentDocument()))
             {
                 includePartsButton.Visible = false;
             }

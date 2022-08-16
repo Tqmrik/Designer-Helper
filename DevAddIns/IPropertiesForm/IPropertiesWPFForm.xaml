@@ -49,14 +49,14 @@
                     <Label x:Name="label11" Content="Comments:" Grid.Row="8"  VerticalAlignment="Top" Margin="2"/>
 
 
-                    <TextBox x:Name="textBox" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox1" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox2" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox3" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox4" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox5" Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox6" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox7" Grid.Column="1" Grid.Row="8" TextWrapping="Wrap" Text="" Margin="8,8,30,8"/>
+                    <TextBox x:Name="titleBox" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="subjectBox" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="authorBox" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="managerBox" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="companyBox" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="categoryBox" Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="keywordsBox" Grid.Column="1" Grid.Row="7" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="commentsBox" Grid.Column="1" Grid.Row="8" TextWrapping="Wrap" Text="" Margin="8,8,30,8"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Project">
@@ -105,21 +105,21 @@
                     <Label x:Name="label25" Content="Vendor:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="13"/>
                     <Label x:Name="label26" Content="WEB Link:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="14"/>
 
-                    <TextBox x:Name="textBox8" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" IsReadOnly="True" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox9" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox10" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="2" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBlock" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="3" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox11" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="4" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox12" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="5" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox13" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="6" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox14" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="7" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox15" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox16" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="9" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox17" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="10" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox18" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="11" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox19" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="12" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox20" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="13" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox21" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="14" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="locationBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" IsReadOnly="True" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}" IsReadOnlyCaretVisible="True"/>
+                    <TextBox x:Name="fileSubtypeBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}" IsReadOnlyCaretVisible="True" IsReadOnly="True"/>
+                    <TextBox x:Name="partNumberBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="2" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="stockNumberBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="3" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="descriptionBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="4" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="revisionNumberBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="5" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="projectBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="6" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="designerBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="7" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="engineerBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="authorityBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="9" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="costCenterBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="10" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="costBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="11" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="creationDateBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="12" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="vendorBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="13" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="webLinkBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="14" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Status">
@@ -160,16 +160,16 @@
                     <Label x:Name="label35" Content="Mfg. Approved By:" Grid.Row="8" Margin="5" VerticalAlignment="Center"/>
                     <Label x:Name="label36" Content="Mfg. Approved Date:" Grid.Row="9" Margin="5" VerticalAlignment="Center"/>
 
-                    <TextBox x:Name="textBox22" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Background="White" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox23" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="1" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox24" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="2" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox25" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="3" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox26" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="4" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox27" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="5" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox28" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="6" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox29" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="7" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox30" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
-                    <TextBox x:Name="textBox31" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="9" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="partNumberBox2" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Background="White" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="stockNumberBox2" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="1" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="statusBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="2" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="designStateBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="3" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="checkedByBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="4" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="checkedDateBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="5" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="engApprovedByBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="6" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="engApprovedDateBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="7" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="mfgApprovedByBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="8" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
+                    <TextBox x:Name="mfgApprovedDateBox" Grid.Column="1" TextWrapping="Wrap" Text="" VerticalContentAlignment="Center" Margin="8,8,30,8" Grid.Row="9" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Custom">

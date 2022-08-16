@@ -26,7 +26,7 @@ namespace DevAddIns
 
 
 
-            if (activeDocument.isDrawingDocument())//Drawing
+            if (activeDocument.IsDrawingDocument())//Drawing
             {
                 foreach (Document oFD in activeDocument.ReferencingDocuments)
                 {//Check for every referenced document in the drawing and create step file of each
@@ -76,7 +76,7 @@ namespace DevAddIns
                     }
                 }
             }
-            else if ((activeDocument.isAssemblyDocument() || activeDocument.isWeldmentDocument()))
+            else if ((activeDocument.IsAssemblyDocument() || activeDocument.IsWeldmentDocument()))
             {
                 //Step for the assembly, only doing check to wrap things up
                 if (activeDocument != null)
@@ -168,7 +168,7 @@ namespace DevAddIns
                     }
                 }
             }
-            else if (activeDocument.isPartDocument() || activeDocument.isSheetMetalDocument())
+            else if (activeDocument.IsPartDocument() || activeDocument.IsSheetMetalDocument())
             {
                 if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                 {

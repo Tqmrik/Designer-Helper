@@ -198,7 +198,7 @@ namespace DevAddIns
                     //        activeDocument.PropertySets[3][20].Value = dateTime.Date.ToString(); //Project->Mfg.Approved By
                     //}
 
-                    if (activeDocument.isDrawingDocument())
+                    if (activeDocument.IsDrawingDocument())
                     {
                         //Also you cannot add twice
 
