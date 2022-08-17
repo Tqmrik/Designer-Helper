@@ -25,15 +25,10 @@ namespace DevAddIns
             }
         }
 
-        public string Material
-        {
-            get
-            {
-                return "";
-            }
-        }
+        public override string Material => "";
 
-        public int Quantity
+
+        public override int Quantity
         {
             get
             {

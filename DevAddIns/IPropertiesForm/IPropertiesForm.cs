@@ -29,5 +29,26 @@ namespace DevAddIns
             wpfForm.InitializeComponent();
             wpfIntegrationHolder.Child = wpfForm;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            this.Dispose();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

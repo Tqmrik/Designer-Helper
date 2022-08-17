@@ -36,8 +36,7 @@ namespace DevAddIns
                 IPropertiesForm editProperties = new IPropertiesForm();
                 IPropertiesWPFForm._inventorApplication = InventorApplication;
                 editProperties.ShowDialog();
-
-
+                editProperties = null;
 
                 //surfaceAreaForm.invApp = InventorApplication;
                 //surfaceAreaForm sd = new surfaceAreaForm();
@@ -48,6 +47,7 @@ namespace DevAddIns
                 MessageBox.Show(e.Message + "\nAddIn: Sedenum Pack\nMethod:EditPropertiesButton");
             }
         }
+
 
         public void updateLabel()
         {

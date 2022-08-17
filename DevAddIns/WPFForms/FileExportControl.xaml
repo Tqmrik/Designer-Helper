@@ -98,10 +98,6 @@
                                 <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" ElementStyle="{StaticResource DataGridVerticalText}"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="124" Margin="72,103,0,0" VerticalAlignment="Top" Width="247">
-                            <TreeViewItem />
-                            <TreeViewItem />
-                        </TreeView>
                     </Grid>
                 </TabItem>
                 <TabItem Header="PDF Settings">

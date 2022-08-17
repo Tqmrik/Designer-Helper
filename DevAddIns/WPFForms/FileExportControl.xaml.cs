@@ -58,14 +58,18 @@ namespace DevAddIns
                 bomDocument = new partDocument(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
             }
-
-            if(activeDocument.IsSheetMetalDocument())
+            else if(activeDocument.IsDrawingDocument())
+            {
+                bomDocument = new drawingDocument(activeDocument, activeDocument);
+                returnPartList.Add(bomDocument);
+            }
+            else if(activeDocument.IsSheetMetalDocument())
             {
                 bomDocument = new sheetMetalDocument(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
 
             }
-            if(activeDocument.IsAssemblyDocument())
+            else if(activeDocument.IsAssemblyDocument())
             {
 
                 bomDocument = new assemblyDocument(activeDocument, activeDocument);
@@ -74,26 +78,61 @@ namespace DevAddIns
                 foreach(Document doc in activeDocument.AllReferencedDocuments)
                 {
                     //TODO: rewrite to the case statement?????
-                    if(doc.IsPartDocument())
+                    switch(doc.SubType)
                     {
-                        bomDocument = new partDocument(doc, activeDocument);
-                        returnPartList.Add(bomDocument);
+                        case DocumentChecker.PartDocumentCLSID:
+                        {
+                            bomDocument = new partDocument(doc, activeDocument);
+                            returnPartList.Add(bomDocument);
+                            continue;
+                        }
+                        case DocumentChecker.SheetMetalDocumentCLSID:
+                        {
+                            bomDocument = new sheetMetalDocument(doc, activeDocument);
+                            returnPartList.Add(bomDocument);
+                            continue;
+                        }
+                        case DocumentChecker.AssemblyPartDocumentCLSID:
+                        {
+                            bomDocument = new assemblyDocument(doc, activeDocument);
+                            returnPartList.Add(bomDocument);
+                            continue;
+                        }
+                        case DocumentChecker.WeldmentDocumentCLSID:
+                        {
+                            bomDocument = new weldmentDocument(doc, activeDocument);
+                            returnPartList.Add(bomDocument);
+                            continue;
+                        }
+                        //TODO: Do we even need drawing document in the window??
+                        default:
+                        {
+                            continue;
+                        }
+
                     }
-                    else if(doc.IsSheetMetalDocument())
-                    {
-                        bomDocument = new sheetMetalDocument(doc, activeDocument);
-                        returnPartList.Add(bomDocument);
-                    }
-                    else if(doc.IsAssemblyDocument())
-                    {
-                        bomDocument = new assemblyDocument(doc, activeDocument);
-                        returnPartList.Add(bomDocument);
-                    }
-                    else if(doc.IsWeldmentDocument())
-                    {
-                        bomDocument = new weldmentDocument(doc, activeDocument);
-                        returnPartList.Add(bomDocument);
-                    }
+
+
+                    //if(doc.IsPartDocument())
+                    //{
+                    //    bomDocument = new partDocument(doc, activeDocument);
+                    //    returnPartList.Add(bomDocument);
+                    //}
+                    //else if(doc.IsSheetMetalDocument())
+                    //{
+                    //    bomDocument = new sheetMetalDocument(doc, activeDocument);
+                    //    returnPartList.Add(bomDocument);
+                    //}
+                    //else if(doc.IsAssemblyDocument())
+                    //{
+                    //    bomDocument = new assemblyDocument(doc, activeDocument);
+                    //    returnPartList.Add(bomDocument);
+                    //}
+                    //else if(doc.IsWeldmentDocument())
+                    //{
+                    //    bomDocument = new weldmentDocument(doc, activeDocument);
+                    //    returnPartList.Add(bomDocument);
+                    //}
                 }
 
             }
@@ -107,11 +146,9 @@ namespace DevAddIns
                 }
             }
 
+            //TODO: Sort an array
 
             //TODO: Assembly wrapper 
-
-
-
 
             //TODO: Traverse the collection to see if there is sheetMetal part and add new datagrid column if so
             //TODO: Add a search bar 

@@ -103,7 +103,7 @@ namespace DevAddIns
 
         public static string InventorDocumentType(this string inputString)
         {
-            switch (inputString.Trim().ToLowerInvariant())
+            switch (inputString.Trim().ToUpperInvariant())
             {
                 case PartDocumentCLSID:
                     return "Part Document"; //Official: Modeling??

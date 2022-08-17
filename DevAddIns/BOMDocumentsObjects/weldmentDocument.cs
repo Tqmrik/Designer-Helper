@@ -17,21 +17,23 @@ namespace DevAddIns
             get
             {
                 string bomStruct = StringConverters.ToStringExt(assemblyDoc.ComponentDefinition.BOMStructure);
+
                 if (string.IsNullOrEmpty(bomStruct))
                 {
-                    return "NONE";
+                    return "NONE"; //Is it even possbile or 
                 }
+
                 return bomStruct;
             }
         }
-        public string Material
+        public override string Material
         {
             get
             {
                 return "";
             }
         }
-        public int Quantity
+        public override int Quantity
         {
             get
             {

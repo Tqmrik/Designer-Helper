@@ -105,7 +105,7 @@
                     <Label x:Name="label25" Content="Vendor:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="13"/>
                     <Label x:Name="label26" Content="WEB Link:" Margin="2,2,2,2" VerticalAlignment="Center" Grid.Row="14"/>
 
-                    <TextBox x:Name="locationBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" IsReadOnly="True" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}" IsReadOnlyCaretVisible="True"/>
+                    <TextBox x:Name="locationBox" Grid.Column="1" Margin="8,8,30,8" Text="" VerticalAlignment="Center" IsReadOnly="True" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}" IsReadOnlyCaretVisible="True"/>
                     <TextBox x:Name="fileSubtypeBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="1" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}" IsReadOnlyCaretVisible="True" IsReadOnly="True"/>
                     <TextBox x:Name="partNumberBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="2" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>
                     <TextBox x:Name="stockNumberBox" Grid.Column="1" Margin="8,8,30,8" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Grid.Row="3" Height="{Binding Mode=OneWay, Source={StaticResource textBoxHeight}}"/>

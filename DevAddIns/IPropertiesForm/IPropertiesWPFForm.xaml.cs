@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -115,18 +116,33 @@ namespace DevAddIns
 
         }
 
+         ~IPropertiesWPFForm()
+        {
+            keyValuePairs = null;
+        }
 
         //Wrap in try catch blocks??
 
         private void PopulateDictionary()
         {
+            //StreamWriter sw = new StreamWriter(System.Environment.GetFolderPath(System.Environment.SpecialFolder.DesktopDirectory) + "/IPropertiesDrawing.txt");
+
             for (int i = 1; i < activeDocument.PropertySets.Count+1; i++)
             {
                 for(int j = 1; j < activeDocument.PropertySets[i].Count+1; j++)
                 {
-                    keyValuePairs.Add(activeDocument.PropertySets[i][j].DisplayName, activeDocument.PropertySets[i][j].Expression);
+                    //sw.WriteLine($"[{activeDocument.PropertySets[i][j].DisplayName}, {activeDocument.PropertySets[i][j].Expression}]");
+                    if(!keyValuePairs.ContainsKey(activeDocument.PropertySets[i][j].DisplayName))
+                    {
+                        keyValuePairs.Add(activeDocument.PropertySets[i][j].DisplayName, activeDocument.PropertySets[i][j].Expression);
+                    }
                 }
             }
+
+            //sw.Close();
+            //sw.Dispose();
+
+
 
             //if (String.IsNullOrEmpty(activeDocument.PropertySets[1][1].Expression))
             //{

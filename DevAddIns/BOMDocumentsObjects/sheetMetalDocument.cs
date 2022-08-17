@@ -45,7 +45,7 @@ namespace DevAddIns
             }
             
         }
-        public string Material
+        public override string Material
         {
             get
             {
@@ -58,7 +58,7 @@ namespace DevAddIns
             }
         }
 
-        public int Quantity
+        public override int Quantity
         {
             get
             {

@@ -31,8 +31,8 @@ namespace DevAddIns
                 }
             }
         }
-        public abstract string BOMStructure { get;}
-        string Material { get;}
+        public abstract string BOMStructure { get; }
+        public abstract string Material { get;}
         public string Revision
         {
             get
@@ -45,7 +45,7 @@ namespace DevAddIns
                 return revision;
             }
         }
-        int Quantity { get;}
+        public abstract int Quantity { get;}
         public string SubType
         {
             get

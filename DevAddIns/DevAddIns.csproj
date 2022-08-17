@@ -113,6 +113,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BOMDocumentsObjects\drawingDocument.cs" />
     <Compile Include="Buttons\Button.cs" />
     <Compile Include="Buttons\ChangeToMetricButton.cs" />
     <Compile Include="Buttons\BalloonsEndArrow.cs" />

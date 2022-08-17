@@ -30,20 +30,20 @@ namespace DevAddIns
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.importConfigButton = new System.Windows.Forms.Button();
+            this.applyButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
+            this.saveConfigButton = new System.Windows.Forms.Button();
             this.panelHolderForm = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.importConfigButton);
+            this.panel1.Controls.Add(this.applyButton);
+            this.panel1.Controls.Add(this.cancelButton);
+            this.panel1.Controls.Add(this.saveConfigButton);
             this.panel1.Controls.Add(this.panelHolderForm);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -51,32 +51,45 @@ namespace DevAddIns
             this.panel1.Size = new System.Drawing.Size(484, 611);
             this.panel1.TabIndex = 0;
             // 
-            // button3
+            // importConfigButton
             // 
-            this.button3.Location = new System.Drawing.Point(372, 580);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 21);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Apply";
-            this.button3.UseVisualStyleBackColor = true;
+            this.importConfigButton.Location = new System.Drawing.Point(12, 578);
+            this.importConfigButton.Name = "importConfigButton";
+            this.importConfigButton.Size = new System.Drawing.Size(129, 24);
+            this.importConfigButton.TabIndex = 4;
+            this.importConfigButton.Text = "Import Configuration";
+            this.importConfigButton.UseVisualStyleBackColor = true;
+            this.importConfigButton.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button2
+            // applyButton
             // 
-            this.button2.Location = new System.Drawing.Point(279, 581);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 19);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
+            this.applyButton.Location = new System.Drawing.Point(372, 580);
+            this.applyButton.Name = "applyButton";
+            this.applyButton.Size = new System.Drawing.Size(100, 21);
+            this.applyButton.TabIndex = 3;
+            this.applyButton.Text = "Apply";
+            this.applyButton.UseVisualStyleBackColor = true;
+            this.applyButton.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button1
+            // cancelButton
             // 
-            this.button1.Location = new System.Drawing.Point(147, 580);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(126, 21);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Save Configuration";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cancelButton.Location = new System.Drawing.Point(279, 581);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(87, 19);
+            this.cancelButton.TabIndex = 2;
+            this.cancelButton.Text = "Cancel";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // saveConfigButton
+            // 
+            this.saveConfigButton.Location = new System.Drawing.Point(147, 580);
+            this.saveConfigButton.Name = "saveConfigButton";
+            this.saveConfigButton.Size = new System.Drawing.Size(126, 21);
+            this.saveConfigButton.TabIndex = 1;
+            this.saveConfigButton.Text = "Save Configuration";
+            this.saveConfigButton.UseVisualStyleBackColor = true;
+            this.saveConfigButton.Click += new System.EventHandler(this.button1_Click);
             // 
             // panelHolderForm
             // 
@@ -85,15 +98,6 @@ namespace DevAddIns
             this.panelHolderForm.Name = "panelHolderForm";
             this.panelHolderForm.Size = new System.Drawing.Size(460, 560);
             this.panelHolderForm.TabIndex = 0;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(12, 578);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(129, 24);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Import Configuration";
-            this.button4.UseVisualStyleBackColor = true;
             // 
             // IPropertiesForm
             // 
@@ -116,9 +120,9 @@ namespace DevAddIns
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panelHolderForm;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button applyButton;
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button saveConfigButton;
+        private System.Windows.Forms.Button importConfigButton;
     }
 }
