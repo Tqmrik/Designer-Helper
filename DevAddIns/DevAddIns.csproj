@@ -120,17 +120,17 @@
     <Compile Include="Buttons\ShowPropertiesButton.cs" />
     <Compile Include="Buttons\TestFunctionButton.cs" />
     <Compile Include="ComboBoxes\ComboBox.cs" />
-    <Compile Include="IPropertiesForm\IPropertiesForm.cs">
+    <Compile Include="Forms\IPropertiesForm\IPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="IPropertiesForm\IPropertiesForm.Designer.cs">
+    <Compile Include="Forms\IPropertiesForm\IPropertiesForm.Designer.cs">
       <DependentUpon>IPropertiesForm.cs</DependentUpon>
     </Compile>
     <None Include="NOTES\NotesClass.cs" />
-    <Compile Include="SurfaceAreaForm\surfaceAreaForm.cs">
+    <Compile Include="Forms\SurfaceAreaForm\surfaceAreaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SurfaceAreaForm\surfaceAreaForm.Designer.cs">
+    <Compile Include="Forms\SurfaceAreaForm\surfaceAreaForm.Designer.cs">
       <DependentUpon>surfaceAreaForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Translators\DXFTranslator.cs" />
@@ -155,10 +155,10 @@
     <Compile Include="ExtensionMethods\StringConverters.cs" />
     <Compile Include="Data\MultilanguageDictionary.cs" />
     <Compile Include="Buttons\ProjectSketchAxisButton.cs" />
-    <Compile Include="Forms\NewExportForm.cs">
+    <Compile Include="Forms\ExportForm\NewExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\NewExportForm.Designer.cs">
+    <Compile Include="Forms\ExportForm\NewExportForm.Designer.cs">
       <DependentUpon>NewExportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="HelperMethods\ExecuteOnStartup.cs" />
@@ -192,10 +192,10 @@
     <Compile Include="Translators\STEPTranslator.cs" />
     <Compile Include="Translators\Translators.cs" />
     <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
-    <Compile Include="IPropertiesForm\IPropertiesWPFForm.xaml.cs">
+    <Compile Include="Forms\IPropertiesForm\IPropertiesWPFForm.xaml.cs">
       <DependentUpon>IPropertiesWPFForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WPFForms\FileExportControl.xaml.cs">
+    <Compile Include="Forms\ExportForm\FileExportControl.xaml.cs">
       <DependentUpon>FileExportControl.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -231,17 +231,17 @@
     <EmbeddedResource Include="Forms\ExportAsForm.resx">
       <DependentUpon>ExportAsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\NewExportForm.resx">
+    <EmbeddedResource Include="Forms\ExportForm\NewExportForm.resx">
       <DependentUpon>NewExportForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="IPropertiesForm\IPropertiesForm.resx">
+    <EmbeddedResource Include="Forms\IPropertiesForm\IPropertiesForm.resx">
       <DependentUpon>IPropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="SurfaceAreaForm\surfaceAreaForm.resx">
+    <EmbeddedResource Include="Forms\SurfaceAreaForm\surfaceAreaForm.resx">
       <DependentUpon>surfaceAreaForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -270,20 +270,20 @@
     <None Include="Resources\ExportAsButtonStates.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WPFForms\SmallIcon.png" />
+    <Content Include="Forms\ExportForm\SmallIcon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="IPropertiesForm\IPropertiesWPFForm.xaml">
+    <Page Include="Forms\IPropertiesForm\IPropertiesWPFForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WPFForms\FileExportControl.xaml">
+    <Page Include="Forms\ExportForm\FileExportControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="WPFForms\Images\SmallIcon.png">
+    <Resource Include="Forms\ExportForm\Images\SmallIcon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
