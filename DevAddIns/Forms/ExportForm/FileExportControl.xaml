@@ -68,7 +68,7 @@
                                                 
                                             </Grid>-->
 
-                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                                                 <Image Source="Images/SmallIcon.png" Width="16" Height="16"/>
                                                 <Label x:Name="PartNumberField" Content="{Binding PartNumber}" Width="Auto"/>
                                             </StackPanel>
@@ -85,7 +85,7 @@
                                 <DataGridTemplateColumn Header="BOM Structure" SortMemberPath="BOMStructureField">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                                                 <Image Source="Images/SmallIcon.png" Width="16" Height="16"/>
                                                 <Label x:Name="BOMStructureField" Content="{Binding BOMStructure}" Width="Auto"/>
                                             </StackPanel>

@@ -44,13 +44,13 @@ namespace DevAddIns
         {
             InitializeComponent();
 
-            ObservableCollection<_documentObject> partList = GetPartList();
+            List<_documentObject> partList = GetPartList();
             dataGrid.DataContext = partList;
         }
 
-        private ObservableCollection<_documentObject> GetPartList()
+        private List<_documentObject> GetPartList()
         {
-            ObservableCollection<_documentObject> returnPartList = new ObservableCollection<_documentObject>();
+            List<_documentObject> returnPartList = new List<_documentObject>();
             activeDocument = m_inventorApplication.ActiveDocument;
 
             if(activeDocument.IsPartDocument())
@@ -145,6 +145,7 @@ namespace DevAddIns
                     break;
                 }
             }
+
 
             //TODO: Sort an array
 
