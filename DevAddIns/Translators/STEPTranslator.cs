@@ -1,17 +1,24 @@
 ﻿using Inventor;
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace DevAddIns
 {
     class STEPTranslator : Translators
     {
-        string filePath = "";
+        string filePath;
         string extension = "stp";
 
         public STEPTranslator() : base()
         {
-            oTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
+            oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
+        }
+
+        public STEPTranslator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
+        {
+            oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
+            this.filePath = filePath;
         }
 
         public void createSTEP(Document doc)
@@ -43,9 +50,8 @@ namespace DevAddIns
                         stepCreate(oFD);
                     }
                 }
-               
             }
-            else if ((doc.IsAssemblyDocument() || doc.IsWeldmentDocument()))
+            else if (doc.IsAssemblyDocument() || doc.IsWeldmentDocument())
             {
                 if (((AssemblyDocument)doc).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                 {
@@ -53,7 +59,6 @@ namespace DevAddIns
                 }
                 else
                 {
-                    filePathHelper(doc);
                     stepCreate(doc);
                 }
 
@@ -141,14 +146,23 @@ namespace DevAddIns
                  if (oTranslator.HasSaveCopyAsOptions[doc, oContext, oOptions])
                  {
 
-                    filePathHelper(doc);
-                    oOptionsSetter(doc);
+                    if(String.IsNullOrEmpty(filePath))
+                    {
+                        filePathHelper(doc);
+                        if (oTranslator.HasSaveCopyAsOptions[doc, oContext, oOptions])
+                        {
+                            oOptionsSetter(doc);
+                        }
+                        //TODO: Somehow transfer oOptions setter into constructor 
+                    }
+
+
                     oDataMedium.FileName = filePath;
 
                     try
                     {
                         oTranslator.SaveCopyAs(doc, oContext, oOptions, oDataMedium);
-                        if(doc != InventorApplication.ActiveDocument)
+                        if(doc != _inventorApplication.ActiveDocument)
                         {
                             doc.Close();
                         }

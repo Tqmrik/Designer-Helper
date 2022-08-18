@@ -7,7 +7,7 @@ namespace DevAddIns
     {
         public DXFTranslator() : base() { }
 
-        string filePath = "";
+        string filePath;
         string extension = "dxf";
         SheetMetalComponentDefinition oSMDef;
         DataIO oDataIO;
@@ -118,7 +118,11 @@ namespace DevAddIns
             {
                 doc.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
 
-                filePathHelper(doc);
+                if(String.IsNullOrEmpty(filePath))
+                {
+                    filePathHelper(doc);
+                }
+                
                 oSMDef = (SheetMetalComponentDefinition)((PartDocument)doc).ComponentDefinition;
 
                 oDataIO = oSMDef.DataIO;
@@ -132,7 +136,7 @@ namespace DevAddIns
 
                 oDataIO.WriteDataToFile(sOut, filePath);
 
-                if (doc != InventorApplication.ActiveDocument)
+                if (doc != _inventorApplication.ActiveDocument)
                 {
                     doc.Close(); 
                 }

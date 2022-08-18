@@ -1,6 +1,7 @@
 ﻿using Inventor;
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace DevAddIns
 {
@@ -9,10 +10,20 @@ namespace DevAddIns
         string filePath;
         const string extension = "pdf";
 
+
         public PDFTranslator() : base()
         {
-            oTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
+            oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
+            oOptions.Value["All_Color_AS_Black"] = 0;
+            oOptions.Value["Remove_Line_Weights"] = 0;
         }
+
+        public PDFTranslator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
+        {
+            oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
+            this.filePath = filePath;
+        }
+
         public void createPDF(Document document)
         {
             oContext.Type = IOMechanismEnum.kFileBrowseIOMechanism;
@@ -25,11 +36,13 @@ namespace DevAddIns
 
             if (document.IsDrawingDocument())
             {
-                filePathHelper(document);
-
-                if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
+                if (String.IsNullOrEmpty(this.filePath))
                 {
-                    oOptionsSetter();
+                    filePathHelper(document);
+                    if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
+                    {
+                        oOptionsSetter();
+                    }
                 }
 
                 oDataMedium.FileName = filePath;
@@ -47,7 +60,6 @@ namespace DevAddIns
             }
             else if (document.IsAssemblyDocument() || document.IsWeldmentDocument())
             {
-               
                 //Make pdf for the assembly drawing
                 if (document != null)
                 {
@@ -155,7 +167,7 @@ namespace DevAddIns
 
             if (!String.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
             {
-                referencedDocumentDrawingPath = InventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
+                referencedDocumentDrawingPath = _inventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
                 //Resolve file also searches all the subdirectories that it could find
             }
             else return;
@@ -163,14 +175,19 @@ namespace DevAddIns
             if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
             {
                 //If drawing is placed in the folder, save it to the folder as well
-                drawingDocumentObject = InventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
-                filePathHelper(drawingDocumentObject);
+                drawingDocumentObject = _inventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
 
-                if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
+                if(String.IsNullOrEmpty(this.filePath))
                 {
-                    oOptionsSetter();
+                    filePathHelper(drawingDocumentObject);
+                    if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
+                    {
+                        oOptionsSetter();
+                    }
                 }
+                
                 oDataMedium.FileName = filePath;
+
                 try
                 {
                     oTranslator.SaveCopyAs(drawingDocumentObject, oContext, oOptions, oDataMedium);

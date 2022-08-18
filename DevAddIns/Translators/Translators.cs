@@ -1,6 +1,7 @@
 ﻿using Inventor;
 using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 
 
@@ -8,16 +9,18 @@ namespace DevAddIns
 {
     class Translators
     {
-        private static Inventor.Application m_inventorApplication;
-        public static Inventor.Application InventorApplication
+        //TODO: Think about whether to make class abstract or not
+
+        private static Inventor.Application inventorApplication;
+        public static Inventor.Application _inventorApplication
         {
             set
             {
-                m_inventorApplication = value;
+                inventorApplication = value;
             }
             get
             {
-                return m_inventorApplication;
+                return inventorApplication;
             }
         }
 
@@ -27,7 +30,7 @@ namespace DevAddIns
         {
             get
             {
-                return InventorApplication.ActiveDocument;
+                return _inventorApplication.ActiveDocument;
             }
         }
 
@@ -36,11 +39,21 @@ namespace DevAddIns
         public NameValueMap oOptions;
         public DataMedium oDataMedium;
 
+        //TODO: Create constructor with a document in it so that we can use that doc accross all the methods inside translators
+
         public Translators()
         {
-            oContext = InventorApplication.TransientObjects.CreateTranslationContext();
-            oOptions = InventorApplication.TransientObjects.CreateNameValueMap();
-            oDataMedium = InventorApplication.TransientObjects.CreateDataMedium();
+            oContext = _inventorApplication.TransientObjects.CreateTranslationContext();
+            oOptions = _inventorApplication.TransientObjects.CreateNameValueMap();
+            oDataMedium = _inventorApplication.TransientObjects.CreateDataMedium();
+        }
+
+        public Translators(Dictionary<string, string> oOptionsDictionary, string filePath)
+        {
+            foreach (string key in oOptionsDictionary.Keys)
+            {
+                oOptions.Value[key] = oOptionsDictionary[key];
+            }
         }
     }
 }

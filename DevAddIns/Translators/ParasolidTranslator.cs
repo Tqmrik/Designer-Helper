@@ -6,9 +6,10 @@ namespace DevAddIns
 {
     class ParasolidTranslator : Translators
     {
+        //TODO: Remake class
         public ParasolidTranslator() : base() 
         {
-            TranslatorAddIn oTranslator = (TranslatorAddIn)InventorApplication.ApplicationAddIns.ItemById["{8F9D3571-3CB8-42F7-8AFF-2DB2779C8465}"];
+            TranslatorAddIn oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{8F9D3571-3CB8-42F7-8AFF-2DB2779C8465}"];
         }
         public void createParasolid()
         {
@@ -34,7 +35,7 @@ namespace DevAddIns
 
                     if (!String.IsNullOrEmpty(oFD.FullFileName))
                     {
-                        referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName];
+                        referencedDocumentObject = _inventorApplication.Documents.ItemByName[oFD.FullFileName];
                         filePathParasolid = RevisionHelper.addRevisionLetter(referencedDocumentObject, PathConverter.clearExtension(referencedDocumentObject), extension);
                     }
                     else
@@ -83,7 +84,7 @@ namespace DevAddIns
                 {
                     if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                     {
-                        referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
+                        referencedDocumentObject = _inventorApplication.Documents.ItemByName[activeDocument.FullFileName];
                         filePathParasolid = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
                     }
                     else
@@ -136,7 +137,7 @@ namespace DevAddIns
                         if (!String.IsNullOrEmpty(oFD.FullFileName))
                         {
                             //It seems that to get the drawing you would need to search in the same folder for the file with the same name as a drawing
-                            referencedDocumentObject = InventorApplication.Documents.ItemByName[oFD.FullFileName]; //Why do i need that as well????
+                            referencedDocumentObject = _inventorApplication.Documents.ItemByName[oFD.FullFileName]; //Why do i need that as well????
                             filePathParasolid = RevisionHelper.addRevisionLetter(oFD, PathConverter.clearExtension(oFD), extension);
 
                             if (oTranslator.HasSaveCopyAsOptions[oFD, oContext, oOptions])
@@ -153,7 +154,7 @@ namespace DevAddIns
                                 try
                                 {
                                     oTranslator.SaveCopyAs(referencedDocumentObject, oContext, oOptions, oDataMedium);
-                                    if (referencedDocumentObject != InventorApplication.ActiveDocument) referencedDocumentObject.Close();
+                                    if (referencedDocumentObject != _inventorApplication.ActiveDocument) referencedDocumentObject.Close();
                                 }
                                 catch (Exception e)
                                 {
@@ -172,7 +173,7 @@ namespace DevAddIns
             {
                 if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                 {
-                    referencedDocumentObject = InventorApplication.Documents.ItemByName[activeDocument.FullFileName];
+                    referencedDocumentObject = _inventorApplication.Documents.ItemByName[activeDocument.FullFileName];
                     filePathParasolid = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
                 }
                 else

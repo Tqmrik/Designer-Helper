@@ -92,7 +92,7 @@ namespace DevAddIns
                 Button.InventorApplication = m_inventorApplication;
                 ComboBox.InventorApplication = m_inventorApplication;
                 ExportAsForm.InventorApplication = m_inventorApplication;
-                Translators.InventorApplication = m_inventorApplication;
+                Translators._inventorApplication = m_inventorApplication;
                 TranslatorList.InventorApplication = m_inventorApplication;
                 NewExportAsButton.InventorApplication = m_inventorApplication;
                 FileExportControl.InventorApplication = m_inventorApplication;
