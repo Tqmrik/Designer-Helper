@@ -26,7 +26,7 @@ namespace DevAddIns
 
         private static Inventor.Application m_inventorApplication;
         private Document activeDocument;
-        private _documentObject bomDocument;
+        private Document_Object bomDocument;
         public static Inventor.Application InventorApplication 
         {
             get
@@ -44,35 +44,35 @@ namespace DevAddIns
         {
             InitializeComponent();
 
-            List<_documentObject> partList = GetPartList();
+            List<Document_Object> partList = GetPartList();
             dataGrid.DataContext = partList;
         }
 
-        private List<_documentObject> GetPartList()
+        private List<Document_Object> GetPartList()
         {
-            List<_documentObject> returnPartList = new List<_documentObject>();
+            List<Document_Object> returnPartList = new List<Document_Object>();
             activeDocument = m_inventorApplication.ActiveDocument;
 
             if(activeDocument.IsPartDocument())
             {
-                bomDocument = new partDocument(activeDocument, activeDocument);
+                bomDocument = new Part_Documnet(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
             }
             else if(activeDocument.IsDrawingDocument())
             {
-                bomDocument = new drawingDocument(activeDocument, activeDocument);
+                bomDocument = new Drawing_Document(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
             }
             else if(activeDocument.IsSheetMetalDocument())
             {
-                bomDocument = new sheetMetalDocument(activeDocument, activeDocument);
+                bomDocument = new SheetMetal_Document(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
 
             }
             else if(activeDocument.IsAssemblyDocument())
             {
 
-                bomDocument = new assemblyDocument(activeDocument, activeDocument);
+                bomDocument = new Assembly_Document(activeDocument, activeDocument);
                 returnPartList.Add(bomDocument);
 
                 foreach(Document doc in activeDocument.AllReferencedDocuments)
@@ -82,25 +82,25 @@ namespace DevAddIns
                     {
                         case DocumentChecker.PartDocumentCLSID:
                         {
-                            bomDocument = new partDocument(doc, activeDocument);
+                            bomDocument = new Part_Documnet(doc, activeDocument);
                             returnPartList.Add(bomDocument);
                             continue;
                         }
                         case DocumentChecker.SheetMetalDocumentCLSID:
                         {
-                            bomDocument = new sheetMetalDocument(doc, activeDocument);
+                            bomDocument = new SheetMetal_Document(doc, activeDocument);
                             returnPartList.Add(bomDocument);
                             continue;
                         }
                         case DocumentChecker.AssemblyPartDocumentCLSID:
                         {
-                            bomDocument = new assemblyDocument(doc, activeDocument);
+                            bomDocument = new Assembly_Document(doc, activeDocument);
                             returnPartList.Add(bomDocument);
                             continue;
                         }
                         case DocumentChecker.WeldmentDocumentCLSID:
                         {
-                            bomDocument = new weldmentDocument(doc, activeDocument);
+                            bomDocument = new Weldment_Document(doc, activeDocument);
                             returnPartList.Add(bomDocument);
                             continue;
                         }
@@ -137,7 +137,7 @@ namespace DevAddIns
 
             }
 
-            foreach(_documentObject doc in returnPartList)
+            foreach(Document_Object doc in returnPartList)
             {
                 if(doc.SubType == "{9C464203-9BAE-11D3-8BAD-0060B0CE6BB4}")
                 {
@@ -151,7 +151,6 @@ namespace DevAddIns
 
             //TODO: Assembly wrapper 
 
-            //TODO: Traverse the collection to see if there is sheetMetal part and add new datagrid column if so
             //TODO: Add a search bar 
             //TODO: add export checkboxes
             //TODO: add export all parts checkbox

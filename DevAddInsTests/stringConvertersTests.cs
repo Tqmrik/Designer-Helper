@@ -5,7 +5,7 @@ using Inventor;
 namespace DevAddInsTests
 {
     [TestClass]
-    public class stringConvertersTests
+    public class StringConvertersTests
     {
 
         #region "UnitsTypeEnum"

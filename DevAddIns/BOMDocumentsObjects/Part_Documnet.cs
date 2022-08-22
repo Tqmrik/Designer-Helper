@@ -7,16 +7,15 @@ using System.Windows.Media.Imaging;
 
 namespace DevAddIns
 {
-    class sheetMetalDocument : _documentObject
+    class Part_Documnet : Document_Object
     {
-        private PartDocument partDoc;
-        private SheetMetalComponentDefinition oSMCD;
+        private readonly PartDocument partDoc;
 
         public override string BOMStructure
         {
             get
             {
-                string bomStruct = StringConverters.ToStringExt(((PartDocument)partDoc).ComponentDefinition.BOMStructure);
+                string bomStruct = StringConverters.ToStringExt(partDoc.ComponentDefinition.BOMStructure);
                 if (string.IsNullOrEmpty(bomStruct))
                 {
                     return "NONE";
@@ -24,40 +23,19 @@ namespace DevAddIns
                 return bomStruct;
             }
         }
-
-        public string SheetThickness
-        {
-            get
-            {
-                if (currentDocument.IsSheetMetalDocument())
-                {
-                    oSMCD = (SheetMetalComponentDefinition)((PartDocument)partDoc).ComponentDefinition;
-                    string thickness = oSMCD.Thickness.Expression;
-                    if (!String.IsNullOrEmpty(thickness))
-                    {
-                        return thickness;
-                    }
-                    return "";
-                }
-
-                //TODO: Change
-                return "0";
-            }
-            
-        }
         public override string Material
         {
             get
             {
-                string material = ((PartDocument)partDoc).ActiveMaterial.DisplayName.ToString();
+                string material = partDoc.ActiveMaterial.DisplayName.ToString();
                 if (String.IsNullOrEmpty(material))
                 {
                     return "NONE";
                 }
                 return material;
+
             }
         }
-
         public override int Quantity
         {
             get
@@ -79,12 +57,15 @@ namespace DevAddIns
             }
         }
 
-        public sheetMetalDocument(Document partDocument, Document accessDocument)
+        public Part_Documnet(Document partDocument, Document accessDocument)
         {
             this.currentDocument = partDocument;
             this.partDoc = (PartDocument)currentDocument;
             this.accessDocument = accessDocument;
         }
-
     }
 }
+
+
+
+//TODO: Qunatity for the partDocument

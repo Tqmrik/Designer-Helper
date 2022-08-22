@@ -113,13 +113,13 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BOMDocumentsObjects\drawingDocument.cs" />
-    <Compile Include="Buttons\Button.cs" />
-    <Compile Include="Buttons\ChangeToMetricButton.cs" />
-    <Compile Include="Buttons\BalloonsEndArrow.cs" />
-    <Compile Include="Buttons\ShowPropertiesButton.cs" />
-    <Compile Include="Buttons\TestFunctionButton.cs" />
-    <Compile Include="ComboBoxes\ComboBox.cs" />
+    <Compile Include="BOMDocumentsObjects\Drawing_Document.cs" />
+    <Compile Include="Buttons\Button_Object.cs" />
+    <Compile Include="Buttons\ChangeToMetric_Button.cs" />
+    <Compile Include="Buttons\BalloonsEndArrow_Button.cs" />
+    <Compile Include="Buttons\ShowProperties_Button.cs" />
+    <Compile Include="Buttons\TestFunction_Button.cs" />
+    <Compile Include="ComboBoxes\ComboBox_Object.cs" />
     <Compile Include="Forms\IPropertiesForm\IPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,10 +133,10 @@
     <Compile Include="Forms\SurfaceAreaForm\surfaceAreaForm.Designer.cs">
       <DependentUpon>surfaceAreaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Translators\DXFTranslator.cs" />
+    <Compile Include="Translators\DXF_Translator.cs" />
     <Compile Include="ExtensionMethods\CheckIfPurchased.cs" />
     <Compile Include="ExtensionMethods\DocumentChecker.cs" />
-    <Compile Include="Buttons\ExportAsButton.cs" />
+    <Compile Include="Buttons\ExportAs_Button.cs" />
     <Compile Include="Data\DrawingPropertiesSet.cs" />
     <Compile Include="Forms\EditPropertiesForm.cs">
       <SubType>Form</SubType>
@@ -144,8 +144,8 @@
     <Compile Include="Forms\EditPropertiesForm.Designer.cs">
       <DependentUpon>EditPropertiesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Buttons\EditPropertiesButton.cs" />
-    <Compile Include="ComboBoxes\DrawingStyleComboBox.cs" />
+    <Compile Include="Buttons\EditProperties_Button.cs" />
+    <Compile Include="ComboBoxes\DrawingStyle_ComboBox.cs" />
     <Compile Include="Forms\ExportAsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,7 +154,7 @@
     </Compile>
     <Compile Include="ExtensionMethods\StringConverters.cs" />
     <Compile Include="Data\MultilanguageDictionary.cs" />
-    <Compile Include="Buttons\ProjectSketchAxisButton.cs" />
+    <Compile Include="Buttons\ProjectSketchAxis_Button.cs" />
     <Compile Include="Forms\ExportForm\NewExportForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,15 +165,15 @@
     <Compile Include="HelperMethods\TranslatorList.cs" />
     <Compile Include="HelperMethods\RevisionHelper.cs" />
     <Compile Include="HelperMethods\PathConverter.cs" />
-    <Compile Include="Buttons\NewExportAsButton.cs" />
+    <Compile Include="Buttons\NewExportAs_Button.cs" />
     <Compile Include="HelperMethods\TranslatorOptions.cs" />
-    <Compile Include="BOMDocumentsObjects\assemblyDocument.cs" />
-    <Compile Include="BOMDocumentsObjects\_documentObject.cs" />
-    <Compile Include="BOMDocumentsObjects\partDocument.cs" />
-    <Compile Include="BOMDocumentsObjects\sheetMetalDocument.cs" />
-    <Compile Include="BOMDocumentsObjects\weldmentDocument.cs" />
-    <Compile Include="Translators\ParasolidTranslator.cs" />
-    <Compile Include="Translators\PDFTranslator.cs" />
+    <Compile Include="BOMDocumentsObjects\Assembly_Document.cs" />
+    <Compile Include="BOMDocumentsObjects\Document_Object.cs" />
+    <Compile Include="BOMDocumentsObjects\Part_Documnet.cs" />
+    <Compile Include="BOMDocumentsObjects\SheetMetal_Document.cs" />
+    <Compile Include="BOMDocumentsObjects\Weldment_Document.cs" />
+    <Compile Include="Translators\Parasolid_Translator.cs" />
+    <Compile Include="Translators\PDF_Translator.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -184,14 +184,14 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="ComboBoxes\SampleComboBox.cs" />
-    <Compile Include="Buttons\SetPropertiesButton.cs" />
+    <Compile Include="ComboBoxes\Sample_ComboBox.cs" />
+    <Compile Include="Buttons\SetProperties_Button.cs" />
     <Compile Include="StandardAddInServer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Translators\STEPTranslator.cs" />
-    <Compile Include="Translators\Translators.cs" />
-    <Compile Include="Buttons\UpdatePropertiesRevisionButton.cs" />
+    <Compile Include="Translators\STEP_Translator.cs" />
+    <Compile Include="Translators\Translator_Object.cs" />
+    <Compile Include="Buttons\UpdatePropertiesRevision_Button.cs" />
     <Compile Include="Forms\IPropertiesForm\IPropertiesWPFForm.xaml.cs">
       <DependentUpon>IPropertiesWPFForm.xaml</DependentUpon>
     </Compile>

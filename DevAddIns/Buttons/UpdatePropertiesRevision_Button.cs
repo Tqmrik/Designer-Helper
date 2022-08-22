@@ -6,16 +6,16 @@ using System.IO;
 
 namespace DevAddIns
 {
-    internal class UpdatePropertiesRevisionButton : Button
+    internal class UpdatePropertiesRevision_Button : Button_Object
     {
         #region "Constructors"
         //Use constructors of the base class
-        public UpdatePropertiesRevisionButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public UpdatePropertiesRevision_Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType)
         {
 
         }
-        public UpdatePropertiesRevisionButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+        public UpdatePropertiesRevision_Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType)
         {
 

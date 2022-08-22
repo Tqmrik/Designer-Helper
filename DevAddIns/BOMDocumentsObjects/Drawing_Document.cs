@@ -7,7 +7,7 @@ using Inventor;
 
 namespace DevAddIns
 {
-    class drawingDocument : _documentObject
+    class Drawing_Document : Document_Object
     {
         public override string BOMStructure => "Drawing";
 
@@ -15,7 +15,7 @@ namespace DevAddIns
 
         public override int Quantity => 1;
 
-        public drawingDocument(Document drawingDoc, Document accessDocument)
+        public Drawing_Document(Document drawingDoc, Document accessDocument)
         {
             this.currentDocument = drawingDoc;
             //this.partDoc = (PartDocument)currentDocument;

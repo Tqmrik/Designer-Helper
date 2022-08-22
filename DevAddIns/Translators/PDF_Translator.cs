@@ -5,26 +5,26 @@ using System.Collections.Generic;
 
 namespace DevAddIns
 {
-    class PDFTranslator : Translators
+    class PDF_Translator : Translator_Object
     {
         string filePath;
-        const string extension = "pdf";
+        readonly string extension = "pdf";
 
 
-        public PDFTranslator() : base()
+        public PDF_Translator() : base()
         {
             oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
             oOptions.Value["All_Color_AS_Black"] = 0;
             oOptions.Value["Remove_Line_Weights"] = 0;
         }
 
-        public PDFTranslator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
+        public PDF_Translator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
         {
             oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
             this.filePath = filePath;
         }
 
-        public void createPDF(Document document)
+        public void CreatePDF(Document document)
         {
             oContext.Type = IOMechanismEnum.kFileBrowseIOMechanism;
 
@@ -41,7 +41,7 @@ namespace DevAddIns
                     filePathHelper(document);
                     if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
                     {
-                        oOptionsSetter();
+                        OptionsSetter();
                     }
                 }
 
@@ -69,15 +69,15 @@ namespace DevAddIns
                     }
                     else
                     {
-                        pdfCreate(document);
+                        PDF_Create(document);
                     }
 
                     if (packAssembly)
                     {
-                        pdfCreate(document);
+                        PDF_Create(document);
                         foreach (Document dasd in document.AllReferencedDocuments)
                         {
-                            pdfCreate(dasd);
+                            PDF_Create(dasd);
                         }
                         return;
                     }
@@ -102,7 +102,7 @@ namespace DevAddIns
                             }
                         }
 
-                        pdfCreate(referencedDocument);
+                        PDF_Create(referencedDocument);
                     }
                 }
             }
@@ -114,7 +114,7 @@ namespace DevAddIns
                 }
                 else
                 {
-                    pdfCreate(document);
+                    PDF_Create(document);
                 }
             }
 
@@ -144,7 +144,7 @@ namespace DevAddIns
                 filePath += $".{extension}";
             }
         }
-        private void oOptionsSetter()
+        private void OptionsSetter()
         {
             oOptions.Value["All_Color_AS_Black"] = 0;
             oOptions.Value["Remove_Line_Weights"] = 0;
@@ -156,33 +156,35 @@ namespace DevAddIns
 
             //oOptions.Value["Vector_Resolution"] = 400;
         }
-        private void pdfCreate(Document document)
+        private void PDF_Create(Document document)
         {
-            //Takes not a drawing file -> tries to find a drawing for it in the active project -> creates pdf of it with revision from drawing
-            //Not document dependent(can take part as well as assembly documents)
-            Document drawingDocumentObject = null;
-            string referencedDocumentDrawingPath = null;
             string partDirectory = System.IO.Path.GetDirectoryName(document.FullDocumentName);
             string partDrawingPath = PathConverter.guessDrawingPath(document);
 
-            if (!String.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
+            string referencedDocumentDrawingPath;
+            if (!string.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
             {
                 referencedDocumentDrawingPath = _inventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
                 //Resolve file also searches all the subdirectories that it could find
             }
-            else return;
-
-            if (!String.IsNullOrEmpty(referencedDocumentDrawingPath))
+            else
             {
-                //If drawing is placed in the folder, save it to the folder as well
-                drawingDocumentObject = _inventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
+                return;
+            }
 
-                if(String.IsNullOrEmpty(this.filePath))
+            if (!string.IsNullOrEmpty(referencedDocumentDrawingPath))
+            {
+                //Takes not a drawing file -> tries to find a drawing for it in the active project -> creates pdf of it with revision from drawing
+                //Not document dependent(can take part as well as assembly documents)
+                //If drawing is placed in the folder, save it to the folder as well
+                Document drawingDocumentObject = _inventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
+
+                if (string.IsNullOrEmpty(this.filePath))
                 {
                     filePathHelper(drawingDocumentObject);
                     if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
                     {
-                        oOptionsSetter();
+                        OptionsSetter();
                     }
                 }
                 

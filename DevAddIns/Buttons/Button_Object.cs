@@ -9,7 +9,7 @@ using Microsoft.VisualBasic.Compatibility.VB6;
 namespace DevAddIns
 {
 	//Class to create buttons from
-    internal abstract class Button
+    internal abstract class Button_Object
 	{
 		#region "Data"
 		//App
@@ -51,7 +51,7 @@ namespace DevAddIns
 
         #region "Methods"
         //All the arguments are from inventor's method to add a button
-        public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public Button_Object(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
 		{
 			try
             {
@@ -75,7 +75,7 @@ namespace DevAddIns
             }
 			
 		}
-		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Icon standardIcon, Icon largeIcon, ButtonDisplayEnum buttonDisplayType)
+		public Button_Object(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Icon standardIcon, Icon largeIcon, ButtonDisplayEnum buttonDisplayType)
 		{
 			try
 			{
@@ -101,7 +101,7 @@ namespace DevAddIns
 		}
 
 		//Override without an icon
-		public Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+		public Button_Object(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
 		{
 			try
 			{

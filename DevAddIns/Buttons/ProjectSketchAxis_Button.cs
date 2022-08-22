@@ -6,15 +6,15 @@ using System.Windows.Forms;
 
 namespace DevAddIns
 {
-    class ProjectSketchAxisButton : Button
+    class ProjectSketchAxis_Button : Button_Object
     {
         #region "Constructors"
-        public ProjectSketchAxisButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
+        public ProjectSketchAxis_Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, Image standardIcon, Image largeIcon, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, standardIcon, largeIcon, buttonDisplayType)
         {
 
         }
-        public ProjectSketchAxisButton(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
+        public ProjectSketchAxis_Button(string displayName, string internalName, CommandTypesEnum commandType, string clientId, string description, string tooltip, ButtonDisplayEnum buttonDisplayType)
             : base(displayName, internalName, commandType, clientId, description, tooltip, buttonDisplayType)
         {
 

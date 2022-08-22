@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace DevAddIns
 {
-    abstract class _documentObject
+    abstract class Document_Object
     {
         public Document currentDocument;
         public Document accessDocument;

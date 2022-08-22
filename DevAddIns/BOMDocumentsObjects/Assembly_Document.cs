@@ -8,9 +8,9 @@ using System.Windows.Media.Imaging;
 
 namespace DevAddIns
 {
-    class assemblyDocument : _documentObject
+    class Assembly_Document : Document_Object
     {
-        private AssemblyDocument assemblyDoc;
+        private readonly AssemblyDocument assemblyDoc;
 
         public override string BOMStructure
         {
@@ -49,9 +49,9 @@ namespace DevAddIns
             }
         }
 
-        public List<_documentObject> referencedParts = new List<_documentObject>();
+        public List<Document_Object> referencedParts = new List<Document_Object>();
 
-        public assemblyDocument(Document doc, Document accessDocument)
+        public Assembly_Document(Document doc, Document accessDocument)
         {
             this.currentDocument = doc;
             this.assemblyDoc = (AssemblyDocument)currentDocument;
@@ -61,19 +61,19 @@ namespace DevAddIns
             {
                 if(refDoc.IsAssemblyDocument())
                 {
-                    referencedParts.Add(new assemblyDocument(refDoc, doc));
+                    referencedParts.Add(new Assembly_Document(refDoc, doc));
                 }
                 else if(refDoc.IsPartDocument())
                 {
-                    referencedParts.Add(new partDocument(refDoc, doc));
+                    referencedParts.Add(new Part_Documnet(refDoc, doc));
                 }
                 else if(refDoc.IsSheetMetalDocument())
                 {
-                    referencedParts.Add(new sheetMetalDocument(refDoc, doc));
+                    referencedParts.Add(new SheetMetal_Document(refDoc, doc));
                 }
                 else if(refDoc.IsWeldmentDocument())
                 {
-                    referencedParts.Add(new weldmentDocument(refDoc, doc));
+                    referencedParts.Add(new Weldment_Document(refDoc, doc));
                 }
             }
         }

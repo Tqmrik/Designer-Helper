@@ -4,10 +4,10 @@ using System.Windows.Forms;
 
 namespace DevAddIns
 {
-    class ParasolidTranslator : Translators
+    class Parasolid_Translator : Translator_Object
     {
         //TODO: Remake class
-        public ParasolidTranslator() : base() 
+        public Parasolid_Translator() : base() 
         {
             TranslatorAddIn oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{8F9D3571-3CB8-42F7-8AFF-2DB2779C8465}"];
         }

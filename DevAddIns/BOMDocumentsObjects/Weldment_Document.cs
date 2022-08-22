@@ -9,9 +9,9 @@ using System.Windows.Media;
 
 namespace DevAddIns
 {
-    class weldmentDocument : _documentObject
+    class Weldment_Document : Document_Object
     {
-        private AssemblyDocument assemblyDoc;
+        private readonly AssemblyDocument assemblyDoc;
         public override string BOMStructure
         {
             get
@@ -54,7 +54,7 @@ namespace DevAddIns
             }
         }
 
-        public weldmentDocument(Document doc, Document accessDocument)
+        public Weldment_Document(Document doc, Document accessDocument)
         {
             this.currentDocument = doc;
             this.assemblyDoc = (AssemblyDocument)currentDocument;

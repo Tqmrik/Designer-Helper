@@ -23,12 +23,7 @@ namespace DevAddIns
             {
                 return false;
             }
-
-            else if (inputDocument.SubType == PartDocumentCLSID)
-            {
-                return true;
-            }
-            else return false;
+            return inputDocument.SubType == PartDocumentCLSID;
         }
 
         public static bool IsSheetMetalDocument(this Document inputDocument)
@@ -37,12 +32,8 @@ namespace DevAddIns
             {
                 return false;
             }
+            return inputDocument.SubType == SheetMetalDocumentCLSID;
 
-            else if (inputDocument.SubType == SheetMetalDocumentCLSID)
-            {
-                return true;
-            }
-            else return false;
         }
 
         public static bool IsMoldedPartDocument(this Document inputDocument)
@@ -51,12 +42,8 @@ namespace DevAddIns
             {
                 return false;
             }
+            return inputDocument.SubType == MoldedPartDocumentCLSID;
 
-            else if (inputDocument.SubType == MoldedPartDocumentCLSID)
-            {
-                return true;
-            }
-            else return false;
         }
 
         public static bool IsDrawingDocument(this Document inputDocument)
@@ -65,12 +52,7 @@ namespace DevAddIns
             {
                 return false;
             }
-
-            else if (inputDocument.SubType == DrawingDocumentCLSID)
-            {
-                return true;
-            }
-            else return false;
+            return inputDocument.SubType == DrawingDocumentCLSID;
         }
 
         public static bool IsAssemblyDocument(this Document inputDocument)
@@ -79,12 +61,7 @@ namespace DevAddIns
             {
                 return false;
             }
-
-            else if (inputDocument.SubType == AssemblyPartDocumentCLSID)
-            {
-                return true;
-            }
-            else return false;
+            return inputDocument.SubType == AssemblyPartDocumentCLSID;
         }
 
         public static bool IsWeldmentDocument(this Document inputDocument)
@@ -93,30 +70,33 @@ namespace DevAddIns
             {
                 return false;
             }
-
-            else if (inputDocument.SubType == WeldmentDocumentCLSID)
-            {
-                return true;
-            }
-            else return false;
+            return inputDocument.SubType == WeldmentDocumentCLSID;
         }
 
+
+
+        const string partDocumnet = "Part document";
+        const string sheetMetalDocumnet = "Sheet metal";
+        const string moldedPartDocumnet = "Molded part";
+        const string assemblyDocument = "Assembly document";
+        const string drawingDocument = "Drawing document";
+        const string weldmentDocument = "Weldment assembly";
         public static string InventorDocumentType(this string inputString)
         {
             switch (inputString.Trim().ToUpperInvariant())
             {
                 case PartDocumentCLSID:
-                    return "Part Document"; //Official: Modeling??
+                    return partDocumnet; //Official: Modeling??
                 case SheetMetalDocumentCLSID:
-                    return "Sheet Metal";
+                    return sheetMetalDocumnet;
                 case MoldedPartDocumentCLSID:
-                    return "Moleded Part";
+                    return moldedPartDocumnet;
                 case AssemblyPartDocumentCLSID:
-                    return "Assembly";
+                    return assemblyDocument;
                 case DrawingDocumentCLSID:
-                    return "Drawing";
+                    return drawingDocument;
                 case WeldmentDocumentCLSID:
-                    return "Weldment assembly";
+                    return weldmentDocument;
                 default:
                     return inputString;
             }

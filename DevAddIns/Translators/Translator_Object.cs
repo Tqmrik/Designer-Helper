@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace DevAddIns
 {
-    class Translators
+    class Translator_Object
     {
         //TODO: Think about whether to make class abstract or not
 
@@ -41,14 +41,14 @@ namespace DevAddIns
 
         //TODO: Create constructor with a document in it so that we can use that doc accross all the methods inside translators
 
-        public Translators()
+        public Translator_Object()
         {
             oContext = _inventorApplication.TransientObjects.CreateTranslationContext();
             oOptions = _inventorApplication.TransientObjects.CreateNameValueMap();
             oDataMedium = _inventorApplication.TransientObjects.CreateDataMedium();
         }
 
-        public Translators(Dictionary<string, string> oOptionsDictionary, string filePath)
+        public Translator_Object(Dictionary<string, string> oOptionsDictionary, string filePath)
         {
             foreach (string key in oOptionsDictionary.Keys)
             {

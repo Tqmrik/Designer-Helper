@@ -8,7 +8,7 @@ namespace DevAddInsTests
     public class DocumentCheckerTests
     {
         private static Inventor.Application InventorApp;
-        public static Inventor.Application prop_InvApp
+        public static Inventor.Application _InventorApp
         {
             get
             {
@@ -19,6 +19,7 @@ namespace DevAddInsTests
                 InventorApp = value;
             }
         }
+
 
         //TODO: How to check???
 

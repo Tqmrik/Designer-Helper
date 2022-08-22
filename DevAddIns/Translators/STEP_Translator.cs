@@ -5,23 +5,23 @@ using System.Collections.Generic;
 
 namespace DevAddIns
 {
-    class STEPTranslator : Translators
+    class STEP_Translator : Translator_Object
     {
         string filePath;
-        string extension = "stp";
+        readonly string extension = "stp";
 
-        public STEPTranslator() : base()
+        public STEP_Translator() : base()
         {
             oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
         }
 
-        public STEPTranslator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
+        public STEP_Translator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
         {
             oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
             this.filePath = filePath;
         }
 
-        public void createSTEP(Document doc)
+        public void CreateSTEP(Document doc)
         {
             //Wrap in the try/catch???
             oContext.Type = IOMechanismEnum.kFileBrowseIOMechanism;
@@ -39,7 +39,7 @@ namespace DevAddIns
                     foreach (Document oFD in doc.AllReferencedDocuments)
                     {
                         
-                        stepCreate(oFD);
+                        StepCreate(oFD);
                     }
                     return;
                 }
@@ -47,7 +47,7 @@ namespace DevAddIns
                 {
                     foreach (Document oFD in doc.ReferencedDocuments)
                     {
-                        stepCreate(oFD);
+                        StepCreate(oFD);
                     }
                 }
             }
@@ -59,15 +59,15 @@ namespace DevAddIns
                 }
                 else
                 {
-                    stepCreate(doc);
+                    StepCreate(doc);
                 }
 
                 if(packAssembly)
                 {
-                    stepCreate(doc);
+                    StepCreate(doc);
                     foreach (Document oFD in doc.AllReferencedDocuments)
                     { 
-                        stepCreate(oFD);
+                        StepCreate(oFD);
                     }
                     return;
                 }
@@ -90,7 +90,7 @@ namespace DevAddIns
                                 continue;
                             }
                         }
-                        stepCreate(oFD);
+                        StepCreate(oFD);
                     }
                 }
             }
@@ -100,7 +100,7 @@ namespace DevAddIns
                 {
                     return;
                 }
-                stepCreate(doc);               
+                StepCreate(doc);               
             }
 
             oTranslator = null;
@@ -109,7 +109,7 @@ namespace DevAddIns
             oDataMedium = null;
         }
 
-        private void filePathHelper(Document doc) //Add a revision letter to the output file name
+        private void FilePathHelper(Document doc) //Add a revision letter to the output file name
         {
             if (!String.IsNullOrEmpty(doc.FullDocumentName))
             {
@@ -129,7 +129,7 @@ namespace DevAddIns
                 filePath += $".{extension}";
             }
         }
-        private void oOptionsSetter(Document doc)
+        private void OptionsSetter(Document doc)
         {
             oOptions.Value["ApplicationProtocolType"] = 3;
             oOptions.Value["Author"] = doc.PropertySets[3][24].Value;
@@ -137,7 +137,7 @@ namespace DevAddIns
             oOptions.Value["Description"] = doc.PropertySets[3][14].Value;
             oOptions.Value["Organization"] = doc.PropertySets[2][3].Value;
         }
-        private void stepCreate(Document doc)
+        private void StepCreate(Document doc)
         {
             if(!(doc is null))
             {
@@ -148,10 +148,10 @@ namespace DevAddIns
 
                     if(String.IsNullOrEmpty(filePath))
                     {
-                        filePathHelper(doc);
+                        FilePathHelper(doc);
                         if (oTranslator.HasSaveCopyAsOptions[doc, oContext, oOptions])
                         {
-                            oOptionsSetter(doc);
+                            OptionsSetter(doc);
                         }
                         //TODO: Somehow transfer oOptions setter into constructor 
                     }

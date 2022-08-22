@@ -3,12 +3,12 @@ using System;
 
 namespace DevAddIns
 {
-    class DXFTranslator : Translators
+    class DXF_Translator : Translator_Object
     {
-        public DXFTranslator() : base() { }
+        public DXF_Translator() : base() { }
 
         string filePath;
-        string extension = "dxf";
+        readonly string extension = "dxf";
         SheetMetalComponentDefinition oSMDef;
         DataIO oDataIO;
 

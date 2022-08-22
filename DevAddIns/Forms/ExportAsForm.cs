@@ -37,12 +37,12 @@ namespace DevAddIns
             }
         }
 
-        private Translators translator = new Translators();
+        private Translator_Object translator = new Translator_Object();
 
-        private PDFTranslator pdfTranslator = new PDFTranslator();
-        private STEPTranslator stepTranslator = new STEPTranslator();
-        private DXFTranslator dxfTranslator = new DXFTranslator();
-        private ParasolidTranslator parasolidTranslator = new ParasolidTranslator();
+        private PDF_Translator pdfTranslator = new PDF_Translator();
+        private STEP_Translator stepTranslator = new STEP_Translator();
+        private DXF_Translator dxfTranslator = new DXF_Translator();
+        private Parasolid_Translator parasolidTranslator = new Parasolid_Translator();
 
         Dictionary<bool, CheckState> checkToState = new Dictionary<bool, CheckState>();
         MultilanguageDictionary MLDict = new MultilanguageDictionary();
@@ -93,14 +93,14 @@ namespace DevAddIns
             if (includePartsButton.Checked)
             {
                 //includeParts = true;
-                Translators.includeParts = true;
+                Translator_Object.includeParts = true;
                 packAssemblyButton.Enabled = false;
             }
 
             else
             {
                 //includeParts = false;
-                Translators.includeParts = false;
+                Translator_Object.includeParts = false;
                 packAssemblyButton.Enabled = true;
             }
         }
@@ -111,14 +111,14 @@ namespace DevAddIns
             if (packAssemblyButton.Checked)
             {
                 //packAssembly = true;
-                Translators.packAssembly = true;
+                Translator_Object.packAssembly = true;
                 includePartsButton.Enabled = false;
             }
 
             else
             {
                 //packAssembly = false;
-                Translators.packAssembly = false;
+                Translator_Object.packAssembly = false;
                 includePartsButton.Enabled = true;
             }
         }
@@ -129,9 +129,9 @@ namespace DevAddIns
             var rebuildTask = docRebuild(activeDocument);
             rebuildTask.Wait();
 
-            if (makePdf == true) pdfTranslator.createPDF(activeDocument);
+            if (makePdf == true) pdfTranslator.CreatePDF(activeDocument);
             if (makeDxf == true) dxfTranslator.createFlatDXF(activeDocument);
-            if (makeStep == true) stepTranslator.createSTEP(activeDocument);
+            if (makeStep == true) stepTranslator.CreateSTEP(activeDocument);
             if (makeXt == true) parasolidTranslator.createParasolid();
             Close();
         }

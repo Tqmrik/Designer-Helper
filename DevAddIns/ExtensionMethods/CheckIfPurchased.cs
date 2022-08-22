@@ -5,14 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Inventor;
 
-namespace DevAddIns.ExtensionMethods
+namespace DevAddIns
 {
     static class CheckIfPurchased
     {
-        public static bool IsPurchased(Document document)
+        public static bool IsPurchased(this Document document)
         {
             //TODO: Implement
-            throw new NotImplementedException();
+            if (document.IsAssemblyDocument() || document.IsWeldmentDocument())
+            {
+                return ((AssemblyDocument)document).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure;
+            }
+            else if (document.IsPartDocument() || document.IsSheetMetalDocument())
+            {
+                return ((PartDocument)document).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure;
+            }
+            return false;
         }
     }
 }
