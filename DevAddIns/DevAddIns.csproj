@@ -117,6 +117,7 @@
     <Compile Include="Buttons\Button_Object.cs" />
     <Compile Include="Buttons\ChangeToMetric_Button.cs" />
     <Compile Include="Buttons\BalloonsEndArrow_Button.cs" />
+    <Compile Include="Buttons\SaveFileCopy_Button.cs" />
     <Compile Include="Buttons\ShowProperties_Button.cs" />
     <Compile Include="Buttons\TestFunction_Button.cs" />
     <Compile Include="ComboBoxes\ComboBox_Object.cs" />

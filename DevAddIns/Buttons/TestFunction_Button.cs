@@ -41,7 +41,18 @@ namespace DevAddIns
 
             //TranslatorOptions translator = new TranslatorOptions();
             //translator.DisplayTranslatorOptions();
-
+            Document editDocument = InventorApplication.ActiveDocument;
+            string fileName = System.IO.Path.GetDirectoryName(editDocument.FullFileName) + "\\" + System.IO.Path.GetFileNameWithoutExtension(editDocument.FullDocumentName);
+            string extension = System.IO.Path.GetExtension(editDocument.FullFileName);
+            for (int i = 1; ; i++)
+            {
+                string copyName = $"{fileName}_{i}{extension}";
+                if (!System.IO.File.Exists(copyName))
+                {
+                    editDocument.SaveAs(copyName, true);
+                    return;
+                }
+            }
         }
         #endregion
     }
