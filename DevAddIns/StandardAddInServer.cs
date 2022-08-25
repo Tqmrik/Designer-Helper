@@ -20,22 +20,25 @@ namespace DevAddIns
     public class StandardAddInServer : Inventor.ApplicationAddInServer
     {
 
+        const string eskdAddClassID = "{005B21FC-8537-4926-9F57-3A3216C294C3}";
+
         //Inventor application object
-        private Inventor.Application m_inventorApplication;
+        private Inventor.Application InventorApplication;
         private UserInterfaceManager m_userInterfaceManager;
 
         //buttons
-        private SetProperties_Button m_setPropertiesButton;
-        private EditProperties_Button m_editPropertiesButton;
-        private UpdatePropertiesRevision_Button m_updatePropertiesRevesionButton;
-        private ChangeToMetric_Button m_ChangeToMetric;
-        private ProjectSketchAxis_Button m_projectSketchAxisButton;
-        private ExportAs_Button m_exportAsButton;
-        private ShowProperties_Button m_showProperties;
-        private TestFunction_Button m_testFunctionButton;
-        private BalloonsEndArrow_Button m_balloonsEndArrow;
-        private ExecuteOnStartup m_ExecuteOnStartUp;
-        private NewExportAs_Button m_newExportAsButton;
+        private SetProperties_Button setProperties_Button;
+        private EditProperties_Button editProperties_Button;
+        private UpdatePropertiesRevision_Button updatePropertiesRevision_Button;
+        private ChangeToMetric_Button changeToMetric_Button;
+        private ProjectSketchAxis_Button projecSketchAxis_Button;
+        private ExportAs_Button exportAs_Button;
+        private ShowProperties_Button showProperties_Button;
+        private TestFunction_Button testFunction_Button;
+        private BalloonsEndArrow_Button balloonsEndArrow_Button;
+        private ExecuteOnStartup executeOnStartup_Method;
+        private NewExportAs_Button newExportAs_Button;
+        private SaveFileCopy_Button saveFileCopy_Button;
 
         //comboBoxes
         private DrawingStyle_ComboBox m_drawingStyleComboBox;
@@ -70,6 +73,9 @@ namespace DevAddIns
 
         public void Activate(Inventor.ApplicationAddInSite addInSiteObject, bool firstTime)
         {
+            InventorApplication = addInSiteObject.Application;
+
+            //Handle the ribbon reset, so that the same buttons are added when addin is executed
 
             //TODO: ADD Choose language combobox in the ribbon 
             /*
@@ -81,29 +87,37 @@ namespace DevAddIns
 
             try
             {
+
                 //the Activate method is called by Inventor when it loads the addin
                 //the AddInSiteObject provides access to the Inventor Application object
                 //the FirstTime flag indicates if the addin is loaded for the first time
 
                 //initialize AddIn members
-                m_inventorApplication = addInSiteObject.Application;
+                
 
 
-                Button_Object.InventorApplication = m_inventorApplication;
-                ComboBox_Object.InventorApplication = m_inventorApplication;
-                ExportAsForm.InventorApplication = m_inventorApplication;
-                Translator_Object._inventorApplication = m_inventorApplication;
-                TranslatorList.InventorApplication = m_inventorApplication;
-                NewExportAs_Button.InventorApplication = m_inventorApplication;
-                FileExportControl.InventorApplication = m_inventorApplication;
-                TranslatorOptions.InventorApplication = m_inventorApplication;
 
-                m_ExecuteOnStartUp = new ExecuteOnStartup();
+                UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate = new UserInterfaceEventsSink_OnResetRibbonInterfaceEventHandler(UserInterfaceEvents_OnResetRibbonInterface);
+                InventorApplication.UserInterfaceManager.UserInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
+
+
+
+
+                Button_Object.InventorApplication = InventorApplication;
+                ComboBox_Object.InventorApplication = InventorApplication;
+                ExportAsForm.InventorApplication = InventorApplication;
+                Translator_Object._inventorApplication = InventorApplication;
+                TranslatorList.InventorApplication = InventorApplication;
+                FileExportControl.InventorApplication = InventorApplication;
+                TranslatorOptions.InventorApplication = InventorApplication;
+                
+
+                executeOnStartup_Method = new ExecuteOnStartup();
 
 
 
                 //m_inventorApplication.FileOptions.DefaultTemplateDrawingStandard = DraftingStandardEnum.kANSI_DraftingStandard;
-                m_inventorApplication.FileOptions.DefaultTemplateUnitsAreInches = false;
+                InventorApplication.FileOptions.DefaultTemplateUnitsAreInches = false;
 
 
                 //m_userInterfaceManager = m_inventorApplication.UserInterfaceManager;
@@ -113,8 +127,8 @@ namespace DevAddIns
 
 
                 //It's so bad but whatever for now
-                string applicationInstallationPath = m_inventorApplication.InstallPath;
-                string allUserAppDataPath = m_inventorApplication.AllUsersAppDataPath;
+                string applicationInstallationPath = InventorApplication.InstallPath;
+                string allUserAppDataPath = InventorApplication.AllUsersAppDataPath;
                 allUserAppDataPath = allUserAppDataPath.Replace("\\Inventor 2021", "") + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack";
 
                 //CopyDirectory(currentUserAppDataPath + "\\ApplicationPlugins\\DevAddIns\\ResourcesSedenumPack", applicationInstallationPath + "Bin\\ResourcesSedenumPack", false);
@@ -185,26 +199,28 @@ namespace DevAddIns
                 #endregion
 
                 //Create buttons
-                m_setPropertiesButton = new SetProperties_Button(
+                setProperties_Button = new SetProperties_Button(
                     "Set Properties", "SetPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType,
                     AddInClientID(), "Change IProperties of the file according to the current company standart",
                     "Change IProperties", setPropertiesIconStandart, setPropertiesIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_editPropertiesButton = new EditProperties_Button("Edit Properties", "EditPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Edit values of the Properties to set", "Edit IProperties", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                editProperties_Button = new EditProperties_Button("Edit Properties", "EditPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Edit values of the Properties to set", "Edit IProperties", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_updatePropertiesRevesionButton = new UpdatePropertiesRevision_Button("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                updatePropertiesRevision_Button = new UpdatePropertiesRevision_Button("Update Revision", "UpdateDrawingRevision", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Update the revision number of the drawing", "Update revision", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_ChangeToMetric = new ChangeToMetric_Button("Metric units", "UnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit to metric", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                changeToMetric_Button = new ChangeToMetric_Button("Metric units", "UnitsToMetricSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Changes document's unit to metric", "Change units", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_projectSketchAxisButton = new ProjectSketchAxis_Button("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                projecSketchAxis_Button = new ProjectSketchAxis_Button("Project Axis", "ProjectSketchAxisSedenum", CommandTypesEnum.kShapeEditCmdType, AddInClientID(), "Project axis to the planar sketch", "Project Axis", projectSketchAxisIconStandart, projectSketchAxisIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_exportAsButton = new ExportAs_Button("Export", "ExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                exportAs_Button = new ExportAs_Button("Export", "ExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_showProperties = new ShowProperties_Button("Show Properies", "ShowPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Copy all IProperties of the file to the notepad document", "Copy all IProperties of the file to the notepad document", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                showProperties_Button = new ShowProperties_Button("Show Properies", "ShowPropertiesSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Copy all IProperties of the file to the notepad document", "Copy all IProperties of the file to the notepad document", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_testFunctionButton = new TestFunction_Button("Test Funcion", "TestFunctionSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Test the dev function", "Test the dev function", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                testFunction_Button = new TestFunction_Button("Test Funcion", "TestFunctionSedenum", CommandTypesEnum.kFilePropertyEditCmdType, AddInClientID(), "Test the dev function", "Test the dev function", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_balloonsEndArrow = new BalloonsEndArrow_Button("Change arrowtype", "ChangeBallonArrowHeadSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Change arrowheads", "Change arrowheads", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                balloonsEndArrow_Button = new BalloonsEndArrow_Button("Change arrowtype", "ChangeBallonArrowHeadSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Change arrowheads", "Change arrowheads", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
+                saveFileCopy_Button = new SaveFileCopy_Button("File copy", "Save copy of file", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Save copy of file", "Save copy of file", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
                 //Create comboBoxes
@@ -212,7 +228,7 @@ namespace DevAddIns
                 //Apparently doesn't work with icons????
                 m_drawingStyleComboBox = new DrawingStyle_ComboBox("Change drawing style", "ChangeDrawingStyleComboBoxSedenum", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "Change drawing style", "Change drawing style", ButtonDisplayEnum.kDisplayTextInLearningMode);
 
-                m_newExportAsButton = new NewExportAs_Button("NewExport", "NewExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+                newExportAs_Button = new NewExportAs_Button("NewExport", "NewExportToSedenum", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Export document to the file with the desired extension", "Export document to the file with the desired extension", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
 
                 //create the command category
@@ -327,16 +343,17 @@ namespace DevAddIns
                 m_userInterfaceManager = null;
 
                 //Dispose buttons
-                m_setPropertiesButton = null;
-                m_editPropertiesButton = null;
-                m_updatePropertiesRevesionButton = null;
-                m_ChangeToMetric = null;
-                m_projectSketchAxisButton = null;
-                m_exportAsButton = null;
-                m_showProperties = null;
-                m_testFunctionButton = null;
-                m_balloonsEndArrow = null;
-                m_newExportAsButton = null;
+                setProperties_Button = null;
+                editProperties_Button = null;
+                updatePropertiesRevision_Button = null;
+                changeToMetric_Button = null;
+                projecSketchAxis_Button = null;
+                exportAs_Button = null;
+                showProperties_Button = null;
+                testFunction_Button = null;
+                balloonsEndArrow_Button = null;
+                newExportAs_Button = null;
+                saveFileCopy_Button = null;
 
 
                 //Dispose comboboxes
@@ -349,8 +366,8 @@ namespace DevAddIns
                 //}
 
                 //release inventor Application object
-                Marshal.ReleaseComObject(m_inventorApplication);
-                m_inventorApplication = null;
+                Marshal.ReleaseComObject(InventorApplication);
+                InventorApplication = null;
 
                 GC.WaitForPendingFinalizers();
                 GC.Collect();
@@ -460,17 +477,18 @@ namespace DevAddIns
 
                 List<Button_Object> buttonsList = new List<Button_Object>
                 {
-                    m_ChangeToMetric,
-                    m_projectSketchAxisButton,
-                    m_testFunctionButton,
-                    m_showProperties
+                    changeToMetric_Button,
+                    projecSketchAxis_Button,
+                    testFunction_Button,
+                    showProperties_Button,
+                    saveFileCopy_Button
                 };
 
 
                 List<Button_Object> iPropertiesPanelButtons = new List<Button_Object>
                 {
-                    m_setPropertiesButton,
-                    m_editPropertiesButton
+                    setProperties_Button,
+                    editProperties_Button
                 };
 
                 /* 
@@ -492,9 +510,9 @@ namespace DevAddIns
                 //Ribbons ribbons = m_inventorApplication.UserInterfaceManager.Ribbons;
 
 
-                Ribbon partRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Part"];
-                Ribbon assemblyRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Assembly"];
-                Ribbon drawingRibbon = m_inventorApplication.UserInterfaceManager.Ribbons["Drawing"];
+                Ribbon partRibbon = InventorApplication.UserInterfaceManager.Ribbons["Part"];
+                Ribbon assemblyRibbon = InventorApplication.UserInterfaceManager.Ribbons["Assembly"];
+                Ribbon drawingRibbon = InventorApplication.UserInterfaceManager.Ribbons["Drawing"];
                 //RibbonTabs partTabs = m_inventorApplication.UserInterfaceManager.Ribbons["Part"].RibbonTabs;
 
 
@@ -547,17 +565,17 @@ namespace DevAddIns
 
 
 
-                drawingPanelSed.CommandControls.AddButton(m_balloonsEndArrow.ButtonDefinition);
+                drawingPanelSed.CommandControls.AddButton(balloonsEndArrow_Button.ButtonDefinition);
 
-                assemblyPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
-                assemblyPanelSed.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
+                assemblyPanelSed.CommandControls.AddButton(exportAs_Button.ButtonDefinition);
+                assemblyPanelSed.CommandControls.AddButton(newExportAs_Button.ButtonDefinition);
 
-                partPanelSed.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
-                partPanelSed.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
+                partPanelSed.CommandControls.AddButton(exportAs_Button.ButtonDefinition);
+                partPanelSed.CommandControls.AddButton(newExportAs_Button.ButtonDefinition);
 
-                iPropertiesDrawingPanel.CommandControls.AddButton(m_exportAsButton.ButtonDefinition);
-                iPropertiesDrawingPanel.CommandControls.AddButton(m_newExportAsButton.ButtonDefinition);
-                iPropertiesDrawingPanel.CommandControls.AddButton(m_updatePropertiesRevesionButton.ButtonDefinition);
+                iPropertiesDrawingPanel.CommandControls.AddButton(exportAs_Button.ButtonDefinition);
+                iPropertiesDrawingPanel.CommandControls.AddButton(newExportAs_Button.ButtonDefinition);
+                iPropertiesDrawingPanel.CommandControls.AddButton(updatePropertiesRevision_Button.ButtonDefinition);
 
                 //assemblyPanelSed.CommandControls.AddButton(m_showProperties.ButtonDefinition);
                 //partPanelSed.CommandControls.AddButton(m_showProperties.ButtonDefinition);
@@ -565,8 +583,11 @@ namespace DevAddIns
 
                 //Add ComboBoxes
 
-                drawingPanelSed.CommandControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);
-
+                if(InventorApplication.ApplicationAddIns.ItemById[eskdAddClassID] != null)
+                {
+                    drawingPanelSed.CommandControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);
+                    drawingRibbon.QuickAccessControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);
+                }
 
             }
 
@@ -647,56 +668,17 @@ namespace DevAddIns
         //            }
         //        }
 
-        //        private void UserInterfaceEvents_OnResetRibbonInterface(NameValueMap context)
-        //        {
-        //            try
-        //            {
-
-        //                UserInterfaceManager userInterfaceManager;
-        //                userInterfaceManager = m_inventorApplication.UserInterfaceManager;
-
-        //                //get the ribbon associated with part document
-        //                Inventor.Ribbons ribbons;
-        //                ribbons = userInterfaceManager.Ribbons;
-
-        //                Inventor.Ribbon partRibbon;
-        //                partRibbon = ribbons["Part"];
-
-        //                //get the tabls associated with part ribbon
-        //                RibbonTabs ribbonTabs;
-        //                ribbonTabs = partRibbon.RibbonTabs;
-
-        //                RibbonTab partSketchRibbonTab;
-        //                partSketchRibbonTab = ribbonTabs["id_TabSketch"];
-
-        //                //create a new panel with the tab
-        //                RibbonPanels ribbonPanels;
-        //                ribbonPanels = partSketchRibbonTab.RibbonPanels;
-
-        //                m_partSketchSlotRibbonPanel = ribbonPanels.Add("Slot", "Autodesk:SimpleAddIn:SlotRibbonPanel",
-        //                                                             "{DB59D9A7-EE4C-434A-BB5A-F93E8866E872}", "", false);
-
-        //                //add controls to the slot panel
-        //                CommandControls partSketchSlotRibbonPanelCtrls;
-        //                partSketchSlotRibbonPanelCtrls = m_partSketchSlotRibbonPanel.CommandControls;
-
-        //                //add the combo boxes to the ribbon panel  
-        //                //CommandControl slotWidthCmdCboBoxCmdCtrl;
-        //                //slotWidthCmdCboBoxCmdCtrl = partSketchSlotRibbonPanelCtrls.AddComboBox(m_slotWidthComboBoxDefinition, "", false);
-
-        //                //CommandControl slotHeightCmdCboBoxCmdCtrl;
-        //                //slotHeightCmdCboBoxCmdCtrl = partSketchSlotRibbonPanelCtrls.AddComboBox(m_slotHeightComboBoxDefinition, "", false);
-
-        //                //add the buttons to the ribbon panel
-        //                CommandControl drawSlotCmdBtnCmdCtrl;
-        //                drawSlotCmdBtnCmdCtrl = partSketchSlotRibbonPanelCtrls.AddButton(m_setPropertiesButton.ButtonDefinition, false, true, "", false);
-
-        //            }
-        //            catch (Exception e)
-        //            {
-        //                MessageBox.Show(e.ToString());
-        //            }
-        //        }
+        private void UserInterfaceEvents_OnResetRibbonInterface(NameValueMap context)
+        {
+            try
+            {
+                AddToUserInterface();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
 
         //private void SlotWidthComboBox_OnSelect(NameValueMap context)
         //{

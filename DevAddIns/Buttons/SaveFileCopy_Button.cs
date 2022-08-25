@@ -3,7 +3,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace DevAddIns.Buttons
+namespace DevAddIns
 {
     internal class SaveFileCopy_Button : Button_Object
     {
@@ -26,7 +26,17 @@ namespace DevAddIns.Buttons
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
             Document editDocument = InventorApplication.ActiveDocument;
-            editDocument.SaveAs(editDocument.FullFileName + "_1", true);
+            string fileName = System.IO.Path.GetDirectoryName(editDocument.FullFileName) + "\\" + System.IO.Path.GetFileNameWithoutExtension(editDocument.FullDocumentName);
+            string extension = System.IO.Path.GetExtension(editDocument.FullFileName);
+            for (int i = 1; ; i++)
+            {
+                string copyName = $"{fileName}_{i}{extension}";
+                if (!System.IO.File.Exists(copyName))
+                {
+                    editDocument.SaveAs(copyName, true);
+                    return;
+                }
+            }
         }
         #endregion
     }
