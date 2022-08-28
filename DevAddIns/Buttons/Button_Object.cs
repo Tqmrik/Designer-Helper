@@ -8,7 +8,9 @@ using Microsoft.VisualBasic.Compatibility.VB6;
 
 namespace DevAddIns
 {
-	//Class to create buttons from
+	/// <summary>
+	/// Defines the button object for Inventor application
+	/// </summary>
     internal abstract class Button_Object
 	{
 		#region "Data"

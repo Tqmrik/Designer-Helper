@@ -39,6 +39,7 @@ namespace DevAddIns
         private ExecuteOnStartup executeOnStartup_Method;
         private NewExportAs_Button newExportAs_Button;
         private SaveFileCopy_Button saveFileCopy_Button;
+        private OpenFileDirectory_Button openDirectory_Button;
 
         //comboBoxes
         private DrawingStyle_ComboBox m_drawingStyleComboBox;
@@ -222,6 +223,10 @@ namespace DevAddIns
 
                 saveFileCopy_Button = new SaveFileCopy_Button("File copy", "Save copy of file", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Save copy of file", "Save copy of file", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
 
+
+                //TODO: Change descriptions
+                openDirectory_Button = new OpenFileDirectory_Button("Open file directory", "Open file directory", CommandTypesEnum.kFileOperationsCmdType, AddInClientID(), "Open file directory", "Open file directory", changeMassLengthUnitsToMetricIconStandart, changeMassLengthUnitsToMetricIconLarge, ButtonDisplayEnum.kDisplayTextInLearningMode);
+
                 //m_drawingStyleComboBox = new DrawingStyleComboBox("123", "312", CommandTypesEnum.kSchemaChangeCmdType, 100, AddInClientID(), "ddesc", "asda",ButtonDisplayEnum.kDisplayTextInLearningMode);
                 //Create comboBoxes
 
@@ -354,6 +359,7 @@ namespace DevAddIns
                 balloonsEndArrow_Button = null;
                 newExportAs_Button = null;
                 saveFileCopy_Button = null;
+                openDirectory_Button = null;
 
 
                 //Dispose comboboxes
@@ -481,7 +487,8 @@ namespace DevAddIns
                     projecSketchAxis_Button,
                     testFunction_Button,
                     showProperties_Button,
-                    saveFileCopy_Button
+                    saveFileCopy_Button,
+                    openDirectory_Button
                 };
 
 
@@ -702,5 +709,6 @@ namespace DevAddIns
 // TODO: Add web pages into the form???
 // TODO: Implements on reset ribbon
 // TODO: Create file copy withouth saving it to the vault
+// TODO: Create button to open file's directory
 // NOTE: Working with IPictDisp: https://docs.microsoft.com/en-us/archive/blogs/andreww/converting-between-ipicturedisp-and-system-drawing-image
 #endregion

@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace DevAddIns
 {
+    /// <summary>
+    /// Button object for creating copy of the active document
+    /// </summary>
     internal class SaveFileCopy_Button : Button_Object
     {
         #region "Constructors"
@@ -22,6 +25,10 @@ namespace DevAddIns
         #endregion
 
 
+        /// <summary>
+        /// Handler for button click of SaveFileCopy_Button
+        /// </summary>
+        /// <param name="context">Input object that can be used to determine the context of why the event fired</param>
         #region "EventHandling"
         override protected void ButtonDefinition_OnExecute(NameValueMap context)
         {
@@ -34,9 +41,12 @@ namespace DevAddIns
                 if (!System.IO.File.Exists(copyName))
                 {
                     editDocument.SaveAs(copyName, true);
+                    //Opens a directory in a explorer and highlights the file
+                    System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{copyName}\"");
                     return;
                 }
             }
+            
         }
         #endregion
     }
