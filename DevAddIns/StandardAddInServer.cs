@@ -111,7 +111,9 @@ namespace DevAddIns
                 TranslatorList.InventorApplication = InventorApplication;
                 FileExportControl.InventorApplication = InventorApplication;
                 TranslatorOptions.InventorApplication = InventorApplication;
-                
+
+                EditPropertiesForm.InventorApplication = InventorApplication;
+
 
                 executeOnStartup_Method = new ExecuteOnStartup();
 

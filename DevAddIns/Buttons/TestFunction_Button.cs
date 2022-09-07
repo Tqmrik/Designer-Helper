@@ -41,7 +41,10 @@ namespace DevAddIns
 
             //TranslatorOptions translator = new TranslatorOptions();
             //translator.DisplayTranslatorOptions();
-            
+
+
+            ApplicationAddIn sedenumAppAddIn = InventorApplication.ApplicationAddIns.ItemById["{fb869b0a-a71f-4590-89fc-ff707daa96c3}".ToUpperInvariant()];
+            string addInPath = System.IO.Path.GetDirectoryName(sedenumAppAddIn.Location);
         }
         #endregion
     }

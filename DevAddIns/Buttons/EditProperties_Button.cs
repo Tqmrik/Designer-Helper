@@ -30,13 +30,14 @@ namespace DevAddIns
             if (InventorApplication.ActiveDocument == null) return;
             try
             {
-                //EditPropertiesForm editProperties = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
-                //editProperties.ShowDialog();
-
-                IPropertiesForm editProperties = new IPropertiesForm();
-                IPropertiesWPFForm._inventorApplication = InventorApplication;
+                EditPropertiesForm editProperties = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
+                
                 editProperties.ShowDialog();
-                editProperties = null;
+
+                //IPropertiesForm editProperties = new IPropertiesForm();
+                //IPropertiesWPFForm._inventorApplication = InventorApplication;
+                //editProperties.ShowDialog();
+                //editProperties = null;
 
                 //surfaceAreaForm.invApp = InventorApplication;
                 //surfaceAreaForm sd = new surfaceAreaForm();

@@ -38,7 +38,23 @@ namespace DevAddIns
             string currentUserAppDataPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
             EditPropertiesForm editPropertiesForm = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
 
-            currentUserAppDataPath = currentUserAppDataPath + "\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData\\EditProperties.txt";
+            ApplicationAddIn sedenumAppAddIn = InventorApplication.ApplicationAddIns.ItemById["{fb869b0a-a71f-4590-89fc-ff707daa96c3}".ToUpperInvariant()];
+            string addInPath = System.IO.Path.GetDirectoryName(sedenumAppAddIn.Location);
+
+            if (!System.IO.Directory.Exists(currentUserAppDataPath))
+            {
+                System.IO.Directory.CreateDirectory(currentUserAppDataPath);
+            }
+
+            currentUserAppDataPath = addInPath + "\\EditProperties.txt";
+
+            if (!System.IO.File.Exists(currentUserAppDataPath))
+            {
+                var fileStream = System.IO.File.Create(currentUserAppDataPath);
+                fileStream.Close();
+            }
+
+
 
             Document activeDocument = InventorApplication.ActiveDocument;
 
