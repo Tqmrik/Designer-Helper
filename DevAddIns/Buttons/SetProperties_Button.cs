@@ -86,20 +86,6 @@ namespace DevAddIns
                 if (!System.IO.File.Exists(currentUserAppDataPath)) editPropertiesForm.ShowDialog();
 
                 StreamReader fileObject = System.IO.File.OpenText(currentUserAppDataPath);
-
-
-                //Check if file exists but empty
-                if(new FileInfo(currentUserAppDataPath).Length < 6 || System.IO.File.ReadAllText(currentUserAppDataPath).Length == 0)
-                {
-                    EditPropertiesForm editProperties = new EditPropertiesForm();
-                    editProperties.ShowDialog();
-                }
-
-                if (new FileInfo(currentUserAppDataPath).Length < 6 || System.IO.File.ReadAllText(currentUserAppDataPath).Length == 0)
-                {
-                    return;
-                }
-
                 checkedByProperty = fileObject.ReadLine().Split(':')[1].Trim();
                 companyNameProperty = fileObject.ReadLine().Split(':')[1].Trim();
 
