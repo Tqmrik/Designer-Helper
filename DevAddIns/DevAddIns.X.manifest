@@ -6,6 +6,6 @@
 
   <clrClass clsid="{fb869b0a-a71f-4590-89fc-ff707daa96c3}" progid="DevAddIns.StandardAddInServer" threadingModel="Both" name="DevAddIns.StandardAddInServer" runtimeVersion=""></clrClass>
 
-  <file name="DevAddIns.dll" hashalg="SHA1"></file>
+  <file name="Designer-Helper.dll" hashalg="SHA1"></file>
 
 </assembly>

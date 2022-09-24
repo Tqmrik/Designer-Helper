@@ -2,9 +2,9 @@
   <!--Created for Autodesk Inventor Version 25.0-->
   <ClassId>{fb869b0a-a71f-4590-89fc-ff707daa96c3}</ClassId>
   <ClientId>{fb869b0a-a71f-4590-89fc-ff707daa96c3}</ClientId>
-  <DisplayName>Sedenum Pack</DisplayName>
-  <Description>Sedenum Pack</Description>
-  <Assembly>DevAddIns.dll</Assembly>
+  <DisplayName>Designer Helper</DisplayName>
+  <Description>Designer Helper</Description>
+  <Assembly>Designer-Helper.dll</Assembly>
   <LoadOnStartUp>1</LoadOnStartUp>
   <UserUnloadable>1</UserUnloadable>
   <Hidden>0</Hidden>

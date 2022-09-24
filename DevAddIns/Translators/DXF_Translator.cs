@@ -15,14 +15,14 @@ namespace DevAddIns
         string sOut = "FLAT PATTERN DXF?AcadVersion=2010&OuterProfileLayer=Outer&BendLayer=Bend&OuterProfileLayerColor=0;0;0&BendUpLayerColor=0;0;0&BendUpLayerLineType=37644&BendDownLayerColor=0;0;0&BendUpLayerLineWeight=.025&TrimCenterlinesAtContour=True&MergeProfilesIntoPolyline=True&InvisibleLayers=IV_TANGENT;IV_ARC_CENTERS;&RebaseGeometry=True";
         //help source on string build: https://www.cadforum.cz/en/export-unfolds-of-sheetmetal-parts-to-dxf-parameters-for-ilogic-
 
-        public void createFlatDXF(Document doc)
+        public void createFlatDXF(Document document)
         {
 
-            if(doc.IsDrawingDocument())
+            if(document.IsDrawingDocument())
             {
                 if (packAssembly)
                 {
-                    foreach (Document oFD in doc.AllReferencedDocuments)
+                    foreach (Document oFD in document.AllReferencedDocuments)
                     {
                         dxfCreate(oFD);
                     }
@@ -38,22 +38,22 @@ namespace DevAddIns
                 }
 
             }
-            else if (doc.IsSheetMetalDocument())
+            else if (document.IsSheetMetalDocument())
             {
-                dxfCreate(doc);
+                dxfCreate(document);
             }
-            else if (doc.IsAssemblyDocument() || doc.IsWeldmentDocument())
+            else if (document.IsAssemblyDocument() || document.IsWeldmentDocument())
             {
                 if(packAssembly)
                 {
-                    foreach(Document oFD in doc.AllReferencedDocuments)
+                    foreach(Document oFD in document.AllReferencedDocuments)
                     {
                         dxfCreate(oFD);
                     }
                 }
                 else if (includeParts)
                 {
-                    foreach (Document oFDF in doc.ReferencedDocuments)
+                    foreach (Document oFDF in document.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
 
                         if (oFDF.IsAssemblyDocument())
@@ -89,15 +89,15 @@ namespace DevAddIns
                 }
             }
         }
-        private void filePathHelper(Document doc)
+        private void filePathHelper(Document document)
         {
-            if (!String.IsNullOrEmpty(doc.FullFileName))
+            if (!String.IsNullOrEmpty(document.FullFileName))
             {
-                if (!doc.IsSheetMetalDocument())
+                if (!document.IsSheetMetalDocument())
                 {
                     return;
                 }
-                filePath = RevisionHelper.addRevisionLetter(doc, PathConverter.clearExtension(doc), extension);
+                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
             }
             else
             {
@@ -112,18 +112,18 @@ namespace DevAddIns
             }
         }
 
-        private void dxfCreate(Document doc)
+        private void dxfCreate(Document document)
         {
-            if (doc.IsSheetMetalDocument())
+            if (document.IsSheetMetalDocument())
             {
-                doc.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
+                document.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
 
                 if(String.IsNullOrEmpty(filePath))
                 {
-                    filePathHelper(doc);
+                    filePathHelper(document);
                 }
                 
-                oSMDef = (SheetMetalComponentDefinition)((PartDocument)doc).ComponentDefinition;
+                oSMDef = (SheetMetalComponentDefinition)((PartDocument)document).ComponentDefinition;
 
                 oDataIO = oSMDef.DataIO;
 
@@ -136,9 +136,9 @@ namespace DevAddIns
 
                 oDataIO.WriteDataToFile(sOut, filePath);
 
-                if (doc != _inventorApplication.ActiveDocument)
+                if (document != _inventorApplication.ActiveDocument)
                 {
-                    doc.Close(); 
+                    document.Close(); 
                 }
             }
             else return;

@@ -75,9 +75,9 @@ namespace DevAddIns
                     if (packAssembly)
                     {
                         PDF_Create(document);
-                        foreach (Document dasd in document.AllReferencedDocuments)
+                        foreach (Document allReferencedDocuments in document.AllReferencedDocuments)
                         {
-                            PDF_Create(dasd);
+                            PDF_Create(allReferencedDocuments);
                         }
                         return;
                     }
@@ -124,12 +124,12 @@ namespace DevAddIns
             oDataMedium = null;
         }
 
-        private void filePathHelper(Document doc) //Add a revision letter to the output file name
+        private void filePathHelper(Document document) //Add a revision letter to the output file name
         { 
-            if (!String.IsNullOrEmpty(doc.FullDocumentName))
+            if (!String.IsNullOrEmpty(document.FullDocumentName))
             {
                 //Add revision letter to the file name
-                filePath = RevisionHelper.addRevisionLetter(doc, PathConverter.clearExtension(doc), extension);
+                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
             }
             else
             {

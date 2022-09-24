@@ -21,7 +21,7 @@ namespace DevAddIns
             this.filePath = filePath;
         }
 
-        public void CreateSTEP(Document doc)
+        public void CreateSTEP(Document document)
         {
             //Wrap in the try/catch???
             oContext.Type = IOMechanismEnum.kFileBrowseIOMechanism;
@@ -32,75 +32,75 @@ namespace DevAddIns
                 return;
             }
 
-            if (doc.IsDrawingDocument())
+            if (document.IsDrawingDocument())
             {
                 if(packAssembly)
                 {
-                    foreach (Document oFD in doc.AllReferencedDocuments)
+                    foreach (Document referencedDocumentInDrawing in document.AllReferencedDocuments)
                     {
                         
-                        StepCreate(oFD);
+                        StepCreate(referencedDocumentInDrawing);
                     }
                     return;
                 }
                 else
                 {
-                    foreach (Document oFD in doc.ReferencedDocuments)
+                    foreach (Document referencedDocumentInDrawing in document.ReferencedDocuments)
                     {
-                        StepCreate(oFD);
+                        StepCreate(referencedDocumentInDrawing);
                     }
                 }
             }
-            else if (doc.IsAssemblyDocument() || doc.IsWeldmentDocument())
+            else if (document.IsAssemblyDocument() || document.IsWeldmentDocument())
             {
-                if (((AssemblyDocument)doc).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                if (((AssemblyDocument)document).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                 {
 
                 }
                 else
                 {
-                    StepCreate(doc);
+                    StepCreate(document);
                 }
 
                 if(packAssembly)
                 {
-                    StepCreate(doc);
-                    foreach (Document oFD in doc.AllReferencedDocuments)
+                    StepCreate(document);
+                    foreach (Document referencedDocumentInDrawing in document.AllReferencedDocuments)
                     { 
-                        StepCreate(oFD);
+                        StepCreate(referencedDocumentInDrawing);
                     }
                     return;
                 }
 
                 if (includeParts)
                 {
-                    foreach (Document oFD in doc.ReferencedDocuments)
+                    foreach (Document referencedDocumentInDocument in document.ReferencedDocuments)
                     {//Check for every referenced document in the drawing and create step file of each
-                        if (oFD.IsAssemblyDocument())
+                        if (referencedDocumentInDocument.IsAssemblyDocument())
                         {
-                            if (((AssemblyDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            if (((AssemblyDocument)referencedDocumentInDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
                                 continue;
                             }
                         }
-                        else if (oFD.IsPartDocument())
+                        else if (referencedDocumentInDocument.IsPartDocument())
                         {
-                            if (((PartDocument)oFD).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
+                            if (((PartDocument)referencedDocumentInDocument).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                             {
                                 continue;
                             }
                         }
-                        StepCreate(oFD);
+                        StepCreate(referencedDocumentInDocument);
                     }
                 }
             }
-            else if (doc.IsPartDocument() || doc.IsSheetMetalDocument())
+            else if (document.IsPartDocument() || document.IsSheetMetalDocument())
             {
-                if (((PartDocument)doc).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
+                if (((PartDocument)document).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure)
                 {
                     return;
                 }
-                StepCreate(doc);               
+                StepCreate(document);               
             }
 
             oTranslator = null;
@@ -109,12 +109,12 @@ namespace DevAddIns
             oDataMedium = null;
         }
 
-        private void FilePathHelper(Document doc) //Add a revision letter to the output file name
+        private void FilePathHelper(Document document) //Add a revision letter to the output file name
         {
-            if (!String.IsNullOrEmpty(doc.FullDocumentName))
+            if (!String.IsNullOrEmpty(document.FullDocumentName))
             {
                 //Add revision letter to the file name
-                filePath = RevisionHelper.addRevisionLetter(doc, PathConverter.clearExtension(doc), extension);
+                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
             }
             else
             {
@@ -129,29 +129,29 @@ namespace DevAddIns
                 filePath += $".{extension}";
             }
         }
-        private void OptionsSetter(Document doc)
+        private void OptionsSetter(Document document)
         {
             oOptions.Value["ApplicationProtocolType"] = 3;
-            oOptions.Value["Author"] = doc.PropertySets[3][24].Value;
+            oOptions.Value["Author"] = document.PropertySets[3][24].Value;
             //oOptions.Value("Authorization") = ""
-            oOptions.Value["Description"] = doc.PropertySets[3][14].Value;
-            oOptions.Value["Organization"] = doc.PropertySets[2][3].Value;
+            oOptions.Value["Description"] = document.PropertySets[3][14].Value;
+            oOptions.Value["Organization"] = document.PropertySets[2][3].Value;
         }
-        private void StepCreate(Document doc)
+        private void StepCreate(Document document)
         {
-            if(!(doc is null))
+            if(!(document is null))
             {
                 //Document referencedDocumentObject = InventorApplication.Documents.ItemByName[doc.FullFileName];
 
-                 if (oTranslator.HasSaveCopyAsOptions[doc, oContext, oOptions])
+                 if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
                  {
 
                     if(String.IsNullOrEmpty(filePath))
                     {
-                        FilePathHelper(doc);
-                        if (oTranslator.HasSaveCopyAsOptions[doc, oContext, oOptions])
+                        FilePathHelper(document);
+                        if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
                         {
-                            OptionsSetter(doc);
+                            OptionsSetter(document);
                         }
                         //TODO: Somehow transfer oOptions setter into constructor 
                     }
@@ -161,10 +161,10 @@ namespace DevAddIns
 
                     try
                     {
-                        oTranslator.SaveCopyAs(doc, oContext, oOptions, oDataMedium);
-                        if(doc != _inventorApplication.ActiveDocument)
+                        oTranslator.SaveCopyAs(document, oContext, oOptions, oDataMedium);
+                        if(document != _inventorApplication.ActiveDocument)
                         {
-                            doc.Close();
+                            document.Close();
                         }
                          //Do i even need this????
                     }
