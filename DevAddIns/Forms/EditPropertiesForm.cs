@@ -53,9 +53,6 @@ namespace DevAddIns
                     return;
                 }
 
-
-
-                string currentUserAppDataPath = filePath;
                 //currentUserAppDataPath = currentUserAppDataPath + "\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData";
 
                 //if (!System.IO.Directory.Exists(currentUserAppDataPath))
@@ -63,15 +60,14 @@ namespace DevAddIns
                 //     System.IO.Directory.CreateDirectory(currentUserAppDataPath);
                 //}
 
-                currentUserAppDataPath = GlobalVar.addInDirectory + "\\EditProperties.txt";
 
-                if (!System.IO.File.Exists(currentUserAppDataPath))
+                if (!System.IO.File.Exists(GlobalVar.editPropertiesFile))
                 {
-                    var fileStream = System.IO.File.Create(currentUserAppDataPath);
+                    var fileStream = System.IO.File.Create(GlobalVar.editPropertiesFile);
                     fileStream.Close();
                 }
 
-                StreamWriter textFileStream = new StreamWriter(currentUserAppDataPath);
+                StreamWriter textFileStream = new StreamWriter(GlobalVar.editPropertiesFile);
                 
                 textFileStream.WriteLine("Checked : " + checkedBy);
                 textFileStream.WriteLine("Company : " + companyName);

@@ -113,13 +113,11 @@ namespace DevAddIns
             }
 
             // TODO: revisionIterator -> Change file to something else + add new file
-            string currentUserAppDataPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData);
             EditPropertiesForm editPropertiesForm = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
-            currentUserAppDataPath = currentUserAppDataPath + "\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData\\EditProperties.txt";
 
             if (!System.IO.File.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData))) editPropertiesForm.ShowDialog();
 
-            StreamReader fileObject = System.IO.File.OpenText(currentUserAppDataPath);
+            StreamReader fileObject = System.IO.File.OpenText(GlobalVar.editPropertiesFile);
             string checkedByProperty = fileObject.ReadLine().Split(':')[1].Trim();
             fileObject.Close();
 
@@ -142,5 +140,4 @@ namespace DevAddIns
     }
 }
 
-// TODO: String comparer class/method
 // TODO: Also update the revision in the classic properties

@@ -11,7 +11,6 @@ namespace DevAddIns
     {
         public static bool IsPurchased(this Document document)
         {
-            //TODO: Implement
             if (document.IsAssemblyDocument() || document.IsWeldmentDocument())
             {
                 return ((AssemblyDocument)document).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure;

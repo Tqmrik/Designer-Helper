@@ -16,6 +16,7 @@ namespace DevAddIns
         public const string eskdAddClassID = "{005B21FC-8537-4926-9F57-3A3216C294C3}";
         public const string addInClassID = "{fb869b0a-a71f-4590-89fc-ff707daa96c3}";
         public static string addInDirectory;
+        public static string editPropertiesFile;
     }
     /// <summary>
     /// This is the primary AddIn Server class that implements the ApplicationAddInServer interface
@@ -26,8 +27,6 @@ namespace DevAddIns
 
     public class StandardAddInServer : Inventor.ApplicationAddInServer
     {
-
-
 
 
         //Inventor application object
@@ -85,6 +84,7 @@ namespace DevAddIns
         {
             InventorApplication = addInSiteObject.Application;
             GlobalVar.addInDirectory = System.IO.Path.GetDirectoryName(InventorApplication.ApplicationAddIns.ItemById[GlobalVar.addInClassID].Location);
+            GlobalVar.editPropertiesFile = GlobalVar.addInDirectory + "\\EditProperties.txt";
 
             //Handle the ribbon reset, so that the same buttons are added when addin is executed
 
@@ -713,7 +713,6 @@ namespace DevAddIns
 
 #region "TODO land"
 // TODO: Add web pages into the form???
-// TODO: Implements on reset ribbon
 // TODO: Create file copy withouth saving it to the vault
 // TODO: Create button to open file's directory
 // NOTE: Working with IPictDisp: https://docs.microsoft.com/en-us/archive/blogs/andreww/converting-between-ipicturedisp-and-system-drawing-image
