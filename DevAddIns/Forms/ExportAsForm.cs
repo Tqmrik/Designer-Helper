@@ -37,8 +37,6 @@ namespace DevAddIns
             }
         }
 
-        private Translator_Object translator = new Translator_Object();
-
         private PDF_Translator pdfTranslator = new PDF_Translator();
         private STEP_Translator stepTranslator = new STEP_Translator();
         private DXF_Translator dxfTranslator = new DXF_Translator();

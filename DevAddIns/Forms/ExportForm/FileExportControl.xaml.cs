@@ -77,7 +77,6 @@ namespace DevAddIns
 
                 foreach(Document doc in activeDocument.AllReferencedDocuments)
                 {
-                    //TODO: rewrite to the case statement?????
                     switch(doc.SubType)
                     {
                         case DocumentChecker.PartDocumentCLSID:

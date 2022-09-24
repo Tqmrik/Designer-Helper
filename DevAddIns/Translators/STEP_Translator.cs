@@ -132,7 +132,6 @@ namespace DevAddIns
                         {
                             OptionsSetter(document);
                         }
-                        //TODO: Somehow transfer oOptions setter into constructor 
                     }
 
 

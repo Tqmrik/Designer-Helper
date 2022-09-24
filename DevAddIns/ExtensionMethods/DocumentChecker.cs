@@ -14,8 +14,6 @@ namespace DevAddIns
         public const string DrawingDocumentCLSID = "{BBF9FDF1-52DC-11D0-8C04-0800090BE8EC}";
         public const string WeldmentDocumentCLSID = "{28EC8354-9024-440F-A8A2-0E0E55D635B0}";
 
-        //TODO: add documents CLSIDs
-
         public static bool IsPartDocument(this Document inputDocument)
         {
 

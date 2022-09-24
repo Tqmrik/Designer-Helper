@@ -75,21 +75,6 @@ namespace DevAddIns
 
         public void revisionIterator(string Revision, string maxValue, Document activeDocument)
         {
-            //bool propExist = false;
-
-            //foreach(Property prop in activeDocument.PropertySets[4])
-            //{
-            //    if (prop.Name == "_PrefixRevesionSedenum") propExist = true;
-            //}
-
-            //if (!propExist)
-            //{
-            //    activeDocument.PropertySets[4].Add(String.Empty, "_PrefixRevesionSedenum");
-            //}
-
-            //Property prefixProperty = activeDocument.PropertySets[4]["_PrefixRevesionSedenum"];
-
-
             if (Revision == String.Empty)
             {
                 //If there is no max revision then it must be a first revision
@@ -112,7 +97,6 @@ namespace DevAddIns
                 
             }
 
-            // TODO: revisionIterator -> Change file to something else + add new file
             EditPropertiesForm editPropertiesForm = new EditPropertiesForm(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData));
 
             if (!System.IO.File.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData))) editPropertiesForm.ShowDialog();
@@ -139,5 +123,3 @@ namespace DevAddIns
         #endregion
     }
 }
-
-// TODO: Also update the revision in the classic properties

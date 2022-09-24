@@ -713,7 +713,5 @@ namespace DevAddIns
 
 #region "TODO land"
 // TODO: Add web pages into the form???
-// TODO: Create file copy withouth saving it to the vault
-// TODO: Create button to open file's directory
 // NOTE: Working with IPictDisp: https://docs.microsoft.com/en-us/archive/blogs/andreww/converting-between-ipicturedisp-and-system-drawing-image
 #endregion

@@ -7,9 +7,8 @@ using System.Collections.Generic;
 
 namespace DevAddIns
 {
-    class Translator_Object
+    abstract class Translator_Object
     {
-        //TODO: Think about whether to make class abstract or not
 
         private static Inventor.Application inventorApplication;
         public static Inventor.Application _inventorApplication
@@ -40,8 +39,6 @@ namespace DevAddIns
         public TranslationContext oContext;
         public NameValueMap oOptions;
         public DataMedium oDataMedium;
-
-        //TODO: Create constructor with a document in it so that we can use that doc accross all the methods inside translators
 
         public Translator_Object()
         {
@@ -90,13 +87,9 @@ namespace DevAddIns
 
 //Create method overrides that will take path as arguments???s
 
-//TODO: Create a typicall translator class
 //TODO: Add a file finder in the directories(use recursion until NULL)
 //TODO: Change Forms so that they will look a bit presentable
 //TODO: CheckBox for replacing existing files???
-
-
-//TODO: There is apparently option to save sheet metal into pdf document???
 
 
 //PDF options:

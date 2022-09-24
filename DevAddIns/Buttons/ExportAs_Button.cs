@@ -35,8 +35,6 @@ namespace DevAddIns
             //Get document that the drawing refernces
             //Create step file of such document
 
-            //TODO: Wrap in the try's; check to see if it's possible to create step without opening the actual document; play with the algorith to see other errors in documents with null references and so on
-
             if (InventorApplication.ActiveDocument == null) return;
             try
             {
