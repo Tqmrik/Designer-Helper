@@ -11,16 +11,24 @@ using Microsoft.VisualBasic.Compatibility.VB6;
 
 namespace DevAddIns
 {
+    public static class GlobalVar
+    {
+        public const string eskdAddClassID = "{005B21FC-8537-4926-9F57-3A3216C294C3}";
+        public const string addInClassID = "{fb869b0a-a71f-4590-89fc-ff707daa96c3}";
+        public static string addInDirectory;
+    }
     /// <summary>
     /// This is the primary AddIn Server class that implements the ApplicationAddInServer interface
     /// that all Inventor AddIns are required to implement. The communication between Inventor and
     /// the AddIn is via the methods on this interface.
     /// </summary>
     [GuidAttribute("fb869b0a-a71f-4590-89fc-ff707daa96c3")]
+
     public class StandardAddInServer : Inventor.ApplicationAddInServer
     {
 
-        const string eskdAddClassID = "{005B21FC-8537-4926-9F57-3A3216C294C3}";
+
+
 
         //Inventor application object
         private Inventor.Application InventorApplication;
@@ -47,6 +55,7 @@ namespace DevAddIns
         //user interface event
         //Only for combobox events, could be deleted
         private UserInterfaceEvents m_userInterfaceEvents;
+
 
         // ribbon panel
         //RibbonPanel m_partSketchSlotRibbonPanel;
@@ -75,6 +84,7 @@ namespace DevAddIns
         public void Activate(Inventor.ApplicationAddInSite addInSiteObject, bool firstTime)
         {
             InventorApplication = addInSiteObject.Application;
+            GlobalVar.addInDirectory = System.IO.Path.GetDirectoryName(InventorApplication.ApplicationAddIns.ItemById[GlobalVar.addInClassID].Location);
 
             //Handle the ribbon reset, so that the same buttons are added when addin is executed
 
@@ -93,15 +103,9 @@ namespace DevAddIns
                 //the AddInSiteObject provides access to the Inventor Application object
                 //the FirstTime flag indicates if the addin is loaded for the first time
 
-                //initialize AddIn members
-                
-
-
 
                 UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate = new UserInterfaceEventsSink_OnResetRibbonInterfaceEventHandler(UserInterfaceEvents_OnResetRibbonInterface);
                 InventorApplication.UserInterfaceManager.UserInterfaceEvents.OnResetRibbonInterface += UserInterfaceEventsSink_OnResetRibbonInterfaceEventDelegate;
-
-
 
 
                 Button_Object.InventorApplication = InventorApplication;
@@ -592,7 +596,7 @@ namespace DevAddIns
 
                 //Add ComboBoxes
 
-                if(InventorApplication.ApplicationAddIns.ItemById[eskdAddClassID] != null)
+                if(InventorApplication.ApplicationAddIns.ItemById[GlobalVar.eskdAddClassID] != null)
                 {
                     drawingPanelSed.CommandControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);
                     drawingRibbon.QuickAccessControls.AddComboBox(m_drawingStyleComboBox.ComboBoxDefinition);

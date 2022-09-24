@@ -7,7 +7,6 @@ namespace DevAddIns
 {
     class STEP_Translator : Translator_Object
     {
-        string filePath;
         readonly string extension = "stp";
 
         public STEP_Translator() : base()
@@ -109,26 +108,6 @@ namespace DevAddIns
             oDataMedium = null;
         }
 
-        private void FilePathHelper(Document document) //Add a revision letter to the output file name
-        {
-            if (!String.IsNullOrEmpty(document.FullDocumentName))
-            {
-                //Add revision letter to the file name
-                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
-            }
-            else
-            {
-                //Try to save to the desktop
-                filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
-                int iterator = 1;
-                while (System.IO.File.Exists(filePath + $".{extension}"))
-                {
-                    filePath = filePath.Remove(filePath.Length - 1) + $"{iterator}";
-                    iterator++;
-                }
-                filePath += $".{extension}";
-            }
-        }
         private void OptionsSetter(Document document)
         {
             oOptions.Value["ApplicationProtocolType"] = 3;
@@ -148,7 +127,7 @@ namespace DevAddIns
 
                     if(String.IsNullOrEmpty(filePath))
                     {
-                        FilePathHelper(document);
+                        FilePathHelper(document, extension);
                         if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
                         {
                             OptionsSetter(document);

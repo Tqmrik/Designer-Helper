@@ -13,7 +13,6 @@ namespace DevAddIns
         }
         public void createParasolid()
         {
-            string filePath = "";
             string filePathParasolid = "";
             string extension = "x_t";
 

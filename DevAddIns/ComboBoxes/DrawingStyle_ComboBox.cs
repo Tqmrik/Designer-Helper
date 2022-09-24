@@ -13,7 +13,6 @@ namespace DevAddIns
 
         const string eskdDrawingStyle = "ESKD";
         const string defaultDrawingStyle = "Default";
-        const string eskdAddClassID = "{005B21FC-8537-4926-9F57-3A3216C294C3}";
 
         #region "Constructors"
         //All the arguments are from inventor's method to add a comboBox
@@ -40,10 +39,10 @@ namespace DevAddIns
             switch(m_comboBoxDefinition.Text)
             {
                 case eskdDrawingStyle:
-                    InventorApplication.ApplicationAddIns.ItemById[eskdAddClassID].Activate();
+                    InventorApplication.ApplicationAddIns.ItemById[GlobalVar.eskdAddClassID].Activate();
                     return;
                 default:
-                    InventorApplication.ApplicationAddIns.ItemById[eskdAddClassID].Deactivate();
+                    InventorApplication.ApplicationAddIns.ItemById[GlobalVar.eskdAddClassID].Deactivate();
                     return;
             }
         }

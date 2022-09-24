@@ -7,7 +7,6 @@ namespace DevAddIns
     {
         public DXF_Translator() : base() { }
 
-        string filePath;
         readonly string extension = "dxf";
         SheetMetalComponentDefinition oSMDef;
         DataIO oDataIO;
@@ -89,28 +88,6 @@ namespace DevAddIns
                 }
             }
         }
-        private void filePathHelper(Document document)
-        {
-            if (!String.IsNullOrEmpty(document.FullFileName))
-            {
-                if (!document.IsSheetMetalDocument())
-                {
-                    return;
-                }
-                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
-            }
-            else
-            {
-                filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop) + "\\tempOutput";
-                int iterator = 1;
-                while (System.IO.File.Exists(filePath + $".{extension}"))
-                {
-                    filePath = filePath.Remove(filePath.Length - 1) + iterator.ToString();
-                    iterator++;
-                }
-                filePath += $".{extension}";
-            }
-        }
 
         private void dxfCreate(Document document)
         {
@@ -120,7 +97,7 @@ namespace DevAddIns
 
                 if(String.IsNullOrEmpty(filePath))
                 {
-                    filePathHelper(document);
+                    FilePathHelper(document, extension);
                 }
                 
                 oSMDef = (SheetMetalComponentDefinition)((PartDocument)document).ComponentDefinition;

@@ -34,6 +34,8 @@ namespace DevAddIns
             }
         }
 
+        public string filePath;
+
         public TranslatorAddIn oTranslator;
         public TranslationContext oContext;
         public NameValueMap oOptions;
@@ -53,6 +55,33 @@ namespace DevAddIns
             foreach (string key in oOptionsDictionary.Keys)
             {
                 oOptions.Value[key] = oOptionsDictionary[key];
+            }
+        }
+
+        public void FilePathHelper(Document document, string extension) //Add a revision letter to the output file name
+        {
+            //TODO: Move into another class?
+            if (!String.IsNullOrEmpty(document.FullDocumentName))
+            {
+                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
+                int iterator = 1;
+                while (System.IO.File.Exists(filePath))
+                {
+                    filePath = filePath.Remove(filePath.Length - 1 - extension.Length) + $"_{iterator}" + $".{extension}";
+                    iterator++;
+                }
+            }
+            else
+            {
+                //Try to save to the desktop
+                filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
+                int iterator = 1;
+                while (System.IO.File.Exists(filePath + $".{extension}"))
+                {
+                    filePath = filePath.Remove(filePath.Length - 1) + $"{iterator}";
+                    iterator++;
+                }
+                filePath += $".{extension}";
             }
         }
     }

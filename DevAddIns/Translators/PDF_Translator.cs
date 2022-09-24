@@ -7,7 +7,6 @@ namespace DevAddIns
 {
     class PDF_Translator : Translator_Object
     {
-        string filePath;
         readonly string extension = "pdf";
 
 
@@ -38,7 +37,7 @@ namespace DevAddIns
             {
                 if (String.IsNullOrEmpty(this.filePath))
                 {
-                    filePathHelper(document);
+                    FilePathHelper(document, extension);
                     if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
                     {
                         OptionsSetter();
@@ -124,26 +123,6 @@ namespace DevAddIns
             oDataMedium = null;
         }
 
-        private void filePathHelper(Document document) //Add a revision letter to the output file name
-        { 
-            if (!String.IsNullOrEmpty(document.FullDocumentName))
-            {
-                //Add revision letter to the file name
-                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
-            }
-            else
-            {
-                //Try to save to the desktop
-                filePath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop);
-                int iterator = 1;
-                while (System.IO.File.Exists(filePath + $".{extension}"))
-                {
-                    filePath = filePath.Remove(filePath.Length - 1) + $"{iterator}";
-                    iterator++;
-                }
-                filePath += $".{extension}";
-            }
-        }
         private void OptionsSetter()
         {
             oOptions.Value["All_Color_AS_Black"] = 0;
@@ -181,7 +160,7 @@ namespace DevAddIns
 
                 if (string.IsNullOrEmpty(this.filePath))
                 {
-                    filePathHelper(drawingDocumentObject);
+                    FilePathHelper(drawingDocumentObject, extension);
                     if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
                     {
                         OptionsSetter();

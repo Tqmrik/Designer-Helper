@@ -13,7 +13,6 @@ using Inventor;
 namespace DevAddIns
 {
 
-
     public partial class EditPropertiesForm : Form
     {
         private static Inventor.Application m_inventorApplication;
@@ -57,19 +56,14 @@ namespace DevAddIns
 
 
                 string currentUserAppDataPath = filePath;
-                currentUserAppDataPath = currentUserAppDataPath + "\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData";
+                //currentUserAppDataPath = currentUserAppDataPath + "\\Autodesk\\ApplicationPlugins\\DevAddIns\\AddInData";
 
-                ApplicationAddIn sedenumAppAddIn = InventorApplication.ApplicationAddIns.ItemById["{fb869b0a-a71f-4590-89fc-ff707daa96c3}".ToUpperInvariant()];
-                string addInPath = System.IO.Path.GetDirectoryName(sedenumAppAddIn.Location);
+                //if (!System.IO.Directory.Exists(currentUserAppDataPath))
+                //{
+                //     System.IO.Directory.CreateDirectory(currentUserAppDataPath);
+                //}
 
-
-
-                if (!System.IO.Directory.Exists(currentUserAppDataPath))
-                {
-                     System.IO.Directory.CreateDirectory(currentUserAppDataPath);
-                }
-
-                currentUserAppDataPath = addInPath + "\\EditProperties.txt";
+                currentUserAppDataPath = GlobalVar.addInDirectory + "\\EditProperties.txt";
 
                 if (!System.IO.File.Exists(currentUserAppDataPath))
                 {
