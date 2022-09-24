@@ -2,10 +2,11 @@
 
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
 
-  <assemblyIdentity name="DevAddIns" version="1.0.0.0"></assemblyIdentity>
+  <assemblyIdentity name="Designer Helper" version="1.0.0.0"></assemblyIdentity>
 
-  <clrClass clsid="{fb869b0a-a71f-4590-89fc-ff707daa96c3}" progid="DevAddIns.StandardAddInServer" threadingModel="Both" name="DevAddIns.StandardAddInServer" runtimeVersion=""></clrClass>
+  <clrClass clsid="{741461B9-66A0-4909-83C8-1EE40735C49E}" progid="DevAddIns.StandardAddInServer" threadingModel="Both" name="DevAddIns.StandardAddInServer" runtimeVersion=""></clrClass>
 
-  <file name="DevAddIns.dll" hashalg="SHA1"></file>
+  <file name="Designer-Helper.dll" hashalg="SHA1"></file>
 
 </assembly>
+

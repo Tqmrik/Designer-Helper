@@ -30,3 +30,7 @@
 	4) Startup Inventor, the AddIn should be loaded
 
 	To unregister the AddIn, remove the Autodesk.<AddInName>.Inventor.addin from above mentioned .addin manifest file locations directly.
+
+	// {741461B9-66A0-4909-83C8-1EE40735C49E}
+	// {fb869b0a-a71f-4590-89fc-ff707daa96c3}
+
