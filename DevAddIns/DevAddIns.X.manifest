@@ -4,7 +4,7 @@
 
   <assemblyIdentity name="Designer Helper" version="1.0.0.0"></assemblyIdentity>
 
-  <clrClass clsid="{741461B9-66a0-4909-83c8-1ee40735c49e}" progid="DevAddIns.StandardAddInServer" threadingModel="Both" name="DevAddIns.StandardAddInServer" runtimeVersion=""></clrClass>
+  <clrClass clsid="{741461B9-66A0-4909-83C8-1EE40735C49E}" progid="DevAddIns.StandardAddInServer" threadingModel="Both" name="DevAddIns.StandardAddInServer" runtimeVersion=""></clrClass>
 
   <file name="Designer-Helper.dll" hashalg="SHA1"></file>
 
