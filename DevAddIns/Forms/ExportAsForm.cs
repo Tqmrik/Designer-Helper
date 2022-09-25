@@ -49,6 +49,7 @@ namespace DevAddIns
         bool makeStep = false;
         bool makeDxf = false;
         bool makeXt = false;
+        bool singleDir = false;
         //bool includeParts = false;
         //bool packAssembly = false;
 
@@ -60,6 +61,12 @@ namespace DevAddIns
                 includePartsButton.Visible = false;
             }
             xtVersionsBox.SelectedItem = xtVersionsBox.Items[11];
+        }
+
+        private void singleDirectoryCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (singleDirectoryCheckBox.Checked) singleDir = true;
+            else singleDir = false;
         }
 
         private void pdfCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -121,12 +128,21 @@ namespace DevAddIns
             }
         }
 
-
         private void exportButton_Click(object sender, EventArgs e)
         {
+            if(singleDir)
+            {
+                string directPath = System.IO.Path.GetDirectoryName(activeDocument.FullFileName);
+                Directory.CreateDirectory(directPath + "\\1");
+                directPath += "\\1";
+                pdfTranslator = new PDF_Translator(directPath);
+                stepTranslator = new STEP_Translator(directPath);
+                dxfTranslator = new DXF_Translator(directPath);
+                parasolidTranslator = new Parasolid_Translator();
+            }
+
             var rebuildTask = docRebuild(activeDocument);
             rebuildTask.Wait();
-
             if (makePdf == true) pdfTranslator.CreatePDF(activeDocument);
             if (makeDxf == true) dxfTranslator.createFlatDXF(activeDocument);
             if (makeStep == true) stepTranslator.CreateSTEP(activeDocument);

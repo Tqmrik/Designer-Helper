@@ -14,6 +14,12 @@ namespace DevAddIns
             oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
         }
 
+        public STEP_Translator(string filePath) : base(filePath)
+        {
+            oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
+            this.dirPath = filePath;
+        }
+
         public STEP_Translator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
         {
             oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{90AF7F40-0C01-11D5-8E83-0010B541CD80}"];
@@ -124,16 +130,12 @@ namespace DevAddIns
 
                  if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
                  {
+                    FilePathHelper(document, extension);
 
-                    if(String.IsNullOrEmpty(filePath))
+                    if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
                     {
-                        FilePathHelper(document, extension);
-                        if (oTranslator.HasSaveCopyAsOptions[document, oContext, oOptions])
-                        {
-                            OptionsSetter(document);
-                        }
+                        OptionsSetter(document);
                     }
-
 
                     oDataMedium.FileName = filePath;
 

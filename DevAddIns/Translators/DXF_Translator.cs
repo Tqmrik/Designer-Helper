@@ -7,6 +7,13 @@ namespace DevAddIns
     {
         public DXF_Translator() : base() { }
 
+        public DXF_Translator(string filePath) : base(filePath)
+        {
+
+            this.dirPath = filePath;
+        }
+
+
         readonly string extension = "dxf";
         SheetMetalComponentDefinition oSMDef;
         DataIO oDataIO;
@@ -95,10 +102,7 @@ namespace DevAddIns
             {
                 document.UnitsOfMeasure.LengthUnits = UnitsTypeEnum.kMillimeterLengthUnits;
 
-                if(String.IsNullOrEmpty(filePath))
-                {
-                    FilePathHelper(document, extension);
-                }
+                FilePathHelper(document, extension);
                 
                 oSMDef = (SheetMetalComponentDefinition)((PartDocument)document).ComponentDefinition;
 
@@ -106,6 +110,7 @@ namespace DevAddIns
 
                 if (!oSMDef.HasFlatPattern)
                 {
+                    return;
                     //Error prone
                     oSMDef.Unfold();
                     oSMDef.FlatPattern.ExitEdit();

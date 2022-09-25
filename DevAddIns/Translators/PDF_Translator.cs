@@ -17,6 +17,12 @@ namespace DevAddIns
             oOptions.Value["Remove_Line_Weights"] = 0;
         }
 
+        public PDF_Translator(string filePath) : base(filePath)
+        {
+            oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
+            this.dirPath = filePath;
+        }
+
         public PDF_Translator(Dictionary<string, string> oOptionsDictionary, string filePath) : base(oOptionsDictionary, filePath)
         {
             oTranslator = (TranslatorAddIn)_inventorApplication.ApplicationAddIns.ItemById["{0AC6FD96-2F4D-42CE-8BE0-8AEA580399E4}"];
@@ -62,6 +68,7 @@ namespace DevAddIns
                 //Make pdf for the assembly drawing
                 if (document != null)
                 {
+                    //TODO: 
                     if (((AssemblyDocument)document).ComponentDefinition.BOMStructure == BOMStructureEnum.kPurchasedBOMStructure) //Check to see if the part purchased or not
                     {
 
@@ -73,10 +80,9 @@ namespace DevAddIns
 
                     if (packAssembly)
                     {
-                        PDF_Create(document);
-                        foreach (Document allReferencedDocuments in document.AllReferencedDocuments)
+                        foreach (Document referencedDocument in document.AllReferencedDocuments)
                         {
-                            PDF_Create(allReferencedDocuments);
+                            PDF_Create(referencedDocument);
                         }
                         return;
                     }
@@ -141,6 +147,7 @@ namespace DevAddIns
             string partDrawingPath = PathConverter.guessDrawingPath(document);
 
             string referencedDocumentDrawingPath;
+
             if (!string.IsNullOrEmpty(partDrawingPath)) //If there is invalid path
             {
                 referencedDocumentDrawingPath = _inventorApplication.DesignProjectManager.ResolveFile(partDirectory, partDrawingPath);
@@ -158,15 +165,13 @@ namespace DevAddIns
                 //If drawing is placed in the folder, save it to the folder as well
                 Document drawingDocumentObject = _inventorApplication.Documents.Open(referencedDocumentDrawingPath, OpenVisible: false);
 
-                if (string.IsNullOrEmpty(this.filePath))
+                FilePathHelper(drawingDocumentObject, extension);
+
+                if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
                 {
-                    FilePathHelper(drawingDocumentObject, extension);
-                    if (oTranslator.HasSaveCopyAsOptions[drawingDocumentObject, oContext, oOptions])
-                    {
-                        OptionsSetter();
-                    }
+                    OptionsSetter();
                 }
-                
+
                 oDataMedium.FileName = filePath;
 
                 try

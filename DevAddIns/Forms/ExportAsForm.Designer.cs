@@ -38,6 +38,7 @@ namespace DevAddIns
             this.xtCheckBox = new System.Windows.Forms.CheckBox();
             this.xtVersionsBox = new System.Windows.Forms.ComboBox();
             this.packAssemblyButton = new System.Windows.Forms.CheckBox();
+            this.singleDirectoryCheckBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // pdfCheckBox
@@ -81,7 +82,7 @@ namespace DevAddIns
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.exportButton.Location = new System.Drawing.Point(12, 174);
+            this.exportButton.Location = new System.Drawing.Point(12, 195);
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(264, 35);
             this.exportButton.TabIndex = 0;
@@ -176,11 +177,23 @@ namespace DevAddIns
             this.packAssemblyButton.UseVisualStyleBackColor = true;
             this.packAssemblyButton.CheckedChanged += new System.EventHandler(this.packAssemblyButton_CheckedChanged);
             // 
+            // singleDirectoryCheckBox
+            // 
+            this.singleDirectoryCheckBox.AutoSize = true;
+            this.singleDirectoryCheckBox.Location = new System.Drawing.Point(12, 172);
+            this.singleDirectoryCheckBox.Name = "singleDirectoryCheckBox";
+            this.singleDirectoryCheckBox.Size = new System.Drawing.Size(89, 17);
+            this.singleDirectoryCheckBox.TabIndex = 9;
+            this.singleDirectoryCheckBox.Text = "One directory";
+            this.singleDirectoryCheckBox.UseVisualStyleBackColor = true;
+            this.singleDirectoryCheckBox.CheckedChanged += new System.EventHandler(this.singleDirectoryCheckBox_CheckedChanged);
+            // 
             // ExportAsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 221);
+            this.ClientSize = new System.Drawing.Size(288, 242);
+            this.Controls.Add(this.singleDirectoryCheckBox);
             this.Controls.Add(this.packAssemblyButton);
             this.Controls.Add(this.xtVersionsBox);
             this.Controls.Add(this.xtCheckBox);
@@ -208,5 +221,6 @@ namespace DevAddIns
         private System.Windows.Forms.CheckBox xtCheckBox;
         private System.Windows.Forms.ComboBox xtVersionsBox;
         private System.Windows.Forms.CheckBox packAssemblyButton;
+        private System.Windows.Forms.CheckBox singleDirectoryCheckBox;
     }
 }

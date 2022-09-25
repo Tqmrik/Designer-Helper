@@ -35,7 +35,7 @@ namespace DevAddIns
                     if (!String.IsNullOrEmpty(oFD.FullFileName))
                     {
                         referencedDocumentObject = _inventorApplication.Documents.ItemByName[oFD.FullFileName];
-                        filePathParasolid = RevisionHelper.addRevisionLetter(referencedDocumentObject, PathConverter.clearExtension(referencedDocumentObject), extension);
+                        filePathParasolid = RevisionHelper.addRevisionLetter(referencedDocumentObject, PathConverter.FileNameWithoutExtension(referencedDocumentObject), extension);
                     }
                     else
                     {
@@ -84,7 +84,7 @@ namespace DevAddIns
                     if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                     {
                         referencedDocumentObject = _inventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                        filePathParasolid = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
+                        filePathParasolid = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.FileNameWithoutExtension(activeDocument), extension);
                     }
                     else
                     {
@@ -137,7 +137,7 @@ namespace DevAddIns
                         {
                             //It seems that to get the drawing you would need to search in the same folder for the file with the same name as a drawing
                             referencedDocumentObject = _inventorApplication.Documents.ItemByName[oFD.FullFileName]; //Why do i need that as well????
-                            filePathParasolid = RevisionHelper.addRevisionLetter(oFD, PathConverter.clearExtension(oFD), extension);
+                            filePathParasolid = RevisionHelper.addRevisionLetter(oFD, PathConverter.FileNameWithoutExtension(oFD), extension);
 
                             if (oTranslator.HasSaveCopyAsOptions[oFD, oContext, oOptions])
                             {
@@ -173,7 +173,7 @@ namespace DevAddIns
                 if (!String.IsNullOrEmpty(activeDocument.FullFileName))
                 {
                     referencedDocumentObject = _inventorApplication.Documents.ItemByName[activeDocument.FullFileName];
-                    filePathParasolid = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.clearExtension(activeDocument), extension);
+                    filePathParasolid = RevisionHelper.addRevisionLetter(activeDocument, PathConverter.FileNameWithoutExtension(activeDocument), extension);
                 }
                 else
                 {

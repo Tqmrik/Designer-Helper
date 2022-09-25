@@ -34,6 +34,7 @@ namespace DevAddIns
         }
 
         public string filePath;
+        public string dirPath;
 
         public TranslatorAddIn oTranslator;
         public TranslationContext oContext;
@@ -41,6 +42,13 @@ namespace DevAddIns
         public DataMedium oDataMedium;
 
         public Translator_Object()
+        {
+            oContext = _inventorApplication.TransientObjects.CreateTranslationContext();
+            oOptions = _inventorApplication.TransientObjects.CreateNameValueMap();
+            oDataMedium = _inventorApplication.TransientObjects.CreateDataMedium();
+        }
+
+        public Translator_Object(string directoryPath)
         {
             oContext = _inventorApplication.TransientObjects.CreateTranslationContext();
             oOptions = _inventorApplication.TransientObjects.CreateNameValueMap();
@@ -60,7 +68,17 @@ namespace DevAddIns
             //TODO: Move into another class?
             if (!String.IsNullOrEmpty(document.FullDocumentName))
             {
-                filePath = RevisionHelper.addRevisionLetter(document, PathConverter.clearExtension(document), extension);
+
+                if(String.IsNullOrEmpty(this.dirPath))
+                {
+                    filePath = RevisionHelper.addRevisionLetter(document, PathConverter.FileNameWithoutExtension(document), extension);
+                }
+
+                else
+                {
+                    filePath = RevisionHelper.addRevisionLetter(document, PathConverter.FileNameWithoutExtension(document, this.dirPath), extension);
+                }
+
                 int iterator = 1;
                 while (System.IO.File.Exists(filePath))
                 {
@@ -68,6 +86,9 @@ namespace DevAddIns
                     iterator++;
                 }
             }
+
+
+
             else
             {
                 //Try to save to the desktop

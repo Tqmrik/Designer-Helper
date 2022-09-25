@@ -24,7 +24,7 @@ namespace DevAddIns
             }
         }
 
-        public static string clearExtension(Document documentObject)
+        public static string FileNameWithoutExtension(Document documentObject)
         {
             try
             {
@@ -35,5 +35,18 @@ namespace DevAddIns
                 return null;
             }
         }
+
+        public static string FileNameWithoutExtension(Document documentObject, string path)
+        {
+            try
+            {
+                return path + "\\" + System.IO.Path.GetFileNameWithoutExtension(documentObject.DisplayName);
+            }
+            catch (ArgumentException e)
+            {
+                return null;
+            }
+        }
+
     }
 }
