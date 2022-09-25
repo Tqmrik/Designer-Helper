@@ -39,6 +39,7 @@ namespace DevAddIns
             this.xtVersionsBox = new System.Windows.Forms.ComboBox();
             this.packAssemblyButton = new System.Windows.Forms.CheckBox();
             this.singleDirectoryCheckBox = new System.Windows.Forms.CheckBox();
+            this.directoryNameTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // pdfCheckBox
@@ -82,7 +83,7 @@ namespace DevAddIns
             // exportButton
             // 
             this.exportButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.exportButton.Location = new System.Drawing.Point(12, 195);
+            this.exportButton.Location = new System.Drawing.Point(12, 183);
             this.exportButton.Name = "exportButton";
             this.exportButton.Size = new System.Drawing.Size(264, 35);
             this.exportButton.TabIndex = 0;
@@ -97,7 +98,7 @@ namespace DevAddIns
             | System.Windows.Forms.AnchorStyles.Right)));
             this.includePartsButton.AutoSize = true;
             this.includePartsButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.includePartsButton.Location = new System.Drawing.Point(92, 148);
+            this.includePartsButton.Location = new System.Drawing.Point(92, 134);
             this.includePartsButton.Name = "includePartsButton";
             this.includePartsButton.Size = new System.Drawing.Size(88, 17);
             this.includePartsButton.TabIndex = 4;
@@ -110,7 +111,7 @@ namespace DevAddIns
             this.checkAllBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.checkAllBox.AutoSize = true;
-            this.checkAllBox.Location = new System.Drawing.Point(12, 148);
+            this.checkAllBox.Location = new System.Drawing.Point(12, 134);
             this.checkAllBox.Name = "checkAllBox";
             this.checkAllBox.Size = new System.Drawing.Size(74, 17);
             this.checkAllBox.TabIndex = 5;
@@ -169,7 +170,7 @@ namespace DevAddIns
             // packAssemblyButton
             // 
             this.packAssemblyButton.AutoSize = true;
-            this.packAssemblyButton.Location = new System.Drawing.Point(187, 148);
+            this.packAssemblyButton.Location = new System.Drawing.Point(186, 134);
             this.packAssemblyButton.Name = "packAssemblyButton";
             this.packAssemblyButton.Size = new System.Drawing.Size(97, 17);
             this.packAssemblyButton.TabIndex = 8;
@@ -180,7 +181,7 @@ namespace DevAddIns
             // singleDirectoryCheckBox
             // 
             this.singleDirectoryCheckBox.AutoSize = true;
-            this.singleDirectoryCheckBox.Location = new System.Drawing.Point(12, 172);
+            this.singleDirectoryCheckBox.Location = new System.Drawing.Point(12, 157);
             this.singleDirectoryCheckBox.Name = "singleDirectoryCheckBox";
             this.singleDirectoryCheckBox.Size = new System.Drawing.Size(89, 17);
             this.singleDirectoryCheckBox.TabIndex = 9;
@@ -188,11 +189,24 @@ namespace DevAddIns
             this.singleDirectoryCheckBox.UseVisualStyleBackColor = true;
             this.singleDirectoryCheckBox.CheckedChanged += new System.EventHandler(this.singleDirectoryCheckBox_CheckedChanged);
             // 
+            // directoryNameTextBox
+            // 
+            this.directoryNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.directoryNameTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.directoryNameTextBox.Location = new System.Drawing.Point(107, 157);
+            this.directoryNameTextBox.Name = "directoryNameTextBox";
+            this.directoryNameTextBox.ReadOnly = true;
+            this.directoryNameTextBox.Size = new System.Drawing.Size(169, 20);
+            this.directoryNameTextBox.TabIndex = 10;
+            this.directoryNameTextBox.Enter += new System.EventHandler(this.directoryNameTextBox_Enter);
+            this.directoryNameTextBox.Leave += new System.EventHandler(this.directoryNameTextBox_Leave);
+            // 
             // ExportAsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(288, 242);
+            this.ClientSize = new System.Drawing.Size(288, 227);
+            this.Controls.Add(this.directoryNameTextBox);
             this.Controls.Add(this.singleDirectoryCheckBox);
             this.Controls.Add(this.packAssemblyButton);
             this.Controls.Add(this.xtVersionsBox);
@@ -222,5 +236,6 @@ namespace DevAddIns
         private System.Windows.Forms.ComboBox xtVersionsBox;
         private System.Windows.Forms.CheckBox packAssemblyButton;
         private System.Windows.Forms.CheckBox singleDirectoryCheckBox;
+        private System.Windows.Forms.TextBox directoryNameTextBox;
     }
 }

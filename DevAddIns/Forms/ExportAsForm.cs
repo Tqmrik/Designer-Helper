@@ -17,6 +17,9 @@ namespace DevAddIns
 
     public partial class ExportAsForm : Form
     {
+        const string directoryPlaceholder = "Directory name...";
+        string directPath;
+
         private static Inventor.Application m_inventorApplication;
         public static Inventor.Application InventorApplication
         {
@@ -50,23 +53,34 @@ namespace DevAddIns
         bool makeDxf = false;
         bool makeXt = false;
         bool singleDir = false;
+
         //bool includeParts = false;
         //bool packAssembly = false;
 
         public ExportAsForm()
         {
             InitializeComponent();
-            if(!(activeDocument.IsAssemblyDocument() || activeDocument.IsWeldmentDocument()))
+            ApplyPlaceHolderStyleTextBox(directoryNameTextBox, directoryPlaceholder);            
+            if (!(activeDocument.IsAssemblyDocument() || activeDocument.IsWeldmentDocument()))
             {
                 includePartsButton.Visible = false;
             }
             xtVersionsBox.SelectedItem = xtVersionsBox.Items[11];
         }
 
+
         private void singleDirectoryCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if (singleDirectoryCheckBox.Checked) singleDir = true;
-            else singleDir = false;
+            if (singleDirectoryCheckBox.Checked)
+            {
+                singleDir = true;
+                directoryNameTextBox.ReadOnly = false;
+            }
+            else
+            {
+                singleDir = false;
+                directoryNameTextBox.ReadOnly = true;
+            }
         }
 
         private void pdfCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -130,11 +144,23 @@ namespace DevAddIns
 
         private void exportButton_Click(object sender, EventArgs e)
         {
+            //TODO: Implement missing files feature
             if(singleDir)
             {
-                string directPath = System.IO.Path.GetDirectoryName(activeDocument.FullFileName);
-                Directory.CreateDirectory(directPath + "\\1");
-                directPath += "\\1";
+                directPath = System.IO.Path.GetDirectoryName(activeDocument.FullFileName);
+
+                if((String.IsNullOrEmpty(directoryNameTextBox.Text) || directoryNameTextBox.Text == directoryPlaceholder) && singleDir)
+                {
+                    string directoryName = "\\Export" + DateTime.Today.ToString("yyyy-MM-dd") + "_" + DateTime.Now.TimeOfDay.ToString("%h%m%s");
+                    Directory.CreateDirectory(directPath + directoryName);
+                    directPath += directoryName;
+                }
+                else if(singleDir && !(directoryNameTextBox.Text == directoryPlaceholder))
+                {
+                    Directory.CreateDirectory(directPath + "\\" + directoryNameTextBox.Text);
+                    directPath += "\\" + directoryNameTextBox.Text;
+                }
+
                 pdfTranslator = new PDF_Translator(directPath);
                 stepTranslator = new STEP_Translator(directPath);
                 dxfTranslator = new DXF_Translator(directPath);
@@ -147,6 +173,9 @@ namespace DevAddIns
             if (makeDxf == true) dxfTranslator.createFlatDXF(activeDocument);
             if (makeStep == true) stepTranslator.CreateSTEP(activeDocument);
             if (makeXt == true) parasolidTranslator.createParasolid();
+
+            System.Diagnostics.Process.Start("explorer.exe", $"\"{directPath}\"");
+
             Close();
         }
 
@@ -177,6 +206,35 @@ namespace DevAddIns
             //doc.Rebuild();
         }
 
+        private void directoryNameTextBox_Enter(object sender, EventArgs e)
+        {
+            if(directoryNameTextBox.Text == directoryPlaceholder)
+            {
+                ApplyRegularStyleTextBox(directoryNameTextBox);
+            }
+        }
 
+        private void directoryNameTextBox_Leave(object sender, EventArgs e)
+        {
+            if(String.IsNullOrEmpty(directoryNameTextBox.Text))
+            {
+                ApplyPlaceHolderStyleTextBox(directoryNameTextBox, directoryPlaceholder);
+            }
+        }
+
+
+        private void ApplyRegularStyleTextBox(System.Windows.Forms.TextBox textBox)
+        {
+            directoryNameTextBox.Text = "";
+            directoryNameTextBox.ForeColor = System.Drawing.SystemColors.WindowText;
+            directoryNameTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+        }
+
+        private void ApplyPlaceHolderStyleTextBox(System.Windows.Forms.TextBox textBox, string placeholderString)
+        {
+            textBox.Text = placeholderString;
+            textBox.ForeColor = System.Drawing.SystemColors.InactiveCaptionText;
+            textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+        }
     }
 }
